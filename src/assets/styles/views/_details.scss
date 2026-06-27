@@ -1,0 +1,89 @@
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+
+
+/* ============================
+   DETAILS PAGE CONTAINER
+============================ */
+.detail-page {
+  /* Box model */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: $space-xl $space-md;
+
+  /* Typography */
+  text-align: center;
+
+  /* ============================
+     TITLE
+  ============================ */
+  h1 {
+    font-family: $font-family-heading;
+    font-weight: $font-weight-extra-bold;
+    color: $color-text;
+    margin-bottom: $space-lg;
+  }
+
+  /* ============================
+     BACK BUTTON
+  ============================ */
+  .back-btn {
+    /* 1. Layout */
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    /* 2. Box model */
+    padding: $space-sm $space-md;
+    margin-bottom: $space-md;
+
+    /* 3. Visual */
+    background: rgba($color-white, 0.6);
+    border: 1px solid rgba($color-text, 0.15);
+    border-radius: $radius-base;
+
+    /* 4. Effects */
+    backdrop-filter: blur(10px);
+    transition: 0.25s ease;
+
+    /* 5. Misc */
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($color-white, 0.85);
+      transform: translateY(-2px);
+    }
+  }
+
+  /* ============================
+     UNITS BUTTON
+  ============================ */
+  .units-btn {
+    /* 1. Box model */
+    padding: $space-sm $space-md;
+    margin-top: $space-md;
+
+    /* 2. Visual */
+    background: rgba($color-accent, 0.15);
+    border: 1px solid rgba($color-accent, 0.3);
+    border-radius: $radius-base;
+    color: $color-accent;
+
+    /* 3. Effects */
+    backdrop-filter: blur(8px);
+    transition: 0.25s ease;
+
+    /* 4. Misc */
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($color-accent, 0.25);
+      transform: translateY(-2px);
+    }
+  }
+}

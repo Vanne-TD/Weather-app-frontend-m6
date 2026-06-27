@@ -1,0 +1,79 @@
+// =========================
+// TIPOGRAFÍA
+// =========================
+
+$font-family-base: "Inter", "Arial", sans-serif;
+$font-family-heading: "Poppins", "Arial", sans-serif;
+
+@import url("https://fonts.googleapis.com/css2?family=Saira+Stencil:ital,wght@0,100..900;1,100..900&display=swap");
+$font-title: "Saira Stencil", sans-serif;
+
+$line-height-base: 1.6;
+$line-height-tight: 1.2;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 900;
+
+
+// =========================
+// PALETA DE COLORES
+// =========================
+
+$color-background: #e4cff9;
+$color-panel: #2c1237;
+$color-panel-soft: #792ba2d9;
+$color-panel-alt: #340854;
+$color-panel-dark: #12021a;
+
+$color-white: #ffffff;
+$color-text: #3a2b4d;
+$color-text-soft: #f3e8ff;
+$color-accent: #8a11c6;
+$color-border: rgba(255, 255, 255, 0.2);
+$color-shadow: rgba(0, 0, 0, 0.15);
+
+
+// =========================
+// BACKGROUNDS
+// =========================
+
+$bg-base: $color-background;
+$bg-accent: $color-accent;
+$bg-panel: $color-panel;
+$bg-dark: $color-panel-dark;
+
+
+// =========================
+// RADIOS Y SOMBRAS
+// =========================
+
+$radius-base: 1rem;
+$radius-sm: 0.6rem;
+$radius-circle: 9999px;
+
+$shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+$shadow-dark: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+
+// =========================
+// BREAKPOINTS (unificados)
+// =========================
+
+$bp-sm: 540px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1200px;
+
+
+// =========================
+// ESPACIADOS (unificados)
+// =========================
+
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 48px;

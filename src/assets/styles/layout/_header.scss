@@ -1,0 +1,9 @@
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.l-header {
+  background-color: $color-panel;
+  padding: $space-md 0;
+  box-shadow: $shadow-medium;
+}

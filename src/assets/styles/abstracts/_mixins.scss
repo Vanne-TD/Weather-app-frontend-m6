@@ -1,0 +1,57 @@
+// =========================
+// IMPORTAR VARIABLES
+// =========================
+@use "variables" as *;
+
+
+// =========================
+// TIPOGRAFÍA RESPONSIVA
+// =========================
+// Uso: @include responsive-type(1rem, 2vw, 2rem);
+@mixin responsive-type($min, $preferred, $max) {
+  font-size: clamp($min, $preferred, $max);
+}
+
+
+// =========================
+// SUPERFICIE DE TARJETA
+// =========================
+// Uso: @include card-surface($bg-panel);
+@mixin card-surface($bg, $radius: $radius-base, $shadow: $shadow-medium) {
+  background-color: $bg;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: $space-md;
+}
+
+
+// =========================
+// ESPACIADO DE SECCIONES
+// =========================
+// Uso: @include section-spacing($space-lg, $space-xl);
+@mixin section-spacing($top: $space-xl, $bottom: $space-xl) {
+  padding: $top 0 $bottom;
+}
+
+
+// =========================
+// CENTRADO FLEX
+// =========================
+// Uso: @include center-flex;
+@mixin center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+// =========================
+// CENTRADO ABSOLUTO
+// =========================
+// Uso: @include center-absolute;
+@mixin center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

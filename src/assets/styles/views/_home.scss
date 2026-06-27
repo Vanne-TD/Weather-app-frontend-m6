@@ -1,0 +1,117 @@
+
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ============================
+   HOME PAGE CONTAINER
+============================ */
+.home-page {
+  /* Box model */
+  max-width: 700px;
+  margin: 0 auto;
+  padding: $space-xl $space-md;
+
+  /* Typography */
+  text-align: center;
+
+  /* ============================
+     TITLE
+  ============================ */
+  h1 {
+    font-family: $font-title;
+    font-size: 2.5rem;
+    margin-bottom: $space-lg;
+    color: $color-text;
+  }
+
+  /* ============================
+     SEARCH BOX
+  ============================ */
+  .search-box {
+    /* Layout */
+    display: flex;
+    gap: $space-sm;
+
+    /* Box model */
+    margin-bottom: $space-xl;
+
+    /* Input */
+    input {
+      /* Layout */
+      flex: 1;
+
+      /* Box model */
+      padding: $space-sm $space-md;
+      border-radius: $radius-base;
+
+      /* Visual */
+      border: 1px solid rgba($color-text, 0.2);
+      background: rgba($color-white, 0.85);
+
+      /* Effects */
+      backdrop-filter: blur(8px);
+
+      /* Typography */
+      font-size: 1rem;
+    }
+
+    /* Button */
+    button {
+      /* Box model */
+      padding: $space-sm $space-md;
+      border-radius: $radius-base;
+
+      /* Visual */
+      background: $color-accent;
+      color: $color-white;
+      border: none;
+
+      /* Typography */
+      font-weight: $font-weight-bold;
+
+      /* Effects */
+      transition: 0.25s ease;
+
+      &:hover {
+        background: darken($color-accent, 8%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  /* ============================
+     CITY CARD
+  ============================ */
+  .city-card {
+    /* Visual */
+    @include card-surface(rgba($color-white, 0.85), $radius-base, $shadow-light);
+    backdrop-filter: blur(10px);
+
+    /* Box model */
+    padding: $space-lg;
+    margin-bottom: $space-md;
+
+    /* Effects */
+    transition: 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-medium;
+    }
+
+    /* Title */
+    h3 {
+      font-family: $font-family-heading;
+      font-weight: $font-weight-bold;
+      color: $color-text;
+      margin-bottom: $space-sm;
+    }
+
+    /* Description */
+    p {
+      color: $color-text;
+      opacity: 0.8;
+    }
+  }
+}

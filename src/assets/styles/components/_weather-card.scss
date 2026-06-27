@@ -1,0 +1,102 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.weather-card {
+  /* ============================
+     CONTAINER
+  ============================ */
+  @include card-surface(rgba($color-white, 0.9), $radius-base, $shadow-light);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  padding: $space-lg;
+  cursor: pointer;
+
+  /* Effects */
+  transition: 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-medium;
+  }
+
+  /* ============================
+     CITY NAME
+  ============================ */
+  &__city {
+    font-family: $font-family-heading;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin-bottom: $space-sm;
+  }
+
+  /* ============================
+     ICON
+  ============================ */
+  &__icon {
+    width: 100px;
+    display: block;
+    margin: $space-sm auto $space-sm;
+    filter: drop-shadow(0 2px 4px rgba($color-text, 0.3));
+
+    &--rounded {
+      border-radius: $radius-base;
+    }
+  }
+
+  /* ============================
+     TEMPERATURE
+  ============================ */
+  &__temp-display {
+    font-size: 2.4rem;
+    font-weight: $font-weight-extra-bold;
+    color: $color-accent;
+    margin-bottom: $space-xs;
+  }
+
+  /* ============================
+     DESCRIPTION
+  ============================ */
+  &__desc {
+    color: $color-text;
+    opacity: 0.85;
+    margin-bottom: $space-md;
+  }
+
+  /* ============================
+     STATS
+  ============================ */
+  &__stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: $space-md;
+  }
+
+  &__stat-label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  &__stat-value {
+    font-weight: $font-weight-bold;
+    color: $color-text;
+  }
+
+  /* ============================
+     BUTTON
+  ============================ */
+  &__button {
+    background: $color-accent;
+    color: $color-white;
+    border: none;
+    padding: $space-sm $space-md;
+    border-radius: $radius-sm;
+    font-weight: $font-weight-bold;
+    transition: 0.25s ease;
+
+    &:hover {
+      background: darken($color-accent, 8%);
+      transform: translateY(-2px);
+    }
+  }
+}
+
