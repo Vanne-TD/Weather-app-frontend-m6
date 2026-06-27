@@ -1,11 +1,9 @@
 <script setup>
-import iconosClima from '@/assets/img/iconos-clima-nublado-lluvioso-soleado.png'
-
+import iconosClima from "@/assets/img/iconos-clima-nublado-lluvioso-soleado.png";
 </script>
 
 <template>
   <main class="container my-5 about">
-
     <!-- Encabezado -->
     <section class="text-center mb-5">
       <h1 class="about__title display-4 fw-bold">Sobre esta aplicación</h1>
@@ -26,12 +24,10 @@ import iconosClima from '@/assets/img/iconos-clima-nublado-lluvioso-soleado.png'
 
       <div class="col-12 col-md-8">
         <section class="about__section">
-
           <p class="about__text">
             Esta aplicación fue desarrollada por
-            <strong>Vanessa Torres Drake</strong> como parte del
-            pre‑portafolio del Bootcamp de Frontend de Talento Digital para
-            Chile.
+            <strong>Vanessa Torres Drake</strong> como parte del pre‑portafolio
+            del Bootcamp de Frontend de Talento Digital para Chile.
           </p>
 
           <p class="about__text">
@@ -51,7 +47,6 @@ import iconosClima from '@/assets/img/iconos-clima-nublado-lluvioso-soleado.png'
             ¡Espero que disfrutes esta aplicación y que puedas consultar tu
             clima de forma rápida, sencilla y confiable!
           </p>
-
         </section>
       </div>
     </div>
@@ -91,11 +86,7 @@ import iconosClima from '@/assets/img/iconos-clima-nublado-lluvioso-soleado.png'
         <li>SPA con componentes reutilizables</li>
       </ul>
     </section>
-
   </main>
 </template>
 
-<style scoped>
-
-/* Puedes dejarlo vacío si usarás tu SASS 7-1 */
-</style>
+<style scoped></style>

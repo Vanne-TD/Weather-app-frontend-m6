@@ -67,7 +67,5 @@ function toggleUnits() {
 </template>
 
 <style scoped>
-h1 {
-  font-weight: 700;
-}
+
 </style>

@@ -14,5 +14,5 @@ defineEmits(["click"])
 </template>
 
 <style scoped lang="scss">
-/* vacío — el estilo va en SASS 7–1 */
+
 </style>

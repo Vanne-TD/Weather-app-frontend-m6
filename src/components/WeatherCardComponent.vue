@@ -61,8 +61,5 @@ const unidad = computed(() => {
 
 <style scoped lang="scss">
 
-
-
-
 </style>
 
