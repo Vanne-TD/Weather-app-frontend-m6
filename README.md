@@ -79,25 +79,22 @@ src/assets/styles/
 ├── abstracts/
 │   ├── _variables.scss
 │   └── _mixins.scss
-│
 ├── base/
 │   ├── _reset.scss
 │   ├── _general.scss
 │   └── _typography.scss
-│
 ├── components/
 │   ├── _navbar.scss
 │   ├── _buttons.scss
 │   ├── _weather-card.scss
 │   ├── _weather-details-card.scss
 │   └── _weather-weekly.scss
-│
 ├── layout/
 │   ├── _header.scss
 │   ├── _footer.scss
 │   └── _main.scss
-│
-└── main.scss   ← importa TODA la arquitectura
+└── main.scss
+
 
 
 🧩 Vistas principales
