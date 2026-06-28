@@ -1,15 +1,20 @@
-<script setup>
-import HeaderComponent from './layout/HeaderComponent.vue'
-import FooterComponent from './layout/FooterComponent.vue'
+layout alternativo
+<!-- <script setup>
+import HeaderLayout from './layout/HeaderLayout.vue'
+import FooterLayout from './layout/FooterLayout.vue'
 </script>
 
 <template>
   <div class="d-flex flex-column min-vh-100">
-    <HeaderComponent />
+
+    <HeaderLayout />
+
     <main class="flex-grow-1">
-      <RouterView />
+      <slot />
     </main>
-    <FooterComponent />
+
+    <FooterLayout />
+
   </div>
 </template>
 
@@ -17,4 +22,4 @@ import FooterComponent from './layout/FooterComponent.vue'
 main {
   padding-top: 20px;
 }
-</style>
+</style> -->

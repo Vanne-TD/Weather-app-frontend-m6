@@ -6,7 +6,9 @@ import Detalle from '../views/DetailsView.vue'
 import About from '../views/AboutView.vue'
 import Contact from '../views/ContactView.vue'
 import Login from '../views/LoginView.vue'
+import Registro from '../views/RegistroView.vue'
 import Favoritos from '../views/FavoritesView.vue'
+import Preferencias from '../views/PreferencesView.vue'
 import store from '../store'
 
 const routes = [
@@ -16,6 +18,9 @@ const routes = [
   { path: '/favoritos', name: 'Favoritos', component: Favoritos, meta: { requiresAuth: true } },
   { path: '/about', name: 'About', component: About },
   { path: '/contacto', name: 'Contacto', component: Contact },
+  { path: '/registro', name: 'Registro', component: Registro },
+  { path: '/preferencias', name: 'Preferencias', component: Preferencias, meta: { requiresAuth: true } },
+
 ]
 
 const router = createRouter({

@@ -46,3 +46,11 @@
     color: $color-accent;
   }
 }
+
+.btn-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+}
