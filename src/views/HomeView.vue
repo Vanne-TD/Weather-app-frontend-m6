@@ -1,11 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import { getCurrentWeather, getForecast } from '../api/weatherApi'
 import WeatherCardComponent from '../components/WeatherCardComponent.vue'
+import UnitsButtonComponent from '../components/UnitsButtonComponent.vue'
+
+// ⭐ Vuex
+const store = useStore()
+
+// ⭐ Unidades según usuario logueado
+const units = ref(store.state.user?.preferences?.units || 'metric')
 
 const city = ref('Santiago')
 const cityTitle = ref('Santiago')
-const units = ref('metric')
 const weather = ref(null)
 const forecast = ref(null)
 const errorMsg = ref('')
@@ -29,12 +36,18 @@ async function buscarClima() {
 
 function toggleUnits() {
   units.value = units.value === 'metric' ? 'imperial' : 'metric'
+
+  // ⭐ Guardar preferencia en Vuex
+  if (store.state.isAuthenticated) {
+    store.commit('updatePreferences', { units: units.value })
+  }
+
   buscarClima()
 }
 </script>
 
 <template>
-  <main class="container py-4 ">
+  <main class="container py-4">
 
     <h1 class="mb-4 text-center">Clima en {{ cityTitle }}</h1>
 
@@ -50,9 +63,11 @@ function toggleUnits() {
     </div>
 
     <div class="text-center mb-3">
-      <button class="btn btn-secondary" @click="toggleUnits">
+      <!-- <button class="btn units-btn" @click="toggleUnits">
         Cambiar a {{ units === 'metric' ? '°F' : '°C' }}
-      </button>
+      </button> -->
+      <UnitsButtonComponent :label="units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'" @click="toggleUnits" />
+
     </div>
 
     <p v-if="errorMsg" class="text-danger text-center">{{ errorMsg }}</p>
@@ -67,5 +82,4 @@ function toggleUnits() {
 </template>
 
 <style scoped>
-
 </style>

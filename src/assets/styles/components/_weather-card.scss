@@ -1,5 +1,7 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
+@use "sass:color";
+
 
 .weather-card {
   /* ============================
@@ -94,7 +96,7 @@
     transition: 0.25s ease;
 
     &:hover {
-      background: darken($color-accent, 8%);
+      background: color.adjust($color-accent, $lightness: -8%);
       transform: translateY(-2px);
     }
   }

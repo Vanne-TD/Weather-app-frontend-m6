@@ -4,6 +4,9 @@
     <div class="l-header__links">
       <RouterLink to="/" class="l-header__link">Home</RouterLink>
       <RouterLink to="/about" class="l-header__link">About</RouterLink>
+      
+      <p v-if="isAuthenticated">Hola, {{ user.name }}</p>
+      <button v-if="isAuthenticated" @click="logout">Cerrar sesión</button>
     </div>
   </nav>
 </template>

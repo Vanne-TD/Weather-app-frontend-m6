@@ -1,26 +1,56 @@
 @use "../abstracts/variables" as *;
+@use "sass:color";
 
-.btn-primary {
-  /* 1. Visual */
-  background: $color-accent;
-  color: $color-white;
-  border: none;
-  border-radius: $radius-base;
 
-  /* 2. Box model */
-  padding: $space-sm $space-md;
+// .btn-primary {
+//   /* 1. Visual */
+//   background: $color-accent;
+//   color: $color-white;
+//   border: none;
+//   border-radius: $radius-base;
 
-  /* 3. Typography */
-  font-weight: $font-weight-bold;
+//   /* 2. Box model */
+//   padding: $space-sm $space-md;
 
-  /* 4. Effects */
-  transition: 0.25s ease;
+//   /* 3. Typography */
+//   font-weight: $font-weight-bold;
 
-  /* 5. Misc */
-  cursor: pointer;
+//   /* 4. Effects */
+//   transition: 0.25s ease;
 
-  &:hover {
-    background: darken($color-accent, 8%);
-    transform: translateY(-2px);
+//   /* 5. Misc */
+//   cursor: pointer;
+
+//   &:hover {
+//     background: color.adjust($color-accent, $lightness: -8%);
+//     transform: translateY(-2px);
+//   }
+// }
+
+  /* ============================
+     UNITS BUTTON
+  ============================ */
+  .units-btn {
+    /* 1. Box model */
+    padding: $space-sm $space-md;
+    margin-top: $space-md;
+
+    /* 2. Visual */
+    background: rgba($color-accent, 0.15);
+    border: 1px solid rgba($color-accent, 0.3);
+    border-radius: $radius-base;
+    color: $color-accent;
+
+    /* 3. Effects */
+    backdrop-filter: blur(8px);
+    transition: 0.25s ease;
+
+    /* 4. Misc */
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($color-accent, 0.25);
+      transform: translateY(-2px);
+    }
   }
-}

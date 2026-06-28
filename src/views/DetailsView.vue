@@ -6,7 +6,7 @@ import { getCurrentWeather, getForecast } from '../api/weatherApi'
 
 import WeatherWeekly from '@/components/WeatherWeeklyComponent.vue'
 import WeatherDetailsCardComponent from '@/components/WeatherDetailsCardComponent.vue'
-
+import UnitsButtonComponent from '../components/UnitsButtonComponent.vue'
 // ===============================
 // Refs y rutas
 // ===============================
@@ -117,9 +117,11 @@ function volver() {
 
 
   <div class="text-center mt-3">
-    <button class="units-btn" @click="toggleUnits">
+    <!-- <button class="units-btn" @click="toggleUnits">
       Cambiar a {{ units === 'metric' ? '°F' : '°C' }}
-    </button>
+    </button> -->
+    <UnitsButtonComponent :label="units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'" @click="toggleUnits" />
+
   </div>
 
   <WeatherWeekly
