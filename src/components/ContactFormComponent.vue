@@ -1,10 +1,17 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const name = ref('')
 const email = ref('')
 const message = ref('')
 const status = ref('')
+
+const maxWords = 50
+
+const wordCount = computed(() => {
+  if (!message.value) return 0
+  return message.value.trim().split(/\s+/).length
+})
 
 function enviarFormulario() {
   if (!name.value || !email.value || !message.value) {
@@ -12,9 +19,13 @@ function enviarFormulario() {
     return
   }
 
+  if (wordCount.value > maxWords) {
+    status.value = `Máximo permitido: ${maxWords} palabras.`
+    return
+  }
+
   status.value = 'Mensaje enviado correctamente. ¡Gracias por contactarnos!'
 
-  // Limpiar formulario
   name.value = ''
   email.value = ''
   message.value = ''
@@ -39,10 +50,14 @@ function enviarFormulario() {
 
     <textarea
       v-model="message"
-      class="form-control mb-3"
+      class="form-control mb-1"
       rows="4"
       placeholder="Tu mensaje"
     ></textarea>
+
+    <p class="text-end small">
+      {{ wordCount }} / {{ maxWords }} palabras
+    </p>
 
     <button class="btn btn-primary w-100">Enviar mensaje</button>
 
