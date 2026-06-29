@@ -1,48 +1,45 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { getCurrentWeather, getForecast } from '../api/weatherApi'
-import WeatherCardComponent from '../components/WeatherCardComponent.vue'
-import UnitsButtonComponent from '../components/UnitsButtonComponent.vue'
+import { useWeatherStore } from '@/stores/weatherStore'
+import WeatherCardComponent from '@/components/WeatherCardComponent.vue'
+import UnitsButtonComponent from '@/components/UnitsButtonComponent.vue'
 
-// ⭐ Vuex
-const store = useStore()
+// ⭐ PINIA STORE
+const weatherStore = useWeatherStore()
 
-// ⭐ Unidades según usuario logueado
-const units = ref(store.state.user?.preferences?.units || 'metric')
-
+// ⭐ Estados locales (solo para input y título)
 const city = ref('Santiago')
 const cityTitle = ref('Santiago')
-const weather = ref(null)
-const forecast = ref(null)
-const errorMsg = ref('')
 
+// ⭐ Cargar clima al montar
 onMounted(() => {
-  buscarClima()
+  weatherStore.setCity(city.value)
+  weatherStore.fetchWeather()
+  weatherStore.fetchWeekly()
 })
 
+// ⭐ Buscar clima
 async function buscarClima() {
   try {
-    errorMsg.value = ''
-    weather.value = await getCurrentWeather(city.value, units.value)
-    forecast.value = await getForecast(city.value, units.value)
+    weatherStore.error = null
+    weatherStore.setCity(city.value)
+
+    await weatherStore.fetchWeather()
+    await weatherStore.fetchWeekly()
 
     cityTitle.value = city.value
-
   } catch (error) {
-    errorMsg.value = 'Ciudad no encontrada'
+    weatherStore.error = 'Ciudad no encontrada'
   }
 }
 
+// ⭐ Cambiar unidades (°C / °F)
 function toggleUnits() {
-  units.value = units.value === 'metric' ? 'imperial' : 'metric'
+  weatherStore.toggleUnits()
 
-  // ⭐ Guardar preferencia en Vuex
-  if (store.state.isAuthenticated) {
-    store.commit('updatePreferences', { units: units.value })
-  }
-
-  buscarClima()
+  // ⭐ Volver a cargar clima con nuevas unidades
+  weatherStore.fetchWeather()
+  weatherStore.fetchWeekly()
 }
 </script>
 
@@ -51,6 +48,7 @@ function toggleUnits() {
 
     <h1 class="mb-4 text-center">Clima en {{ cityTitle }}</h1>
 
+    <!-- BUSCADOR -->
     <div class="input-group mb-3">
       <input
         v-model="city"
@@ -62,20 +60,29 @@ function toggleUnits() {
       <button class="btn btn-primary" @click="buscarClima">Buscar</button>
     </div>
 
+    <!-- BOTÓN DE UNIDADES -->
     <div class="text-center mb-3">
-      <!-- <button class="btn units-btn" @click="toggleUnits">
-        Cambiar a {{ units === 'metric' ? '°F' : '°C' }}
-      </button> -->
-      <UnitsButtonComponent :label="units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'" @click="toggleUnits" />
-
+      <UnitsButtonComponent
+        :label="weatherStore.units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'"
+        @click="toggleUnits"
+      />
     </div>
 
-    <p v-if="errorMsg" class="text-danger text-center">{{ errorMsg }}</p>
+    <!-- ERROR -->
+    <p v-if="weatherStore.error" class="text-danger text-center">
+      {{ weatherStore.error }}
+    </p>
 
+    <!-- LOADING -->
+    <p v-if="weatherStore.loading" class="text-center">
+      Cargando clima...
+    </p>
+
+    <!-- TARJETA DE CLIMA -->
     <WeatherCardComponent
-      v-if="weather"
-      :data="weather"
-      :units="units"
+      v-if="weatherStore.weather"
+      :data="weatherStore.weather"
+      :units="weatherStore.units"
     />
 
   </main>

@@ -1,10 +1,12 @@
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { useUserStore } from '@/stores/userStore'
 
-const store = useStore()
+// ⭐ Pinia store
+const userStore = useUserStore()
 
-const favorites = computed(() => store.state.user.favorites)
+// ⭐ Computed con Pinia
+const favorites = computed(() => userStore.user?.favorites || [])
 </script>
 
 <template>

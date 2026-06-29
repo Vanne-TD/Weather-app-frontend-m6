@@ -1,5 +1,5 @@
 <!-- // Ejemplo para otros botones// -->
-<script setup>
+<!-- <script setup>
 defineProps({
   label: String,
   type: { type: String, default: "button" }
@@ -16,4 +16,4 @@ defineEmits(["click"])
 
 <style scoped lang="scss">
 
-</style>
+</style> -->

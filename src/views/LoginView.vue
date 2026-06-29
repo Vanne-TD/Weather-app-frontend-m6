@@ -1,22 +1,29 @@
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
+
+// ⭐ Pinia store
+const userStore = useUserStore()
 
 const email = ref('')
 const password = ref('')
 const errorMsg = ref('')
 
-const store = useStore()
 const router = useRouter()
 
 async function login() {
-  const success = await store.dispatch('login', {
-    email: email.value,
-    password: password.value
-  })
+  // ⭐ Simulación de login (igual que antes)
+  if (
+    (email.value === 'vanne' && password.value === '1234') ||
+    (email.value === 'admin' && password.value === 'admin')
+  ) {
+    userStore.login({
+      email: email.value,
+      favorites: [],
+      preferences: { units: 'metric' }
+    })
 
-  if (success) {
     router.push('/')
   } else {
     errorMsg.value = 'Usuario o contraseña incorrectos'
@@ -40,13 +47,4 @@ async function login() {
 </template>
 
 <style scoped>
-
-/* form {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-} */
-
-
 </style>

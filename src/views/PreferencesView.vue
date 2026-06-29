@@ -1,15 +1,16 @@
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { useUserStore } from '@/stores/userStore'
 
-const store = useStore()
+// ⭐ Pinia store
+const userStore = useUserStore()
 
-// ⭐ Computed para leer la unidad desde Vuex
-const units = computed(() => store.state.user.preferences.units)
+// ⭐ Computed para leer la unidad desde Pinia
+const units = computed(() => userStore.preferences.units)
 
-// ⭐ Cambiar unidad y guardar en Vuex
+// ⭐ Cambiar unidad y guardar en Pinia
 function cambiarUnidad() {
-  store.commit('updatePreferences', {
+  userStore.updatePreferences({
     units: units.value === 'metric' ? 'imperial' : 'metric'
   })
 }

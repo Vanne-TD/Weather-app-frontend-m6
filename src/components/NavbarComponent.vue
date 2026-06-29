@@ -1,14 +1,16 @@
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { useUserStore } from '@/stores/userStore'
 
-const store = useStore()
+// ⭐ Pinia store
+const userStore = useUserStore()
 
 // Saber si la usuaria está logueada
-const isLogged = computed(() => store.state.user !== null)
+const isLogged = computed(() => userStore.user !== null)
 
+// Cerrar sesión
 function cerrarSesion() {
-  store.commit('logout')
+  userStore.logout()
 }
 </script>
 

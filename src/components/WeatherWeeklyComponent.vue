@@ -14,11 +14,15 @@ const diasFiltrados = computed(() => {
     const [fecha, hora] = item.dt_txt.split(" "); // "2024-06-26", "12:00:00"
 
     // Guardar solo el registro de las 12:00
-    if (hora === "12:00:00") {
+  //   if (hora === "12:00:00") {
+  //     porDia[fecha] = item;
+  //   }
+  // });
+// Si aún no hay registro para ese día, guardar el primero
+    if (!porDia[fecha]) {
       porDia[fecha] = item;
     }
   });
-
   // Convertir a array y tomar solo 5 días
   return Object.values(porDia).slice(0, 5);
 });
