@@ -1,56 +1,120 @@
 // src/stores/weatherStore.js
-import { defineStore } from 'pinia'
-import axios from 'axios'
+import { defineStore } from "pinia";
+import axios from "axios";
 
-export const useWeatherStore = defineStore('weather', {
+export const useWeatherStore = defineStore("weather", {
   state: () => ({
-    city: 'Santiago',
+    city: "Santiago",
     weather: null,
     weekly: [],
-    units: 'metric',
+    units: "metric",
     loading: false,
-    error: null
+    error: null,
   }),
 
+  getters: {
+    stats(state) {
+      if (!state.weekly.length) return null;
+
+      const temps = state.weekly.map((d) => d.main.temp);
+      const humidity = state.weekly.map((d) => d.main.humidity);
+      const wind = state.weekly.map((d) => d.wind.speed);
+      const descriptions = state.weekly.map((d) => d.weather[0].main);
+
+      return {
+        min: Math.round(Math.min(...temps)),
+        max: Math.round(Math.max(...temps)),
+        prom: Math.round(temps.reduce((a, b) => a + b, 0) / temps.length),
+
+        avgHumidity: Math.round(
+          humidity.reduce((a, b) => a + b, 0) / humidity.length,
+        ),
+
+        rainyDays: descriptions.filter((d) => d === "Rain").length,
+        clearDays: descriptions.filter((d) => d === "Clear").length,
+        windyDays: wind.filter((w) => w > 30).length,
+      };
+    },
+   alerts(state) {
+    if (!state.weekly.length) return [];
+
+    const temps = state.weekly.map((d) => d.main.temp);
+    const wind = state.weekly.map((d) => d.wind.speed);
+    const descriptions = state.weekly.map((d) => d.weather[0].main);
+
+    const alerts = [];
+
+    // Ola de calor
+    if (Math.max(...temps) > 30) {
+      alerts.push("🔥 Ola de calor: temperaturas sobre 30°C");
+    }
+
+    // Frío extremo
+    if (Math.min(...temps) < 0) {
+      alerts.push("❄️ Temperaturas bajo cero");
+    }
+
+    // Viento fuerte
+    if (wind.some((w) => w > 30)) {
+      alerts.push("💨 Viento fuerte sobre 30 km/h");
+    }
+
+    // Lluvia
+    const rainyDays = descriptions.filter((d) => d === "Rain").length;
+    if (rainyDays >= 3) {
+      alerts.push("🌧️ Lluvia frecuente durante la semana");
+    }
+
+    // Cielo despejado
+    const clearDays = descriptions.filter((d) => d === "Clear").length;
+    if (clearDays >= 5) {
+      alerts.push("☀️ Semana mayormente despejada");
+    }
+
+    return alerts;
+  },
+},
+
+ 
   actions: {
     async fetchWeather() {
-      this.loading = true
-      this.error = null
+      this.loading = true;
+      this.error = null;
 
       try {
-        const apiKey = import.meta.env.VITE_WEATHER_API_KEY
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=${this.units}&appid=${apiKey}`
-        const { data } = await axios.get(url)
-        this.weather = data
+        const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=${this.units}&appid=${apiKey}`;
+        const { data } = await axios.get(url);
+        this.weather = data;
       } catch (err) {
-        this.error = 'No se pudo obtener el clima.'
+        this.error = "No se pudo obtener el clima.";
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
 
     async fetchWeekly() {
-      this.loading = true
-      this.error = null
+      this.loading = true;
+      this.error = null;
 
       try {
-        const apiKey = import.meta.env.VITE_WEATHER_API_KEY
-        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&units=${this.units}&appid=${apiKey}`
-        const { data } = await axios.get(url)
-        this.weekly = data.list
+        const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&units=${this.units}&appid=${apiKey}`;
+        const { data } = await axios.get(url);
+        this.weekly = data.list;
       } catch (err) {
-        this.error = 'No se pudo obtener el pronóstico semanal.'
+        this.error = "No se pudo obtener el pronóstico semanal.";
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
 
     setCity(newCity) {
-      this.city = newCity
+      this.city = newCity;
     },
 
     toggleUnits() {
-      this.units = this.units === 'metric' ? 'imperial' : 'metric'
-    }
-  }
-})
+      this.units = this.units === "metric" ? "imperial" : "metric";
+    },
+  },
+});
