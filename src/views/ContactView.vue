@@ -1,6 +1,6 @@
 
 <script setup>
-import ContactFormComponent from './components/ContactFormComponent.vue'
+import ContactFormComponent from '../components/ContactFormComponent.vue'
 </script>
 
 <template>
