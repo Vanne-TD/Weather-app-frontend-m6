@@ -81,38 +81,38 @@
     }
   }
 
-  /* ============================
-     CITY CARD
-  ============================ */
-  .city-card {
-    /* Visual */
-    @include card-surface(rgba($color-white, 0.85), $radius-base, $shadow-light);
-    backdrop-filter: blur(10px);
+  // /* ============================
+  //    CITY CARD --> idea para una card propia, que esta en debate de usar.
+  // ============================ */
+  // .city-card {
+  //   /* Visual */
+  //   @include card-surface(rgba($color-white, 0.85), $radius-base, $shadow-light);
+  //   backdrop-filter: blur(10px);
 
-    /* Box model */
-    padding: $space-lg;
-    margin-bottom: $space-md;
+  //   /* Box model */
+  //   padding: $space-lg;
+  //   margin-bottom: $space-md;
 
-    /* Effects */
-    transition: 0.25s ease;
+  //   /* Effects */
+  //   transition: 0.25s ease;
 
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: $shadow-medium;
-    }
+  //   &:hover {
+  //     transform: translateY(-4px);
+  //     box-shadow: $shadow-medium;
+  //   }
 
-    /* Title */
-    h3 {
-      font-family: $font-family-heading;
-      font-weight: $font-weight-bold;
-      color: $color-text;
-      margin-bottom: $space-sm;
-    }
+  //   /* Title */
+  //   h3 {
+  //     font-family: $font-family-heading;
+  //     font-weight: $font-weight-bold;
+  //     color: $color-text;
+  //     margin-bottom: $space-sm;
+  //   }
 
-    /* Description */
-    p {
-      color: $color-text;
-      opacity: 0.8;
-    }
-  }
+  //   /* Description */
+  //   p {
+  //     color: $color-text;
+  //     opacity: 0.8;
+  //   }
+  // }
 }

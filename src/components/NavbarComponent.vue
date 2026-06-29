@@ -27,7 +27,7 @@ function cerrarSesion() {
         <RouterLink to="/registro" class="l-header__link">Registro</RouterLink>
       </template>
 
-      <!-- ⭐ Si SÍ está logueada -->
+      <!-- ⭐ Si SI está logueada -->
       <template v-else>
         <RouterLink to="/favoritos" class="l-header__link">Favoritos</RouterLink>
         <RouterLink to="/preferencias" class="l-header__link">Preferencias</RouterLink>
@@ -42,5 +42,4 @@ function cerrarSesion() {
 </template>
 
 <style scoped>
-
 </style>

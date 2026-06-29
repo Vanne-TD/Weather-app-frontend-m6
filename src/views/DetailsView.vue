@@ -1,20 +1,25 @@
-
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getCurrentWeather, getForecast } from '../api/weatherApi'
 
 import WeatherWeekly from '@/components/WeatherWeeklyComponent.vue'
 import WeatherDetailsCardComponent from '@/components/WeatherDetailsCardComponent.vue'
 import UnitsButtonComponent from '../components/UnitsButtonComponent.vue'
+
 // ===============================
-// Refs y rutas
+// Rutas y refs
 // ===============================
 const route = useRoute()
 const router = useRouter()
 
 const city = ref(route.params.city)
+
+// ⭐ Computed para unidades
 const units = ref('metric')
+const unitsLabel = computed(() =>
+  units.value === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'
+)
 
 const weather = ref(null)
 const weatherData = ref(null)
@@ -39,7 +44,7 @@ async function cargarDatos() {
     // Clima actual
     weather.value = await getCurrentWeather(city.value, units.value)
 
-    // Transformar datos para la tarjeta PRO
+    // Transformar datos para la tarjeta 
     weatherData.value = {
       description: weather.value.weather[0].description,
       icon: `https://openweathermap.org/img/wn/${weather.value.weather[0].icon}@2x.png`,
@@ -79,7 +84,6 @@ function calcularEstadisticas() {
   }
 }
 
-
 // ===============================
 // Cambiar unidades
 // ===============================
@@ -87,7 +91,6 @@ function toggleUnits() {
   units.value = units.value === 'metric' ? 'imperial' : 'metric'
   cargarDatos()
 }
-
 
 // ===============================
 // Volver al Home
@@ -109,19 +112,13 @@ function volver() {
   <p v-if="errorMsg" class="text-danger text-center">{{ errorMsg }}</p>
 
   <WeatherDetailsCardComponent
-  v-if="weatherData"
-  :weather="weatherData"
-  :units="units"
-/>
-
-
+    v-if="weatherData"
+    :weather="weatherData"
+    :units="units"
+  />
 
   <div class="text-center mt-3">
-    <!-- <button class="units-btn" @click="toggleUnits">
-      Cambiar a {{ units === 'metric' ? '°F' : '°C' }}
-    </button> -->
-    <UnitsButtonComponent :label="units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'" @click="toggleUnits" />
-
+    <UnitsButtonComponent :label="unitsLabel" @click="toggleUnits" />
   </div>
 
   <WeatherWeekly
@@ -159,12 +156,9 @@ function volver() {
   </section>
 
 </main>
-
 </template>
 
-<style>
-
+<style scoped>
 </style>
-
 
 

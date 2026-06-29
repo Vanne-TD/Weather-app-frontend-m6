@@ -11,7 +11,5 @@ import NavbarComponent from '@/components/NavbarComponent.vue';
 
 
 <style scoped lang="scss">
-
-
 </style>
 

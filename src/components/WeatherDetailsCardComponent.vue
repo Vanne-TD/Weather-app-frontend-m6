@@ -51,5 +51,4 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-/* vacío porque el SCSS está en tu 7–1 */
 </style>

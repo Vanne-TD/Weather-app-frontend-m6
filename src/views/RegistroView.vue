@@ -37,3 +37,6 @@ function registrar() {
     </form>
   </main>
 </template>
+
+<style scoped>
+</style>

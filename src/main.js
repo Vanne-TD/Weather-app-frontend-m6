@@ -1,3 +1,5 @@
+//main.js
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -7,7 +9,7 @@ import store from './store'   // ⭐ IMPORTAR VUEX
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 
-// Tus estilos SASS
+// Estilos SASS (scss)
 import './assets/styles/main.scss'
 
 // ⭐ ACTIVAR VUEX EN LA APP
