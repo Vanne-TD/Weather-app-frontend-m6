@@ -243,3 +243,5 @@ Junio 2026
 
 🔗 Repositorio
 https://github.com/Vanne-TD/Weather-app-frontend.git
+
+Para los cambios del módulo 7 está la rama Módulo-7 donde se actualizaron los nuevos archivos...
