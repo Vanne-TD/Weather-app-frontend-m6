@@ -1,3 +1,4 @@
+<!-- src/layout/FooterLayout.vue -->
 <script setup>
 </script>
 

@@ -1,3 +1,4 @@
+<!-- src/components/WeatherWeeklyComponent.vue -->
 <script setup>
 import { computed } from "vue";
 

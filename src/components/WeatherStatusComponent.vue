@@ -1,3 +1,4 @@
+<!-- src/components/WeatherStatusComponent.vue -->
 <script setup>
 const props = defineProps({
   stats: {

@@ -1,3 +1,4 @@
+<!-- src/components/NavbarComponent.vue -->
 <script setup>
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
@@ -47,5 +48,4 @@ function cerrarSesion() {
   </nav>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

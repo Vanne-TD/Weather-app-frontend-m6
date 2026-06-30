@@ -1,3 +1,4 @@
+<!-- src/components/ContactFormComponent.vue -->
 <script setup>
 import { ref, computed } from 'vue'
 
@@ -34,26 +35,11 @@ function enviarFormulario() {
 
 <template>
   <form @submit.prevent="enviarFormulario" class="mx-auto" style="max-width: 500px;">
-    <input
-      v-model="name"
-      type="text"
-      class="form-control mb-3"
-      placeholder="Tu nombre"
-    />
+    <input v-model="name" type="text" class="form-control mb-3" placeholder="Tu nombre" />
 
-    <input
-      v-model="email"
-      type="email"
-      class="form-control mb-3"
-      placeholder="Tu correo"
-    />
+    <input v-model="email" type="email" class="form-control mb-3" placeholder="Tu correo" />
 
-    <textarea
-      v-model="message"
-      class="form-control mb-1"
-      rows="4"
-      placeholder="Tu mensaje"
-    ></textarea>
+    <textarea v-model="message" class="form-control mb-1" rows="4" placeholder="Tu mensaje"></textarea>
 
     <p class="text-end small">
       {{ wordCount }} / {{ maxWords }} palabras

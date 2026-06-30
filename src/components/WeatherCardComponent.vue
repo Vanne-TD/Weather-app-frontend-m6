@@ -1,3 +1,4 @@
+<!-- src/components/WeatherCardComponent.vue -->
 <script setup>
 import { computed } from 'vue'
 
@@ -45,11 +46,7 @@ const unidad = computed(() =>
         </div>
       </div>
 
-      <button
-        class="weather-card__button"
-        @click="$router.push(`/detalle/${data.id}`)"
-        type="button"
-      >
+      <button class="weather-card__button" @click="$router.push(`/detalle/${data.id}`)" type="button">
         Ver detalles
       </button>
 
@@ -57,9 +54,4 @@ const unidad = computed(() =>
   </article>
 </template>
 
-
-
-<style scoped lang="scss">
-
-</style>
-
+<style scoped lang="scss"></style>

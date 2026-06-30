@@ -1,3 +1,4 @@
+<!-- src/layout/HeaderLayout.vue -->
 <script setup>
 import NavbarComponent from '@/components/NavbarComponent.vue';
 
@@ -5,11 +6,9 @@ import NavbarComponent from '@/components/NavbarComponent.vue';
 
 <template>
   <header class="l-header">
-   <NavbarComponent />
+    <NavbarComponent />
   </header>
 </template>
 
 
-<style scoped lang="scss">
-</style>
-
+<style scoped lang="scss"></style>

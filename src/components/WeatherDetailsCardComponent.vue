@@ -1,3 +1,4 @@
+<!-- src/components/WeatherDetailsCardComponent.vue -->
 <script setup>
 function capitalizar(texto) {
   if (!texto) return "";

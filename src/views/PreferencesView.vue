@@ -1,3 +1,4 @@
+<!-- src/views/PreferencesView.vue -->
 <script setup>
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'

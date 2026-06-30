@@ -1,4 +1,4 @@
-
+<!-- src/views/ContactView.vue -->
 <script setup>
 import ContactFormComponent from '../components/ContactFormComponent.vue'
 </script>

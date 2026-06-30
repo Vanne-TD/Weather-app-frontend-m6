@@ -1,3 +1,4 @@
+<!-- src/components/WeatherAlertsComponent.vue -->
 <script setup>
 const props = defineProps({
   alerts: {

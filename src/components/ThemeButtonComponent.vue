@@ -1,3 +1,4 @@
+<!-- src/components/ThemeButtonComponent.vue
 <script setup>
 import { computed } from "vue"
 import { useWeatherStore } from "@/stores/weatherStore"
@@ -49,4 +50,4 @@ const label = computed(() =>
     box-shadow: $shadow-light;
   }
 }
-</style>
+</style> -->

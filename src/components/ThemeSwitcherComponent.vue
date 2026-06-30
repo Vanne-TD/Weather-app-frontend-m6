@@ -1,3 +1,4 @@
+<!-- src/components/ThemeSwitcherComponent.vue -->
 <script setup>
 import { computed } from "vue"
 import { useWeatherStore } from "@/stores/weatherStore"
@@ -25,13 +26,8 @@ const setTheme = (theme) => {
     <h3 class="title">Tema</h3>
 
     <div class="options">
-      <div
-        v-for="t in themes"
-        :key="t.id"
-        class="option"
-        :class="{ active: currentTheme === t.id }"
-        @click="setTheme(t.id)"
-      >
+      <div v-for="t in themes" :key="t.id" class="option" :class="{ active: currentTheme === t.id }"
+        @click="setTheme(t.id)">
         <span class="icon">{{ t.icon }}</span>
         <span class="label">{{ t.label }}</span>
       </div>
@@ -39,6 +35,4 @@ const setTheme = (theme) => {
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

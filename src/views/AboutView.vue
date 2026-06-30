@@ -1,3 +1,4 @@
+<!-- src/views/AboutView.vue -->
 <script setup>
 import iconosClima from "@/assets/img/iconos-clima-nublado-lluvioso-soleado.png";
 </script>

@@ -1,3 +1,4 @@
+<!-- // src/views/HomeView.vue -->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useWeatherStore } from '@/stores/weatherStore'

@@ -1,3 +1,4 @@
+<!-- src/components/UnitsButtonComponent.vue -->
 <script setup>
 defineProps({
   label: { type: String, default: "Cambiar unidades" },
@@ -13,6 +14,4 @@ defineEmits(["click"])
   </button>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

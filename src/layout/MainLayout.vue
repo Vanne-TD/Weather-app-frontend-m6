@@ -1,4 +1,4 @@
-layout alternativo
+<!-- src/layout/MainLayout.vue - Para layout alternativo -->
 <!-- <script setup>
 import HeaderLayout from './layout/HeaderLayout.vue'
 import FooterLayout from './layout/FooterLayout.vue'
