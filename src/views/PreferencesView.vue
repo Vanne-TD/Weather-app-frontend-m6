@@ -1,31 +1,72 @@
 <!-- src/views/PreferencesView.vue -->
 <script setup>
-import { computed } from 'vue'
-import { useUserStore } from '@/stores/userStore'
+import { useWeatherStore } from "@/stores/weatherStore"
 
-// ⭐ Pinia store
-const userStore = useUserStore()
+const weatherStore = useWeatherStore()
 
-// ⭐ Computed para leer la unidad desde Pinia
-const units = computed(() => userStore.preferences.units)
-
-// ⭐ Cambiar unidad y guardar en Pinia
-function cambiarUnidad() {
-  userStore.updatePreferences({
-    units: units.value === 'metric' ? 'imperial' : 'metric'
-  })
+function toggle(type) {
+  weatherStore.setAlertPreference(type, !weatherStore.alertPreferences[type])
 }
 </script>
 
 <template>
   <main class="container py-4">
-    <h1 class="mb-4">Mis preferencias</h1>
+    <h1 class="mb-4">Preferencias</h1>
 
-    <button class="btn btn-secondary" @click="cambiarUnidad">
-      Cambiar a {{ units === 'metric' ? '°F' : '°C' }}
-    </button>
+    <h3 class="mb-3">Alertas del clima</h3>
+
+    <div class="form-check mb-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="alertHeat"
+        :checked="weatherStore.alertPreferences.heat"
+        @change="toggle('heat')"
+      />
+      <label class="form-check-label" for="alertHeat">
+        Ola de calor
+      </label>
+    </div>
+
+    <div class="form-check mb-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="alertCold"
+        :checked="weatherStore.alertPreferences.cold"
+        @change="toggle('cold')"
+      />
+      <label class="form-check-label" for="alertCold">
+        Ola de frío
+      </label>
+    </div>
+
+    <div class="form-check mb-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="alertWind"
+        :checked="weatherStore.alertPreferences.wind"
+        @change="toggle('wind')"
+      />
+      <label class="form-check-label" for="alertWind">
+        Viento fuerte
+      </label>
+    </div>
+
+    <div class="form-check mb-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="alertRain"
+        :checked="weatherStore.alertPreferences.rain"
+        @change="toggle('rain')"
+      />
+      <label class="form-check-label" for="alertRain">
+        Lluvia
+      </label>
+    </div>
   </main>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped></style>

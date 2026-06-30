@@ -17,9 +17,9 @@ export async function getForecastById(id, units = "metric") {
   return await response.json();
 }
 
-// export async function getCityByName(name, units = "metric") {
-//   const url = `${BASE_URL}/weather?q=${name}&units=${units}&lang=es&appid=${API_KEY}`;
-//   const response = await fetch(url);
-//   if (!response.ok) throw new Error("Error al obtener ciudad");
-//   return await response.json();
-// }
+export async function getCityByName(name, units = "metric") {
+  const url = `${BASE_URL}/weather?q=${name}&units=${units}&lang=es&appid=${API_KEY}`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Error al obtener ciudad");
+  return await response.json();
+}

@@ -1,67 +1,128 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
+@use "../themes/_theme-variables" as *;
+
+@use "sass:color";
 
 // Contenedor principal
-.theme-switcher {
-  @include card-surface($color-panel-soft, $radius-base, $shadow-medium);
-  padding: $space-md;
-  width: 100%;
-  max-width: 300px;
-  margin: auto;
+// .theme-switcher {
+//   @include card-surface($color-panel-soft, $radius-base, $shadow-medium);
+//   padding: $space-md;
+//   width: 100%;
+//   max-width: 300px;
+//   margin: auto;
+//   text-align: center;
+//   transition: 0.3s ease;
+// }
+
+// // Título
+// .title {
+//   font-family: $font-family-heading;
+//   font-weight: $font-weight-bold;
+//   margin-bottom: $space-md;
+//   color: $color-text-soft;
+// }
+
+// // Opciones
+// .options {
+//   display: flex;
+//   gap: $space-md;
+//   justify-content: center;
+// }
+
+// // Cada opción
+// .option {
+//   @include center-flex;
+//   flex-direction: column;
+
+//   background: $color-panel;
+//   padding: $space-sm $space-md;
+//   border-radius: $radius-sm;
+//   cursor: pointer;
+//   transition: 0.25s ease;
+//   box-shadow: $shadow-light;
+
+//   .icon {
+//     font-size: 1.5rem;
+//     margin-bottom: $space-xs;
+//   }
+
+//   .label {
+//     font-family: $font-family-base;
+//     font-weight: $font-weight-bold;
+//     font-size: 0.9rem;
+//   }
+
+//   &:hover {
+//     transform: translateY(-3px);
+//     box-shadow: $shadow-medium;
+//   }
+
+//   &.active {
+//     background: $color-accent;
+//     box-shadow: $shadow-dark;
+//     transform: translateY(-3px);
+
+//     .label {
+//       color: $color-white;
+//     }
+//   }
+// }
+
+.theme-card {
+  @include card-surface($color-panel-soft, $radius-base, $shadow-light);
+  @include section-spacing($space-md, $space-md);
   text-align: center;
-  transition: 0.3s ease;
+
+  .light & {
+    background-color: $light-card;
+    color: $light-text;
+  }
+
+  .dark & {
+    background-color: $dark-card;
+    color: $dark-text;
+  }
 }
 
-// Título
-.title {
+.theme-card__title {
   font-family: $font-family-heading;
   font-weight: $font-weight-bold;
-  margin-bottom: $space-md;
-  color: $color-text-soft;
+  margin-bottom: $space-sm;
 }
 
-// Opciones
-.options {
+.theme-card__options {
   display: flex;
-  gap: $space-md;
-  justify-content: center;
+  justify-content: space-around;
+  margin-bottom: $space-md;
 }
 
-// Cada opción
-.option {
-  @include center-flex;
-  flex-direction: column;
-
-  background: $color-panel;
+.theme-card__option {
   padding: $space-sm $space-md;
   border-radius: $radius-sm;
   cursor: pointer;
-  transition: 0.25s ease;
-  box-shadow: $shadow-light;
-
-  .icon {
-    font-size: 1.5rem;
-    margin-bottom: $space-xs;
-  }
-
-  .label {
-    font-family: $font-family-base;
-    font-weight: $font-weight-bold;
-    font-size: 0.9rem;
-  }
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: $shadow-medium;
-  }
+  opacity: 0.6;
+  transition: 0.2s;
 
   &.active {
-    background: $color-accent;
-    box-shadow: $shadow-dark;
-    transform: translateY(-3px);
+    opacity: 1;
+    background-color: $color-accent;
+    color: white;
+  }
+}
 
-    .label {
-      color: $color-white;
-    }
+.theme-card__button {
+  width: 100%;
+  padding: $space-sm;
+  border-radius: $radius-sm;
+  background-color: $color-accent;
+  color: white;
+  font-weight: $font-weight-bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: color.scale($color-accent, $lightness: -10%);
   }
 }

@@ -46,7 +46,8 @@ const unidad = computed(() =>
         </div>
       </div>
 
-      <button class="weather-card__button" @click="$router.push(`/detalle/${data.id}`)" type="button">
+      <button class="weather-card__button" @click="$router.push(`/detalle/${data.name}`)"
+ type="button">
         Ver detalles
       </button>
 

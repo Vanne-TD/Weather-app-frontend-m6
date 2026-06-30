@@ -16,7 +16,7 @@ import { useUserStore } from '@/stores/userStore'
 const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
-  { path: '/detalle/:id', name: 'Detalle', component: Detalle, props: true },
+  { path: '/detalle/:city', name: 'Detalle', component: Detalle, props: true },
   { path: '/favoritos', name: 'Favoritos', component: Favoritos, meta: { requiresAuth: true } },
   { path: '/about', name: 'About', component: About },
   { path: '/contacto', name: 'Contacto', component: Contact },

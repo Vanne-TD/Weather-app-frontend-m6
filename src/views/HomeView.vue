@@ -1,106 +1,92 @@
-<!-- // src/views/HomeView.vue -->
+<!-- src/views/HomeView.vue -->
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useWeatherStore } from '@/stores/weatherStore'
-import WeatherCardComponent from '@/components/WeatherCardComponent.vue'
-import UnitsButtonComponent from '@/components/UnitsButtonComponent.vue'
+import { ref } from "vue"
+import { useWeatherStore } from "@/stores/weatherStore"
+import WeatherCardComponent from "@/components/WeatherCardComponent.vue"
+import RecentCitiesComponent from "@/components/RecentCitiesComponent.vue"
+import { useRouter } from "vue-router"
 
-// ⭐ PINIA STORE
 const weatherStore = useWeatherStore()
+const router = useRouter()
 
-// ⭐ Estados locales
-const city = ref('Santiago')
-const cityTitle = ref('Santiago')
+const cityName = ref("")
+const errorMsg = ref("")
 
-// ⭐ Cargar clima inicial usando ID
-onMounted(async () => {
-  await buscarClima()
-})
+async function buscarCiudad() {
+  if (!cityName.value) {
+    errorMsg.value = "Ingresa una ciudad"
+    return
+  }
 
-// ⭐ Buscar clima (por nombre → obtener ID → cargar por ID)
-async function buscarClima() {
+  errorMsg.value = ""
+
   try {
-    weatherStore.error = null
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=${weatherStore.units}`
 
-    // 1) Buscar ciudad por nombre (esto devuelve el ID)
-    const apiKey = import.meta.env.VITE_WEATHER_API_KEY
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}`
-    const response = await fetch(url)
+    const res = await fetch(url)
+    const data = await res.json()
 
-    if (!response.ok) {
-      weatherStore.error = 'Ciudad no encontrada'
+    if (data.cod !== 200) {
+      errorMsg.value = "Ciudad no encontrada"
       return
     }
 
-    const data = await response.json()
+    weatherStore.addRecentCity(data.name)
 
-    // 2) Guardar ID en el store
-    weatherStore.cityId = data.id
-    cityTitle.value = data.name
-
-    // 3) Cargar clima usando ID (rápido)
     await weatherStore.fetchWeatherById(data.id)
     await weatherStore.fetchWeeklyById(data.id)
-
-  } catch (error) {
-    weatherStore.error = 'No se pudo obtener el clima'
+  } catch (err) {
+    errorMsg.value = "Error al buscar ciudad"
   }
 }
 
-// ⭐ Cambiar unidades
-async function toggleUnits() {
-  weatherStore.toggleUnits()
-
-  // Recargar usando ID
-  await weatherStore.fetchWeatherById(weatherStore.cityId)
-  await weatherStore.fetchWeeklyById(weatherStore.cityId)
+function irFavorita() {
+  if (weatherStore.favoriteCity) {
+    router.push(`/detalle/${weatherStore.favoriteCity}`)
+  }
 }
+
+function normalizarCiudad(nombre) {
+  return nombre
+    .normalize("NFD")                // separa acentos
+    .replace(/[\u0300-\u036f]/g, "") // elimina acentos
+    .replace(/[^a-zA-Z0-9 ]/g, "")   // elimina caracteres raros
+    .trim()
+}
+
 </script>
 
 <template>
   <main class="container py-4">
+    <h1 class="mb-4">Buscar clima</h1>
 
-    <h1 class="mb-4 text-center">Clima en {{ cityTitle }}</h1>
+    <button
+      v-if="weatherStore.favoriteCity"
+      class="btn btn-outline-warning mb-3"
+      @click="irFavorita"
+    >
+      ⭐ Ir a mi ciudad favorita ({{ weatherStore.favoriteCity }})
+    </button>
 
-    <!-- BUSCADOR -->
-    <div class="input-group mb-3">
+    <form @submit.prevent="buscarCiudad" class="mb-4">
       <input
-        v-model="city"
-        @keyup.enter="buscarClima"
+        v-model="cityName"
         type="text"
-        class="form-control"
-        placeholder="Buscar ciudad..."
+        class="form-control mb-2"
+        placeholder="Ingresa una ciudad"
       />
-      <button class="btn btn-primary" @click="buscarClima">Buscar</button>
-    </div>
+      <button class="btn btn-primary w-100">Buscar</button>
+      <p v-if="errorMsg" class="text-danger mt-2">{{ errorMsg }}</p>
+    </form>
 
-    <!-- BOTÓN DE UNIDADES -->
-    <div class="text-center mb-3">
-      <UnitsButtonComponent
-        :label="weatherStore.units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'"
-        @click="toggleUnits"
-      />
-    </div>
-
-    <!-- ERROR -->
-    <p v-if="weatherStore.error" class="text-danger text-center">
-      {{ weatherStore.error }}
-    </p>
-
-    <!-- LOADING -->
-    <p v-if="weatherStore.loading" class="text-center">
-      Cargando clima...
-    </p>
-
-    <!-- TARJETA DE CLIMA -->
     <WeatherCardComponent
       v-if="weatherStore.weather"
       :data="weatherStore.weather"
       :units="weatherStore.units"
     />
 
+    <RecentCitiesComponent />
   </main>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

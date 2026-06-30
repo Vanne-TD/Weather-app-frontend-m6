@@ -1,3 +1,4 @@
+// src/assets/styles/themes/_index.scss
 // ===============================
 // IMPORTADOR CENTRAL DE TEMAS
 // ===============================
@@ -6,3 +7,32 @@
 @use "./_theme-light" as *;
 @use "./_theme-dark" as *;
 
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card {
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.panel {
+  background-color: var(--panel);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+button {
+  background-color: var(--accent);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
