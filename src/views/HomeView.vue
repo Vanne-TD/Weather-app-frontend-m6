@@ -7,39 +7,52 @@ import UnitsButtonComponent from '@/components/UnitsButtonComponent.vue'
 // ⭐ PINIA STORE
 const weatherStore = useWeatherStore()
 
-// ⭐ Estados locales (solo para input y título)
+// ⭐ Estados locales
 const city = ref('Santiago')
 const cityTitle = ref('Santiago')
 
-// ⭐ Cargar clima al montar
-onMounted(() => {
-  weatherStore.setCity(city.value)
-  weatherStore.fetchWeather()
-  weatherStore.fetchWeekly()
+// ⭐ Cargar clima inicial usando ID
+onMounted(async () => {
+  await buscarClima()
 })
 
-// ⭐ Buscar clima
+// ⭐ Buscar clima (por nombre → obtener ID → cargar por ID)
 async function buscarClima() {
   try {
     weatherStore.error = null
-    weatherStore.setCity(city.value)
 
-    await weatherStore.fetchWeather()
-    await weatherStore.fetchWeekly()
+    // 1) Buscar ciudad por nombre (esto devuelve el ID)
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}`
+    const response = await fetch(url)
 
-    cityTitle.value = city.value
+    if (!response.ok) {
+      weatherStore.error = 'Ciudad no encontrada'
+      return
+    }
+
+    const data = await response.json()
+
+    // 2) Guardar ID en el store
+    weatherStore.cityId = data.id
+    cityTitle.value = data.name
+
+    // 3) Cargar clima usando ID (rápido)
+    await weatherStore.fetchWeatherById(data.id)
+    await weatherStore.fetchWeeklyById(data.id)
+
   } catch (error) {
-    weatherStore.error = 'Ciudad no encontrada'
+    weatherStore.error = 'No se pudo obtener el clima'
   }
 }
 
-// ⭐ Cambiar unidades (°C / °F)
-function toggleUnits() {
+// ⭐ Cambiar unidades
+async function toggleUnits() {
   weatherStore.toggleUnits()
 
-  // ⭐ Volver a cargar clima con nuevas unidades
-  weatherStore.fetchWeather()
-  weatherStore.fetchWeekly()
+  // Recargar usando ID
+  await weatherStore.fetchWeatherById(weatherStore.cityId)
+  await weatherStore.fetchWeeklyById(weatherStore.cityId)
 }
 </script>
 

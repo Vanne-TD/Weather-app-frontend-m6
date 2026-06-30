@@ -4,8 +4,7 @@ import axios from "axios";
 
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
-    city: localStorage.getItem("city") || "Santiago",
-    theme: localStorage.getItem("theme") || "light",
+    cityId: null,          // ⭐ ID de ciudad
     weather: null,
     weekly: [],
     units: localStorage.getItem("units") || "metric",
@@ -26,11 +25,9 @@ export const useWeatherStore = defineStore("weather", {
         min: Math.round(Math.min(...temps)),
         max: Math.round(Math.max(...temps)),
         prom: Math.round(temps.reduce((a, b) => a + b, 0) / temps.length),
-
         avgHumidity: Math.round(
           humidity.reduce((a, b) => a + b, 0) / humidity.length
         ),
-
         rainyDays: descriptions.filter((d) => d === "Rain").length,
         clearDays: descriptions.filter((d) => d === "Clear").length,
         windyDays: wind.filter((w) => w > 30).length,
@@ -46,40 +43,28 @@ export const useWeatherStore = defineStore("weather", {
 
       const alerts = [];
 
-      if (Math.max(...temps) > 30) {
-        alerts.push("🔥 Ola de calor: temperaturas sobre 30°C");
-      }
-
-      if (Math.min(...temps) < 0) {
-        alerts.push("❄️ Temperaturas bajo cero");
-      }
-
-      if (wind.some((w) => w > 30)) {
-        alerts.push("💨 Viento fuerte sobre 30 km/h");
-      }
+      if (Math.max(...temps) > 30) alerts.push("🔥 Ola de calor: temperaturas sobre 30°C");
+      if (Math.min(...temps) < 0) alerts.push("❄️ Temperaturas bajo cero");
+      if (wind.some((w) => w > 30)) alerts.push("💨 Viento fuerte sobre 30 km/h");
 
       const rainyDays = descriptions.filter((d) => d === "Rain").length;
-      if (rainyDays >= 3) {
-        alerts.push("🌧️ Lluvia frecuente durante la semana");
-      }
+      if (rainyDays >= 3) alerts.push("🌧️ Lluvia frecuente durante la semana");
 
       const clearDays = descriptions.filter((d) => d === "Clear").length;
-      if (clearDays >= 5) {
-        alerts.push("☀️ Semana mayormente despejada");
-      }
+      if (clearDays >= 5) alerts.push("☀️ Semana mayormente despejada");
 
       return alerts;
     },
   },
 
   actions: {
-    async fetchWeather() {
+    async fetchWeatherById(id) {
       this.loading = true;
       this.error = null;
 
       try {
         const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=${this.units}&appid=${apiKey}`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?id=${id}&units=${this.units}&appid=${apiKey}`;
         const { data } = await axios.get(url);
         this.weather = data;
       } catch (err) {
@@ -89,13 +74,13 @@ export const useWeatherStore = defineStore("weather", {
       }
     },
 
-    async fetchWeekly() {
+    async fetchWeeklyById(id) {
       this.loading = true;
       this.error = null;
 
       try {
         const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&units=${this.units}&appid=${apiKey}`;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?id=${id}&units=${this.units}&appid=${apiKey}`;
         const { data } = await axios.get(url);
         this.weekly = data.list;
       } catch (err) {
@@ -105,19 +90,9 @@ export const useWeatherStore = defineStore("weather", {
       }
     },
 
-    setCity(newCity) {
-      this.city = newCity;
-      localStorage.setItem("city", newCity);
-    },
-
     toggleUnits() {
       this.units = this.units === "metric" ? "imperial" : "metric";
       localStorage.setItem("units", this.units);
-    },
-    toggleTheme() {
-  this.theme = this.theme === "light" ? "dark" : "light"
-  localStorage.setItem("theme", this.theme)
-}
-
+    }
   },
 });

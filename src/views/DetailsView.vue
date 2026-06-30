@@ -9,55 +9,29 @@ import UnitsButtonComponent from '@/components/UnitsButtonComponent.vue'
 import WeatherStatusComponent from '@/components/WeatherStatusComponent.vue'
 import WeatherAlertsComponent from '@/components/WeatherAlertsComponent.vue'
 
-// ===============================
-// Rutas
-// ===============================
 const route = useRoute()
 const router = useRouter()
-
-// ===============================
-// PINIA STORE
-// ===============================
 const weatherStore = useWeatherStore()
 
-// ===============================
-// Ciudad desde la ruta
-// ===============================
-const city = ref(route.params.city)
+const id = ref(route.params.id)
 
-// ===============================
-// Estadísticas desde el store
-// ===============================
 const stats = computed(() => weatherStore.stats)
 
-// ===============================
-// Label para botón de unidades
-// ===============================
 const unitsLabel = computed(() =>
   weatherStore.units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'
 )
 
-// ===============================
-// Cargar datos al iniciar
-// ===============================
 onMounted(async () => {
-  weatherStore.setCity(city.value)
-  await weatherStore.fetchWeather()
-  await weatherStore.fetchWeekly()
+  await weatherStore.fetchWeatherById(id.value)
+  await weatherStore.fetchWeeklyById(id.value)
 })
 
-// ===============================
-// Cambiar unidades
-// ===============================
 async function toggleUnits() {
   weatherStore.toggleUnits()
-  await weatherStore.fetchWeather()
-  await weatherStore.fetchWeekly()
+  await weatherStore.fetchWeatherById(id.value)
+  await weatherStore.fetchWeeklyById(id.value)
 }
 
-// ===============================
-// Volver al Home
-// ===============================
 function volver() {
   router.push('/')
 }
@@ -70,19 +44,18 @@ function volver() {
       ← Volver
     </button>
 
-    <h1 class="mb-4 text-center">Detalles de {{ city }}</h1>
+    <h1 class="mb-4 text-center">
+      Detalles de {{ weatherStore.weather?.name }}
+    </h1>
 
-    <!-- ERROR -->
     <p v-if="weatherStore.error" class="text-danger text-center">
       {{ weatherStore.error }}
     </p>
 
-    <!-- LOADING -->
     <p v-if="weatherStore.loading" class="text-center">
       Cargando clima...
     </p>
 
-    <!-- TARJETA DE DETALLES -->
     <WeatherDetailsCardComponent
       v-if="weatherStore.weather"
       :weather="{
@@ -97,12 +70,10 @@ function volver() {
       :units="weatherStore.units"
     />
 
-    <!-- BOTÓN DE UNIDADES -->
     <div class="text-center mt-3">
       <UnitsButtonComponent :label="unitsLabel" @click="toggleUnits" />
     </div>
 
-    <!-- PRONÓSTICO SEMANAL -->
     <WeatherWeekly
       v-if="weatherStore.weekly && weatherStore.weekly.length"
       :data="weatherStore.weekly"
@@ -110,7 +81,6 @@ function volver() {
       class="mt-4"
     />
 
-    <!-- ESTADÍSTICAS -->
     <section v-if="stats" class="mt-4 text-center">
       <h2>Estadísticas de la semana</h2>
 
@@ -140,7 +110,6 @@ function volver() {
       </div>
     </section>
 
-    <!-- ALERTAS -->
     <WeatherAlertsComponent
       v-if="weatherStore.alerts && weatherStore.alerts.length"
       :alerts="weatherStore.alerts"
@@ -149,7 +118,4 @@ function volver() {
 
   </main>
 </template>
-
-<style scoped>
-</style>
-
+<style scoped></style>
