@@ -18,8 +18,15 @@
 @use "components/_weather-details-card";
 @use "components/_navbar";
 @use "components/_buttons";
+@use "components/_theme-switcher";
 
 // PAGES/VIEWS
 @use "views/_home";
 @use "views/_details";
 @use "views/_about";
+
+// THEMES
+@use "themes/_index";
+// @use "themes/_theme-variables";
+// @use "themes/_theme-light";
+// @use "themes/_theme-dark";

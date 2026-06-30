@@ -1,4 +1,6 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+// @use "../themes/theme" as *;
 @use "sass:color";
 
 
@@ -31,7 +33,44 @@
     }
   }
 
+// // Botón cambio de tema (claro/oscuro)
+// .theme-toggle {
   
+//   @include card-surface($color-panel-soft, $radius-sm, $shadow-medium);
+
+//   // Tipografía
+//   font-family: $font-family-heading;
+//   font-weight: $font-weight-bold;
+//   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+
+//   // Espaciado
+//   padding: $space-sm $space-md;
+
+//   // Colores
+//   background: $color-accent;
+//   color: $color-white;
+//   border: none;
+//   cursor: pointer;
+
+//   // Animación suave
+//   transition: all 0.25s ease;
+
+//   // Hover
+//   &:hover {
+//     background: lighten($color-accent, 10%);
+//     transform: translateY(-2px);
+//     box-shadow: $shadow-dark;
+//   }
+
+//   // Active
+//   &:active {
+//     transform: translateY(0);
+//     box-shadow: $shadow-light;
+//   }
+
+ 
+//   @include center-flex;
+// }
 // .btn-primary version de prueba para futuro{
 //   /* 1. Visual */
 //   background: $color-accent;

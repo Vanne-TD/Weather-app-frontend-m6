@@ -1,0 +1,45 @@
+@use "../abstracts/variables.scss" as *;
+@use "../abstracts/mixins.scss" as *;
+@use "../themes/_theme-variables.scss" as *;
+@use "sass:color";
+
+
+.dark {
+  background-color: $dark-bg;
+  color: $dark-text;
+  font-family: $font-family-base;
+
+  // Tarjetas
+  .card {
+    @include card-surface($dark-card, $radius-base, $shadow-dark);
+    border: 1px solid $dark-border;
+  }
+
+  // Paneles
+  header,
+  nav {
+    background: $dark-panel;
+    color: $color-text-soft;
+  }
+
+  // Botones
+  button {
+    background: $color-accent;
+    color: $color-white;
+    border-radius: $radius-sm;
+    padding: $space-sm $space-md;
+    font-weight: $font-weight-bold;
+    transition: 0.25s ease;
+
+    &:hover {
+      background: color.adjust($color-accent, $lightness: 10%);
+      transform: translateY(-2px);
+      box-shadow: $shadow-medium;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: $shadow-light;
+    }
+  }
+}

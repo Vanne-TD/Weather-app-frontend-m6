@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
+import ThemeSwitcherComponent from '@/components/ThemeSwitcherComponent.vue'
+
 
 // ⭐ Pinia store
 const userStore = useUserStore()
@@ -38,8 +40,10 @@ function cerrarSesion() {
           Cerrar sesión
         </button>
       </template>
-
     </div>
+
+    <!-- ⭐ Aquí va tu ThemeSwitcher PRO -->
+    <ThemeSwitcherComponent />
   </nav>
 </template>
 

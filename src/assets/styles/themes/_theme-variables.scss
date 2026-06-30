@@ -1,0 +1,19 @@
+@use "../abstracts/variables" as *;
+
+// =========================
+// VARIABLES DEL TEMA
+// =========================
+
+// Tema claro
+$light-bg: $color-background;
+$light-text: $color-text;
+$light-card: $color-panel-soft;
+$light-panel: $color-panel;
+$light-border: rgba(0, 0, 0, 0.15);
+
+// Tema oscuro
+$dark-bg: $color-panel-dark;
+$dark-text: $color-text-soft;
+$dark-card: $color-panel-alt;
+$dark-panel: $color-panel;
+$dark-border: rgba(255, 255, 255, 0.2);

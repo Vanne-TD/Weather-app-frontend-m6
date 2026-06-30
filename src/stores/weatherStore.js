@@ -4,10 +4,11 @@ import axios from "axios";
 
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
-    city: "Santiago",
+    city: localStorage.getItem("city") || "Santiago",
+    theme: localStorage.getItem("theme") || "light",
     weather: null,
     weekly: [],
-    units: "metric",
+    units: localStorage.getItem("units") || "metric",
     loading: false,
     error: null,
   }),
@@ -27,7 +28,7 @@ export const useWeatherStore = defineStore("weather", {
         prom: Math.round(temps.reduce((a, b) => a + b, 0) / temps.length),
 
         avgHumidity: Math.round(
-          humidity.reduce((a, b) => a + b, 0) / humidity.length,
+          humidity.reduce((a, b) => a + b, 0) / humidity.length
         ),
 
         rainyDays: descriptions.filter((d) => d === "Rain").length,
@@ -35,47 +36,42 @@ export const useWeatherStore = defineStore("weather", {
         windyDays: wind.filter((w) => w > 30).length,
       };
     },
-   alerts(state) {
-    if (!state.weekly.length) return [];
 
-    const temps = state.weekly.map((d) => d.main.temp);
-    const wind = state.weekly.map((d) => d.wind.speed);
-    const descriptions = state.weekly.map((d) => d.weather[0].main);
+    alerts(state) {
+      if (!state.weekly.length) return [];
 
-    const alerts = [];
+      const temps = state.weekly.map((d) => d.main.temp);
+      const wind = state.weekly.map((d) => d.wind.speed);
+      const descriptions = state.weekly.map((d) => d.weather[0].main);
 
-    // Ola de calor
-    if (Math.max(...temps) > 30) {
-      alerts.push("🔥 Ola de calor: temperaturas sobre 30°C");
-    }
+      const alerts = [];
 
-    // Frío extremo
-    if (Math.min(...temps) < 0) {
-      alerts.push("❄️ Temperaturas bajo cero");
-    }
+      if (Math.max(...temps) > 30) {
+        alerts.push("🔥 Ola de calor: temperaturas sobre 30°C");
+      }
 
-    // Viento fuerte
-    if (wind.some((w) => w > 30)) {
-      alerts.push("💨 Viento fuerte sobre 30 km/h");
-    }
+      if (Math.min(...temps) < 0) {
+        alerts.push("❄️ Temperaturas bajo cero");
+      }
 
-    // Lluvia
-    const rainyDays = descriptions.filter((d) => d === "Rain").length;
-    if (rainyDays >= 3) {
-      alerts.push("🌧️ Lluvia frecuente durante la semana");
-    }
+      if (wind.some((w) => w > 30)) {
+        alerts.push("💨 Viento fuerte sobre 30 km/h");
+      }
 
-    // Cielo despejado
-    const clearDays = descriptions.filter((d) => d === "Clear").length;
-    if (clearDays >= 5) {
-      alerts.push("☀️ Semana mayormente despejada");
-    }
+      const rainyDays = descriptions.filter((d) => d === "Rain").length;
+      if (rainyDays >= 3) {
+        alerts.push("🌧️ Lluvia frecuente durante la semana");
+      }
 
-    return alerts;
+      const clearDays = descriptions.filter((d) => d === "Clear").length;
+      if (clearDays >= 5) {
+        alerts.push("☀️ Semana mayormente despejada");
+      }
+
+      return alerts;
+    },
   },
-},
 
- 
   actions: {
     async fetchWeather() {
       this.loading = true;
@@ -111,10 +107,17 @@ export const useWeatherStore = defineStore("weather", {
 
     setCity(newCity) {
       this.city = newCity;
+      localStorage.setItem("city", newCity);
     },
 
     toggleUnits() {
       this.units = this.units === "metric" ? "imperial" : "metric";
+      localStorage.setItem("units", this.units);
     },
+    toggleTheme() {
+  this.theme = this.theme === "light" ? "dark" : "light"
+  localStorage.setItem("theme", this.theme)
+}
+
   },
 });
