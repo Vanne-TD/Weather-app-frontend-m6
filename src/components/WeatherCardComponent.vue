@@ -1,3 +1,4 @@
+<!-- src/components/WeatherCardComponent.vue -->
 <script setup>
 import { computed } from 'vue'
 
@@ -6,17 +7,15 @@ const props = defineProps({
   units: String
 })
 
-const temperatura = computed(() => {
-  return Math.round(props.data.main.temp)
-})
+const temperatura = computed(() => Math.round(props.data.main.temp))
 
-const icono = computed(() => {
-  return `https://openweathermap.org/img/wn/${props.data.weather[0].icon}@2x.png`
-})
+const icono = computed(() =>
+  `https://openweathermap.org/img/wn/${props.data.weather[0].icon}@2x.png`
+)
 
-const unidad = computed(() => {
-  return props.units === 'metric' ? '°C' : '°F'
-})
+const unidad = computed(() =>
+  props.units === 'metric' ? '°C' : '°F'
+)
 </script>
 
 <template>
@@ -47,10 +46,8 @@ const unidad = computed(() => {
         </div>
       </div>
 
-      <button
-        class="weather-card__button"
-        @click="$router.push(`/detalle/${data.name}`)"
-      >
+      <button class="weather-card__button" @click="$router.push(`/detalle/${data.name}`)"
+ type="button">
         Ver detalles
       </button>
 
@@ -58,8 +55,4 @@ const unidad = computed(() => {
   </article>
 </template>
 
-
-<style scoped lang="scss">
-
-</style>
-
+<style scoped lang="scss"></style>

@@ -1,0 +1,37 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.back-btn {
+  @include action-button-base(0.4rem 0.85rem, 2.1rem, 0.9rem, 0.5rem);
+
+  background: rgba(48, 10, 76, 0.85);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: none;
+  }
+}
+
+.back-btn__icon {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.back-btn__text {
+  font-size: 0.85rem;
+}
+
+@keyframes alertPulse {
+  0% {
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+}

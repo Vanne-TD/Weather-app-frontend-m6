@@ -1,29 +1,51 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
 
-
 .weather-details-card {
-  /* 1. Visual container */
-  background: rgba($color-white, 0.95);
-  border: 1px solid rgba($color-text, 0.12);
+  /* ============================
+     PREMIUM GLASS SURFACE
+  ============================ */
+  background: linear-gradient(
+    135deg,
+    rgba($color-white, 0.85),
+    rgba($color-white, 0.65)
+  );
+  backdrop-filter: blur(18px);
   border-radius: $radius-base;
-  box-shadow: $shadow-dark;
-  backdrop-filter: blur(22px);
+  border: 1px solid rgba($color-white, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 
-  /* 2. Box model */
+  /* ============================
+     BOX MODEL
+  ============================ */
   padding: $space-xl;
   max-width: 420px;
   margin: 0 auto $space-xl;
-
-  /* 3. Typography & alignment */
   text-align: center;
-
-  /* 4. Effects */
+  position: relative;
   transition: 0.25s ease;
 
+  /* ============================
+     HOVER EFFECT
+  ============================ */
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: $shadow-medium;
+    transform: translateY(-6px);
+      box-shadow:
+      0 0 14px rgba($color-accent, 0.65),
+      0 0 24px rgba($color-accent, 0.55),
+      0 0 34px rgba($color-accent, 0.45);
+  }
+
+  /* ============================
+     INNER BORDER (premium)
+  ============================ */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba($color-white, 0.18);
+    pointer-events: none;
   }
 
   /* ============================
@@ -31,36 +53,30 @@
   ============================ */
   &__title {
     font-family: $font-family-heading;
-    font-size: 1.9rem;
+    font-size: 1.7rem;
     font-weight: $font-weight-bold;
-    margin-bottom: $space-md;
-    color: $color-text;
+    color: rgba($color-text, 0.9);
+    margin-bottom: $space-lg;
   }
 
   /* ============================
      ICON
   ============================ */
   &__icon {
-    /* 1. Layout */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* 2. Box model */
     width: 120px;
     height: 120px;
-    margin: 0 auto $space-md;
+    margin: 0 auto $space-lg;
     padding: 12px;
 
-    /* 3. Visual */
-    background: rgba(150, 120, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(
+      135deg,
+      rgba($color-accent, 0.25),
+      rgba($color-panel, 0.25)
+    );
+    border: 1px solid rgba($color-white, 0.25);
     border-radius: 50%;
+    backdrop-filter: blur(10px);
 
-    /* 4. Effects */
-    backdrop-filter: blur(6px);
-
-    /* 5. Misc */
     object-fit: contain;
   }
 
@@ -70,15 +86,28 @@
   &__temp {
     font-size: 3.8rem;
     font-weight: $font-weight-extra-bold;
-    margin-bottom: $space-md;
     color: $color-accent;
+    margin-bottom: $space-lg;
   }
 
   /* ============================
      INFO TEXT
   ============================ */
-  &__info p {
-    margin: 6px 0;
-    color: rgba($color-text, 0.85);
+  &__info {
+    display: grid;
+    gap: $space-sm;
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      color: rgba($color-text, 0.85);
+
+      strong {
+        color: $color-panel;
+        font-weight: $font-weight-bold;
+      }
+    }
   }
+
+
 }

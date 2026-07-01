@@ -1,0 +1,39 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.preferences-view {
+  @include center-flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  h1,
+  h3 {
+    color: var(--main-text);
+    font-family: $font-family-heading;
+  }
+}
+
+.prefs-card {
+  @include card-surface(rgba(255, 255, 255, 0.15), $radius-base, $shadow-light);
+  backdrop-filter: blur(10px);
+  color: var(--main-text);
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-check-label {
+  color: var(--main-text);
+}
+
+.toggle-btn {
+  border: none;
+  border-radius: $radius-circle;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--main-text);
+  padding: $space-sm $space-md;
+  cursor: pointer;
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}

@@ -1,18 +1,27 @@
+//main.js
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'   // ⭐ IMPORTAR VUEX
+
+// ⭐ PINIA
+import { createPinia } from 'pinia'
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 
-// Tus estilos SASS
+// Estilos SASS (scss)
 import './assets/styles/main.scss'
 
-// ⭐ ACTIVAR VUEX EN LA APP
-createApp(App)
-  .use(router)
-  .use(store)
-  .mount('#app')
+// ⭐ CREAR APP
+const app = createApp(App)
 
+// ⭐ CREAR PINIA
+const pinia = createPinia()
+
+// ⭐ ACTIVAR PINIA Y ROUTER
+app.use(router)
+app.use(pinia)
+
+// ⭐ MONTAR APP
+app.mount('#app')

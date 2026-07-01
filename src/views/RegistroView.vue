@@ -1,3 +1,4 @@
+<!-- src/views/RegistroView.vue -->
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -23,17 +24,24 @@ function registrar() {
 </script>
 
 <template>
-  <main class="container py-4">
+  <main class="container py-4 register-view">
     <h1 class="text-center mb-4">Crear cuenta</h1>
 
-    <form @submit.prevent="registrar" class="mx-auto" style="max-width: 400px;">
-      <input v-model="name" type="text" class="form-control mb-3" placeholder="Nombre" />
-      <input v-model="email" type="email" class="form-control mb-3" placeholder="Correo" />
-      <input v-model="password" type="password" class="form-control mb-3" placeholder="Contraseña" />
+    <div class="register-card mx-auto">
+      <form @submit.prevent="registrar">
+        <input v-model="name" type="text" placeholder="Nombre" />
+        <input v-model="email" type="email" placeholder="Correo" />
+        <input v-model="password" type="password" placeholder="Contraseña" />
 
-      <button class="btn btn-success w-100">Registrar</button>
+        <button class="register-btn">Registrar</button>
 
-      <p v-if="msg" class="mt-3 text-center">{{ msg }}</p>
-    </form>
+        <p v-if="msg" class="msg">{{ msg }}</p>
+      </form>
+    </div>
   </main>
 </template>
+
+<style scoped lang="scss">
+
+</style>
+

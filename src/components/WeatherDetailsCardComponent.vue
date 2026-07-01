@@ -1,3 +1,4 @@
+<!-- src/components/WeatherDetailsCardComponent.vue -->
 <script setup>
 function capitalizar(texto) {
   if (!texto) return "";
@@ -18,7 +19,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="weather-details-card">
+  <div class="weather-details-card H">
     <h2 class="weather-details-card__title">
       {{ capitalizar(weather.description) }}
     </h2>
@@ -34,22 +35,16 @@ defineProps({
     </p>
 
     <div class="weather-details-card__info">
-      <p>
-        Humedad: <strong>{{ weather.humidity }}%</strong>
-      </p>
-      <p>
-        Viento: <strong>{{ weather.wind }} km/h</strong>
-      </p>
-      <p>
-        Presión: <strong>{{ weather.pressure }} hPa</strong>
-      </p>
-      <p>
-        Sensación térmica: <strong>{{ weather.feels_like }}°</strong>
-      </p>
+      <p>Humedad: <strong>{{ weather.humidity }}%</strong></p>
+      <p>Viento: <strong>{{ weather.wind }} km/h</strong></p>
+      <p>Presión: <strong>{{ weather.pressure }} hPa</strong></p>
+      <p>Sensación térmica: <strong>{{ weather.feels_like }}°</strong></p>
     </div>
   </div>
 </template>
 
+<style></style>
+
+
 <style scoped lang="scss">
-/* vacío porque el SCSS está en tu 7–1 */
 </style>

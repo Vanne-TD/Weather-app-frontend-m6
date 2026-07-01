@@ -1,3 +1,4 @@
+<!-- src/views/AboutView.vue -->
 <script setup>
 import iconosClima from "@/assets/img/iconos-clima-nublado-lluvioso-soleado.png";
 </script>
@@ -44,6 +45,12 @@ import iconosClima from "@/assets/img/iconos-clima-nublado-lluvioso-soleado.png"
           </p>
 
           <p class="about__text">
+            Además, incorpora gestión de estado global con Pinia,
+            rutas protegidas, ciudad favorita, historial de ciudades,
+            preferencias persistentes de unidades y alertas meteorológicas.
+          </p>
+
+          <p class="about__text">
             ¡Espero que disfrutes esta aplicación y que puedas consultar tu
             clima de forma rápida, sencilla y confiable!
           </p>
@@ -68,7 +75,12 @@ import iconosClima from "@/assets/img/iconos-clima-nublado-lluvioso-soleado.png"
         <li>Pronóstico semanal con íconos representativos.</li>
         <li>Página de detalles con información ampliada.</li>
         <li>Estadísticas semanales (mín, máx, promedio).</li>
-        <li>Búsqueda global de ciudades.</li>
+        <li>Alertas meteorológicas por reglas simples (calor, frío, viento, lluvia).</li>
+        <li>Búsqueda global de ciudades con flujo Ciudad → ID.</li>
+        <li>Ciudad favorita y ciudades recientes.</li>
+        <li>Preferencias de unidades (°C/°F) y alertas persistentes.</li>
+        <li>Rutas protegidas para favoritos y preferencias.</li>
+        <li>Estados de carga y mensajes de error al consultar la API.</li>
         <li>Datos en tiempo real mediante API meteorológica.</li>
         <li>Navegación SPA con Vue Router.</li>
       </ul>
@@ -79,6 +91,7 @@ import iconosClima from "@/assets/img/iconos-clima-nublado-lluvioso-soleado.png"
       <ul class="about__list">
         <li>Vue 3 + Composition API</li>
         <li>Vue Router</li>
+        <li>Pinia (estado global)</li>
         <li>SCSS con metodología BEM</li>
         <li>Bootstrap 5</li>
         <li>JavaScript ES6+</li>

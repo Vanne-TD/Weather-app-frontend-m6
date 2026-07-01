@@ -1,20 +1,24 @@
 <script setup>
-import HeaderComponent from './layout/HeaderComponent.vue'
-import FooterComponent from './layout/FooterComponent.vue'
+import HeaderLayout from './HeaderLayout.vue'
+import FooterLayout from './FooterLayout.vue'
 </script>
 
 <template>
-  <div class="d-flex flex-column min-vh-100">
-    <HeaderComponent />
-    <main class="flex-grow-1">
-      <RouterView />
+  <div class="main-layout d-flex flex-column min-vh-100">
+    <HeaderLayout />
+
+    <main class="main-layout__content flex-grow-1">
+      <slot />
     </main>
-    <FooterComponent />
+
+    <FooterLayout />
   </div>
 </template>
 
 <style scoped lang="scss">
-main {
-  padding-top: 20px;
+@use "../assets/styles/abstracts/variables" as *;
+
+.main-layout__content {
+  padding-top: $space-md;
 }
 </style>

@@ -1,63 +1,119 @@
-
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
 
-
-
 /* ============================
-   DETAILS PAGE CONTAINER
+   DETAIL PAGE WRAPPER
 ============================ */
 .detail-page {
-  /* Box model */
-  max-width: 900px;
-  margin: 0 auto;
-  padding: $space-xl $space-md;
+  padding-bottom: 2rem;
+}
 
-  /* Typography */
+/* ============================
+   BOTÓN VOLVER — COMPACTO
+============================ */
+.detail-header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  @include action-button-base(0.4rem 0.85rem, 2.1rem, 0.9rem, 0.5rem);
+
+  background: rgba(48, 10, 76, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: none;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.back-btn__icon {
+  font-size: 1.2rem;
+}
+
+/* ============================
+   ERROR & LOADING — PRO
+============================ */
+.status-card {
+  padding: 1rem 1.5rem;
+  margin: 1rem auto;
+  max-width: 400px;
+
+  border-radius: 12px;
   text-align: center;
+  font-weight: bold;
+  color: #fff;
 
-  /* ============================
-     TITLE
-  ============================ */
-  h1 {
-    font-family: $font-family-heading;
-    font-weight: $font-weight-extra-bold;
-    color: $color-text;
-    margin-bottom: $space-lg;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 10px rgba(120, 40, 200, 0.45),
+    0 0 18px rgba(120, 40, 200, 0.35),
+    0 0 28px rgba(120, 40, 200, 0.25);
+
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.error-card {
+  background: rgba(200, 40, 40, 0.65);
+  border: 2px solid rgba(255, 120, 120, 0.45);
+}
+
+.loading-card {
+  background: rgba(48, 10, 76, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Glow animado */
+@keyframes pulseGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba(120, 40, 200, 0.45),
+      0 0 18px rgba(120, 40, 200, 0.35),
+      0 0 28px rgba(120, 40, 200, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba(180, 80, 255, 0.65),
+      0 0 26px rgba(180, 80, 255, 0.55),
+      0 0 36px rgba(180, 80, 255, 0.45);
+  }
+  100% {
+    box-shadow:
+      0 0 10px rgba(120, 40, 200, 0.45),
+      0 0 18px rgba(120, 40, 200, 0.35),
+      0 0 28px rgba(120, 40, 200, 0.25);
+  }
+}
+
+/* ============================
+   BOTÓN FAVORITA — COMPACTO
+============================ */
+.favorite-btn {
+  @include action-button-base(0.4rem 0.85rem, 2.1rem, 0.9rem, 0.5rem);
+
+  background: rgba(48, 10, 76, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  box-shadow: none;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: none;
   }
 
-  /* ============================
-     BACK BUTTON
-  ============================ */
-  .back-btn {
-    /* 1. Layout */
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-
-    /* 2. Box model */
-    padding: $space-sm $space-md;
-    margin-bottom: $space-md;
-
-    /* 3. Visual */
-    background: rgba($color-white, 0.6);
-    border: 1px solid rgba($color-text, 0.15);
-    border-radius: $radius-base;
-
-    /* 4. Effects */
-    backdrop-filter: blur(10px);
-    transition: 0.25s ease;
-
-    /* 5. Misc */
-    font-weight: $font-weight-bold;
-    color: $color-text;
-    cursor: pointer;
-
-    &:hover {
-      background: rgba($color-white, 0.85);
-      transform: translateY(-2px);
-    }
+  &:active {
+    transform: scale(0.97);
   }
+}
 
-
+.favorite-btn__icon {
+  font-size: 1.2rem;
 }

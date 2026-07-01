@@ -1,0 +1,48 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.login-view {
+  @include center-flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  h1 {
+    color: var(--main-text);
+    font-family: $font-family-heading;
+  }
+}
+
+.login-card {
+  @include card-surface(rgba(255, 255, 255, 0.15), $radius-base, $shadow-light);
+  backdrop-filter: blur(10px);
+  max-width: 400px;
+  width: 100%;
+  color: var(--main-text);
+}
+
+input {
+  width: 100%;
+  padding: $space-sm;
+  margin-bottom: $space-md;
+  border-radius: $radius-sm;
+  border: 1px solid $color-border;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--main-text);
+}
+
+.login-btn {
+  width: 100%;
+  padding: $space-sm;
+  border-radius: $radius-sm;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  color: var(--main-text);
+  cursor: pointer;
+}
+
+.error-msg {
+  margin-top: $space-sm;
+  color: #ffdddd;
+  text-align: center;
+}
+

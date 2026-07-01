@@ -1,0 +1,29 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ============================
+   UNITS BUTTON — COMPACTO
+============================ */
+.units-btn {
+  margin-top: $space-sm;
+  @include action-button-base(0.4rem 0.85rem, 2.1rem, 0.9rem, 0.5rem);
+
+  background: rgba(48, 10, 76, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: none;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.units-btn__icon {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+}

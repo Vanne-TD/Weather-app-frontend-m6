@@ -2,23 +2,29 @@
 @use "../abstracts/mixins" as *;
 @use "sass:color";
 
-
+/* ============================
+   WEATHER CARD — PRO
+============================ */
 .weather-card {
-  /* ============================
-     CONTAINER
-  ============================ */
   @include card-surface(rgba($color-white, 0.9), $radius-base, $shadow-light);
   backdrop-filter: blur(12px);
   text-align: center;
   padding: $space-lg;
   cursor: pointer;
 
-  /* Effects */
+  border: 2px solid rgba($color-accent, 0.25);
+
+  /* Animación al aparecer */
+  animation: fadeInUp 0.6s ease;
+
   transition: 0.25s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: $shadow-medium;
+    box-shadow:
+      0 0 14px rgba($color-accent, 0.65),
+      0 0 24px rgba($color-accent, 0.55),
+      0 0 34px rgba($color-accent, 0.45);
   }
 
   /* ============================
@@ -38,6 +44,7 @@
     width: 100px;
     display: block;
     margin: $space-sm auto $space-sm;
+
     filter: drop-shadow(0 2px 4px rgba($color-text, 0.3));
 
     &--rounded {
@@ -71,6 +78,11 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: $space-md;
+
+    @media (max-width: $bp-sm) {
+      flex-direction: column;
+      gap: $space-sm;
+    }
   }
 
   &__stat-label {
@@ -84,21 +96,37 @@
   }
 
   /* ============================
-     BUTTON
+     BUTTON — COMPACTO
   ============================ */
   &__button {
+    @include action-button-base(0.45rem 1rem, 2.35rem, 0.95rem, 0.5rem);
+
     background: $color-accent;
     color: $color-white;
     border: none;
-    padding: $space-sm $space-md;
-    border-radius: $radius-sm;
-    font-weight: $font-weight-bold;
-    transition: 0.25s ease;
 
     &:hover {
       background: color.adjust($color-accent, $lightness: -8%);
-      transform: translateY(-2px);
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    &:active {
+      transform: scale(0.97);
     }
   }
 }
 
+/* ============================
+   ANIMACIÓN
+============================ */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

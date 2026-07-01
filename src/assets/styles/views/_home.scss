@@ -1,118 +1,160 @@
-
-
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
 @use "sass:color";
-
 /* ============================
-   HOME PAGE CONTAINER
+   HOME PAGE WRAPPER
 ============================ */
 .home-page {
-  /* Box model */
   max-width: 700px;
   margin: 0 auto;
   padding: $space-xl $space-md;
-
-  /* Typography */
   text-align: center;
+}
 
-  /* ============================
-     TITLE
-  ============================ */
-  h1 {
-    font-family: $font-title;
-    font-size: 2.5rem;
-    margin-bottom: $space-lg;
+.home-page__search-area {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ============================
+  TITLE
+============================ */
+.home-page__title {
+  font-size: 2.4rem;
+  font-family: $font-title;
+  font-weight: $font-weight-bold;
+  // color: $color-text;
+  margin-bottom: $space-lg;
+}
+
+/* ============================
+  FAVORITE BUTTON
+============================ */
+.favorite-btn {
+  @include action-button-base(0.4rem 0.85rem, 2.1rem, 0.9rem, 0.5rem);
+
+  background: rgba($color-panel-alt, 0.85);
+  color: $color-white;
+  border: 1px solid rgba($color-white, 0.3);
+
+  box-shadow: none;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: none;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ============================
+  SEARCH BOX
+============================ */
+.search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  @include card-surface(rgba($color-panel-alt, 0.18), $radius-base, $shadow-light);
+  backdrop-filter: blur(10px);
+  padding: $space-md;
+  margin-bottom: 0;
+
+  input {
+    padding: $space-sm $space-md;
+    border-radius: $radius-base;
+
+    border: 1px solid rgba($color-white, 0.18);
+    background: rgba($color-white, 0.78);
+
+    backdrop-filter: blur(8px);
+    font-size: 1rem;
     color: $color-text;
-  }
 
-  /* ============================
-     SEARCH BOX
-  ============================ */
-  .search-box {
-    /* Layout */
-    display: flex;
-    gap: $space-sm;
+    transition: 0.25s ease;
 
-    /* Box model */
-    margin-bottom: $space-xl;
-
-    /* Input */
-    input {
-      /* Layout */
-      flex: 1;
-
-      /* Box model */
-      padding: $space-sm $space-md;
-      border-radius: $radius-base;
-
-      /* Visual */
-      border: 1px solid rgba($color-text, 0.2);
-      background: rgba($color-white, 0.85);
-
-      /* Effects */
-      backdrop-filter: blur(8px);
-
-      /* Typography */
-      font-size: 1rem;
-    }
-
-    /* Button */
-    button {
-      /* Box model */
-      padding: $space-sm $space-md;
-      border-radius: $radius-base;
-
-      /* Visual */
-      background: $color-accent;
-      color: $color-white;
-      border: none;
-
-      /* Typography */
-      font-weight: $font-weight-bold;
-
-      /* Effects */
-      transition: 0.25s ease;
-
-      &:hover {
-        background: color.adjust($color-accent, $lightness: -8%);
-        transform: translateY(-2px);
-      }
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+      box-shadow: 0 0 10px rgba($color-accent, 0.45);
     }
   }
 
-  /* ============================
-     CITY CARD
-  ============================ */
-  .city-card {
-    /* Visual */
-    @include card-surface(rgba($color-white, 0.85), $radius-base, $shadow-light);
-    backdrop-filter: blur(10px);
+  .search-btn {
+    padding: $space-sm $space-md;
+    border-radius: $radius-base;
+    margin-top: 2px;
 
-    /* Box model */
-    padding: $space-lg;
-    margin-bottom: $space-md;
-
-    /* Effects */
+    background: $color-accent;
+    color: $color-white;
+    border: none;
+    font-weight: $font-weight-bold;
     transition: 0.25s ease;
 
     &:hover {
-      transform: translateY(-4px);
-      box-shadow: $shadow-medium;
+      background: color.adjust($color-accent, $lightness: -8%);
+      transform: translateY(-2px);
+      box-shadow: 0 0 14px rgba($color-accent, 0.65);
     }
 
-    /* Title */
-    h3 {
-      font-family: $font-family-heading;
-      font-weight: $font-weight-bold;
-      color: $color-text;
-      margin-bottom: $space-sm;
-    }
-
-    /* Description */
-    p {
-      color: $color-text;
-      opacity: 0.8;
+    &:active {
+      transform: scale(0.96);
     }
   }
+}
+
+/* ============================
+   ERROR MESSAGE — PRO
+============================ */
+.error-msg {
+  padding: 0.8rem 1.2rem;
+  margin-top: $space-sm;
+
+  background: rgba(200, 40, 40, 0.65);
+  border: 2px solid rgba(255, 120, 120, 0.45);
+  border-radius: $radius-base;
+
+  color: $color-white;
+  font-weight: $font-weight-bold;
+  text-align: center;
+
+  backdrop-filter: blur(10px);
+
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* Glow animado */
+@keyframes pulseGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba($color-accent, 0.45),
+      0 0 18px rgba($color-accent, 0.35),
+      0 0 28px rgba($color-accent, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba($color-accent, 0.65),
+      0 0 26px rgba($color-accent, 0.55),
+      0 0 36px rgba($color-accent, 0.45);
+  }
+  100% {
+    box-shadow:
+      0 0 10px rgba($color-accent, 0.45),
+      0 0 18px rgba($color-accent, 0.35),
+      0 0 28px rgba($color-accent, 0.25);
+  }
+}
+
+/* ============================
+   LOADING CARD
+============================ */
+.loading-card {
+  background: rgba($color-panel-alt, 0.85);
+  border: 2px solid rgba($color-white, 0.35);
+}
+
+.weather-card {
+  margin-top: 0.5rem;
 }

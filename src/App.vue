@@ -1,24 +1,28 @@
+<!-- src/App.vue -->
+
 <script setup>
-import HeaderLayout from './layout/HeaderLayout.vue'
-import FooterLayout from './layout/FooterLayout.vue'
+import { watch } from 'vue'
+import MainLayout from './layout/MainLayout.vue'
+import { useWeatherStore } from '@/stores/weatherStore'
+import { useUserStore } from '@/stores/userStore'
+
+const weatherStore = useWeatherStore()
+const userStore = useUserStore()
+
+userStore.init()
+
+
+watch(
+  () => weatherStore.theme,
+  (newTheme) => {
+    document.documentElement.className = newTheme
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
-  <div class="d-flex flex-column min-vh-100">
-
-    <HeaderLayout />
-
-    <main class="flex-grow-1">
-      <RouterView />
-    </main>
-
-    <FooterLayout />
-
-  </div>
+  <MainLayout>
+    <RouterView />
+  </MainLayout>
 </template>
-
-<style scoped>
-main {
-  padding-top: 20px;
-}
-</style>

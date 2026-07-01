@@ -1,5 +1,4 @@
 @use "../abstracts/variables" as *;
-@use "../abstracts/variables" as *;
 
 /* ============================
    NAV WRAPPER
@@ -8,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: $space-sm $space-md;
 }
 
 /* ============================
@@ -17,21 +17,21 @@
   font-family: $font-title;
   font-size: 1.8rem;
   color: $color-white;
-  letter-spacing: 1px;
   margin: 0;
 }
 
 /* ============================
-   LINKS WRAPPER
+   DESKTOP LINKS
 ============================ */
-.l-header__links {
+.desktop-only {
   display: flex;
   gap: $space-lg;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
-/* ============================
-   LINK ITEM
-============================ */
 .l-header__link {
   color: $color-text-soft;
   font-weight: $font-weight-bold;
@@ -44,5 +44,156 @@
 
   &.router-link-active {
     color: $color-accent;
+  }
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+}
+
+/* ============================
+   HAMBURGER BUTTON
+============================ */
+.mobile-only {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.hamburger-btn {
+  width: 42px;
+  height: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+
+  span {
+    width: 24px;
+    height: 3.5px;
+    background: $color-white;
+    border-radius: 4px;
+    transition: 0.35s ease;
+
+    &.open:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    &.open:nth-child(2) {
+      opacity: 0;
+    }
+    &.open:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+  }
+}
+
+/* ============================
+   OVERLAY GLASS
+============================ */
+.overlay-glass {
+  position: fixed;
+  inset: 0;
+  background: rgba($color-panel-dark, 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.35s ease;
+  z-index: 1500;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* ============================
+   MOBILE MENU GLASS
+============================ */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  height: 100vh;
+  background: rgba($color-panel-alt, 0.65);
+  backdrop-filter: blur(12px);
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.35);
+  transition: 0.35s ease;
+  z-index: 2000;
+
+  &.open {
+    right: 0;
+  }
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+/* ============================
+   MENU CONTENT
+============================ */
+.mobile-menu__content {
+  display: flex;
+  flex-direction: column;
+  padding: $space-xl $space-lg;
+  gap: $space-md;
+}
+
+/* ============================
+   CATEGORY ITEM WITH ARROW
+============================ */
+.mobile-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-md 0;
+  color: $color-white;
+  font-size: 1.2rem;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  border-bottom: 1px solid rgba($color-white, 0.15);
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  .arrow {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: 0.3s ease;
+  }
+
+  &:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+.mobile-menu__theme {
+  margin-top: $space-lg;
+}
+
+/* ============================
+   DESKTOP HIDING
+============================ */
+@media (min-width: 769px) {
+  .overlay-glass,
+  .mobile-menu,
+  .hamburger-btn {
+    display: none;
   }
 }

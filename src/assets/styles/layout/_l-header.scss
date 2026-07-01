@@ -1,0 +1,18 @@
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.l-header {
+  background-color: $color-panel;
+  color: $color-white;
+
+  /* padding para móvil */
+  padding: $space-sm 0;
+
+  /* header responsivo y elegante */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  box-shadow: $shadow-medium;
+}

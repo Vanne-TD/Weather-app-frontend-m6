@@ -1,22 +1,18 @@
-
+<!-- src/views/ContactView.vue -->
 <script setup>
+import ContactFormComponent from '../components/ContactFormComponent.vue'
 </script>
 
 <template>
-  <main class="container my-5 contact">
-    <h1 class="contact__title">Contacto</h1>
-    <p class="contact__text">Esta sección estará disponible en el Proyecto del Portafolio (Módulo 7).</p>
+  <main class="container py-4 contact-view">
+    <h1 class="text-center mb-4">Contacto</h1>
+
+    <div class="contact-card">
+      <ContactFormComponent />
+    </div>
   </main>
 </template>
 
+<style scoped lang="scss">
 
-<style scoped>
-.contact__title {
-  font-weight: 700;
-  color: #3a2b4d;
-}
-
-.contact__text {
-  opacity: 0.7;
-}
 </style>

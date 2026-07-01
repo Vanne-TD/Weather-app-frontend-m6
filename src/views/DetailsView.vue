@@ -1,93 +1,88 @@
-
+<!-- src/views/DetailsView.vue -->
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getCurrentWeather, getForecast } from '../api/weatherApi'
+import { useWeatherStore } from '@/stores/weatherStore'
+import { useUserStore } from '@/stores/userStore'
 
 import WeatherWeekly from '@/components/WeatherWeeklyComponent.vue'
 import WeatherDetailsCardComponent from '@/components/WeatherDetailsCardComponent.vue'
-import UnitsButtonComponent from '../components/UnitsButtonComponent.vue'
+import UnitsButtonComponent from '@/components/UnitsButtonComponent.vue'
+import WeatherStatusComponent from '@/components/WeatherStatusComponent.vue'
+import WeatherAlertsComponent from '@/components/WeatherAlertsComponent.vue'
+import WeatherStatsComponent from '@/components/WeatherStatsComponent.vue'
+
 // ===============================
-// Refs y rutas
+// Rutas
 // ===============================
 const route = useRoute()
 const router = useRouter()
 
-const city = ref(route.params.city)
-const units = ref('metric')
+// ===============================
+// PINIA STORES
+// ===============================
+const weatherStore = useWeatherStore()
+const userStore = useUserStore()
 
-const weather = ref(null)
-const weatherData = ref(null)
-const forecast = ref(null)
-const stats = ref(null)
-const errorMsg = ref('')
+// ===============================
+// Ciudad desde la ruta
+// ===============================
+const city = ref(route.params.city)
+
+// ===============================
+// Estadísticas desde el store
+// ===============================
+const stats = computed(() => weatherStore.stats)
+
+// ===============================
+// Label para botón de unidades (igual que Home)
+// ===============================
+const unitsLabel = computed(() =>
+  weatherStore.units === "metric" ? "°C" : "°F"
+)
 
 // ===============================
 // Cargar datos al iniciar
 // ===============================
-onMounted(() => {
-  cargarDatos()
+onMounted(async () => {
+  const data = await weatherStore.fetchWeatherByName(city.value)
+  await weatherStore.fetchWeatherById(data.id)
+  await weatherStore.fetchWeeklyById(data.id)
 })
 
 // ===============================
-// Cargar clima + pronóstico
+// Cambiar unidades (igual que Home)
 // ===============================
-async function cargarDatos() {
-  try {
-    errorMsg.value = ''
+async function toggleUnits() {
+  weatherStore.toggleUnits()
 
-    // Clima actual
-    weather.value = await getCurrentWeather(city.value, units.value)
+  const data = await weatherStore.fetchWeatherByName(city.value)
+  await weatherStore.fetchWeatherById(data.id)
+  await weatherStore.fetchWeeklyById(data.id)
+}
 
-    // Transformar datos para la tarjeta PRO
-    weatherData.value = {
-      description: weather.value.weather[0].description,
-      icon: `https://openweathermap.org/img/wn/${weather.value.weather[0].icon}@2x.png`,
-      temp: Math.round(weather.value.main.temp),
-      humidity: weather.value.main.humidity,
-      wind: weather.value.wind.speed,
-      pressure: weather.value.main.pressure,
-      feels_like: Math.round(weather.value.main.feels_like)
+// ===============================
+// Favoritos
+// ===============================
+const isFavorite = computed(() => {
+  const selectedCity = weatherStore.weather?.name || city.value
+  return userStore.favorites.includes(selectedCity)
+})
+
+function toggleFavorite() {
+  const selectedCity = weatherStore.weather?.name || city.value
+
+  if (!selectedCity) return
+
+  if (isFavorite.value) {
+    userStore.removeFavorite(selectedCity)
+    if (weatherStore.favoriteCity === selectedCity) {
+      weatherStore.clearFavoriteCity()
     }
-
-    // Pronóstico
-    forecast.value = await getForecast(city.value, units.value)
-
-    calcularEstadisticas()
-
-  } catch (error) {
-    errorMsg.value = 'No se pudo cargar el clima'
+  } else {
+    weatherStore.setFavoriteCity(selectedCity)
   }
 }
-
-// ===============================
-// Calcular estadísticas
-// ===============================
-function calcularEstadisticas() {
-  if (!forecast.value || !forecast.value.list) return
-
-  const temps = forecast.value.list.map(item => item.main.temp)
-
-  const min = Math.min(...temps)
-  const max = Math.max(...temps)
-  const prom = temps.reduce((a, b) => a + b, 0) / temps.length
-
-  stats.value = {
-    min: Math.round(min),
-    max: Math.round(max),
-    prom: Math.round(prom)
-  }
-}
-
-
-// ===============================
-// Cambiar unidades
-// ===============================
-function toggleUnits() {
-  units.value = units.value === 'metric' ? 'imperial' : 'metric'
-  cargarDatos()
-}
-
 
 // ===============================
 // Volver al Home
@@ -98,73 +93,89 @@ function volver() {
 </script>
 
 <template>
- <main class="container py-4 detail-page">
+  <main class="container py-4 detail-page">
 
-  <button class="back-btn" @click="volver">
-    ← Volver
-  </button>
-
-  <h1 class="mb-4 text-center">Detalles de {{ city }}</h1>
-
-  <p v-if="errorMsg" class="text-danger text-center">{{ errorMsg }}</p>
-
-  <WeatherDetailsCardComponent
-  v-if="weatherData"
-  :weather="weatherData"
-  :units="units"
-/>
-
-
-
-  <div class="text-center mt-3">
-    <!-- <button class="units-btn" @click="toggleUnits">
-      Cambiar a {{ units === 'metric' ? '°F' : '°C' }}
-    </button> -->
-    <UnitsButtonComponent :label="units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'" @click="toggleUnits" />
-
-  </div>
-
-  <WeatherWeekly
-    v-if="forecast && forecast.list"
-    :data="forecast.list"
-    :units="units"
-    class="mt-4"
-  />
-
-  <section v-if="stats" class="mt-4 text-center">
-    <h2>Estadísticas de la semana</h2>
-
-    <div class="row mt-3">
-      <div class="col">
-        <div class="card p-3">
-          <h4>Mínima</h4>
-          <p class="fs-3">{{ stats.min }}°</p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card p-3">
-          <h4>Promedio</h4>
-          <p class="fs-3">{{ stats.prom }}°</p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card p-3">
-          <h4>Máxima</h4>
-          <p class="fs-3">{{ stats.max }}°</p>
-        </div>
-      </div>
+    <!-- BOTÓN VOLVER -->
+    <div class="detail-page__header">
+      <button class="back-btn" @click="$router.back()">
+        <span class="back-btn__icon">←</span>
+        <span class="back-btn__text">Volver</span>
+      </button>
     </div>
-  </section>
 
-</main>
+    <h1 class="mb-4 text-center detail-page__title">
+      Detalles de {{ city }}
+    </h1>
 
+    <!-- ERROR -->
+    <div v-if="weatherStore.error" class="status-card error-card">
+      ⚠ {{ weatherStore.error }}
+    </div>
+
+    <!-- LOADING -->
+    <div v-if="weatherStore.loading" class="status-card loading-card">
+      ⏳ Cargando clima...
+    </div>
+
+    <!-- BOTÓN FAVORITA -->
+    <button
+      v-if="weatherStore.weather"
+      class="favorite-btn mb-3"
+      @click="toggleFavorite"
+    >
+      {{ isFavorite ? '⭐ Quitar' : '⭐ Favorita' }}
+    </button>
+
+    <!-- TARJETA DE DETALLES -->
+    <WeatherDetailsCardComponent
+      v-if="weatherStore.weather"
+      :weather="{
+        description: weatherStore.weather.weather[0].description,
+        icon: `https://openweathermap.org/img/wn/${weatherStore.weather.weather[0].icon}@2x.png`,
+        temp: Math.round(weatherStore.weather.main.temp),
+        humidity: weatherStore.weather.main.humidity,
+        wind: weatherStore.weather.wind.speed,
+        pressure: weatherStore.weather.main.pressure,
+        feels_like: Math.round(weatherStore.weather.main.feels_like)
+      }"
+      :units="weatherStore.units"
+    />
+
+    <!-- PRONÓSTICO SEMANAL -->
+    <WeatherWeekly
+      v-if="weatherStore.weekly && weatherStore.weekly.length"
+      :data="weatherStore.weekly"
+      :units="weatherStore.units"
+      class="mt-4"
+    />
+
+    <!-- ESTADÍSTICAS -->
+    <WeatherStatsComponent
+      v-if="stats"
+      :stats="stats"
+      class="mt-4"
+    />
+
+    <!-- ALERTAS -->
+    <WeatherAlertsComponent
+      v-if="weatherStore.filteredAlerts().length"
+      class="mt-4"
+    />
+
+    <!-- BOTÓN DE UNIDADES (final a la derecha) -->
+    <div class="units-bottom-wrapper mt-4">
+      <UnitsButtonComponent
+        :label="unitsLabel"
+        @click="toggleUnits"
+      />
+    </div>
+
+  </main>
 </template>
 
-<style>
-
+<style scoped>
+.units-bottom-wrapper {
+  display: flex;
+  justify-content: flex-end; /* ⭐ derecha */
+}
 </style>
-
-
-

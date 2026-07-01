@@ -1,7 +1,5 @@
 @use "../abstracts/variables" as *;
 
-@use "../abstracts/variables" as *;
-
 /* ============================
    ABOUT PAGE
 ============================ */
@@ -11,14 +9,14 @@
   ============================ */
   &__title {
     font-weight: 700;
-    color: $color-panel-dark;
+    color: var(--color-panel-dark);
   }
 
   /* ============================
      SUBTITLE
   ============================ */
   &__subtitle {
-    color: $color-panel-dark;
+    color: var(--color-panel-dark);
   }
 
   &__section {
@@ -64,7 +62,7 @@
         content: "•";
         position: absolute;
         left: 0;
-        color: $color-panel-dark;
+        color: var(--color-panel-dark);
         font-weight: bold;
       }
     }

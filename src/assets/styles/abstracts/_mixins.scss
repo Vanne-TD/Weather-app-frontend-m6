@@ -1,7 +1,8 @@
+// src/assets/styles/abstracts/_mixins.scss
 // =========================
 // IMPORTAR VARIABLES
 // =========================
-@use "variables" as *;
+@use "../abstracts/variables" as *;
 
 
 // =========================
@@ -31,6 +32,34 @@
 // Uso: @include section-spacing($space-lg, $space-xl);
 @mixin section-spacing($top: $space-xl, $bottom: $space-xl) {
   padding: $top 0 $bottom;
+}
+
+
+// =========================
+// BOTÓN DE ACCIÓN
+// =========================
+// Uso: @include action-button-base($space-sm $space-md, 2.1rem, 0.9rem, $radius-sm);
+@mixin action-button-base(
+  $padding: $space-sm $space-md,
+  $min-height: 2.1rem,
+  $font-size: 0.9rem,
+  $radius: $radius-sm
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xs;
+  padding: $padding;
+  min-height: $min-height;
+  width: fit-content;
+  border-radius: $radius;
+  font-weight: $font-weight-bold;
+  font-size: $font-size;
+  line-height: 1.1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: none;
 }
 
 

@@ -1,0 +1,38 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.contact-form {
+  @include card-surface(rgba(255, 255, 255, 0.15), $radius-base, $shadow-light);
+  backdrop-filter: blur(10px);
+  color: var(--main-text);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: $space-sm;
+  margin-bottom: $space-md;
+  border-radius: $radius-sm;
+  border: 1px solid $color-border;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--main-text);
+  backdrop-filter: blur(6px);
+}
+
+.contact-form button {
+  width: 100%;
+  padding: $space-sm;
+  border-radius: $radius-sm;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--main-text);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+}
