@@ -7,7 +7,6 @@
 @use "base/_general";
 @use "base/_reset";
 @use "base/_typography";
-@use "base/_theme";
 
 // LAYOUT
 @use "layout/_l-header";
@@ -15,23 +14,30 @@
 @use "layout/_l-main";
 
 // COMPONENTS
-@use "components/weather-card";
-@use "components/weather-weekly";
-@use "components/weather-details-card";
-@use "components/navbar";
-@use "components/back-button";
-@use "components/units-button";
-@use "components/theme-switcher";
-@use "components/recent-cities";
+@use "components/_weather-card";
+@use "components/_weather-weekly";
+@use "components/_weather-details-card";
+@use "components/_navbar";
+@use "components/_back-button";
+@use "components/_units-button";
+@use "components/_theme-switcher";
+@use "components/_recent-cities";
 @use "components/_weather-alerts";
-@use "components/weather-stats";
-@use "components/weather-status";
+@use "components/_weather-stats";
+@use "components/_weather-status";
+@use "components/_contact-form";
 
 // PAGES/VIEWS
-@use "views/home";
-@use "views/details";
-@use "views/about";
+@use "views/_home";
+@use "views/_details";
+@use "views/_about";
+@use "views/_login";
+@use "views/_registro";
+@use "views/_favorites";
+@use "views/_preferences";
+@use "views/_contact";
 
 // THEMES
-
-// @use "themes/_theme";
+@use "themes/_theme";
+@use "themes/_theme-base";
+@use "themes/_theme-dark";

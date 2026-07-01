@@ -1,247 +1,253 @@
-🌤️ Weather App – SPA en Vue 3
+# BioClima
 
-Aplicación del clima desarrollada como proyecto de portafolio, evolucionada desde una versión inicial en JavaScript hacia una SPA moderna construida con Vue 3, consumo de API en tiempo real, arquitectura SCSS escalable (7‑1) y, desde el Módulo 7, sistema de usuarios con autenticación, rutas protegidas y estado global con Vuex.
+Aplicación web SPA de clima desarrollada con Vue 3, Vite, Pinia, Vue Router y SCSS.
+Incluye consumo en tiempo real de la API de OpenWeather, estadísticas semanales, alertas meteorológicas, preferencias persistentes, ciudades recientes, ciudad favorita y autenticación con rutas protegidas.
+El proyecto combina una interfaz moderna con arquitectura escalable y un flujo completo de consulta meteorológica.
 
+Diseñada como proyecto final del Bootcamp Front End Trainee – Talento Digital para Chile.
 
-📋 Descripción
+## 🔗 Repositorio público
 
-Este proyecto comenzó como una app simple del clima hecha con JavaScript puro (Módulo 5).
-En el Módulo 6 evolucionó hacia una Single Page Application completamente modular utilizando:
+- GitHub: https://github.com/Vanne-TD/Weather-app-frontend.git
+
+## ✨ Funcionalidades clave
+
+- Búsqueda de ciudades en tiempo real
+- Clima actual con temperatura, sensación térmica, humedad y viento
+- Pronóstico extendido y alertas climáticas
+- Estadísticas semanales dinámicas
+- Alertas meteorológicas automáticas
+- Cambio entre unidades métricas e imperiales
+- Ciudades recientes y ciudad favorita
+- Arquitectura CITY → ID para consultas estables
+- Modo claro/contrast y diseño responsive
+- Autenticación con sesión persistente en localStorage
+- Rutas protegidas para favoritos y preferencias
+- Formulario de contacto y vistas informativas del proyecto
+
+## 🧰 Tecnologías utilizadas
 
 - Vue 3 + Composition API
+- Vite
 - Vue Router
-- SCSS con arquitectura 7‑1
-- Componentes reutilizables
-- Consumo de API OpenWeather en tiempo real
+- Pinia
+- SCSS con arquitectura 7-1
+- Bootstrap 5
+- OpenWeather API
 
-La aplicación permite buscar cualquier ciudad del mundo, visualizar su clima actual, acceder a detalles extendidos y revisar estadísticas semanales generadas dinámicamente.
+## 🏗️ Arquitectura y estructura del proyecto
 
-En el Módulo 7 se incorporó un sistema de autenticación, manejo de estado global con Vuex, rutas protegidas y personalización según el usuario conectado, cumpliendo los requisitos funcionales y técnicos de la pauta oficial.
+La app sigue una arquitectura modular basada en Vue 3 + Pinia + Vue Router, organizada para separar responsabilidades entre vistas, componentes, estado global y servicios de API.
 
+### Flujo de arquitectura
 
-🎯 Objetivo del Proyecto
+1. El usuario interactúa desde la vista principal.
+2. La vista consulta la API de clima a través del store.
+3. El store gestiona el estado global: clima actual, pronóstico, estadísticas, alertas, unidades y preferencias.
+4. Los componentes visuales reciben esos datos y los muestran en la interfaz.
+5. La navegación entre vistas se gestiona con Vue Router.
 
-Construir una aplicación moderna SPA, responsiva y escalable que demuestre dominio de:
+### Estructura de carpetas
 
-- Vue 3 y su ecosistema
-- Arquitectura de componentes
-- Manejo de rutas y vistas con Vue Router.
-- Integración con APIs externa  (OpenWeather).
-- Buenas prácticas de estilos (SCSS 7‑1 + BEM)
-- Diseño limpio y profesional
-- Implementar autenticación básica con Vuex (M7).
-- Proteger rutas y personalizar la interfaz según el usuario.
-- Mantener versionado en Git con commits descriptivos.
-
-
-⚙️ Funcionalidades
-
-- 🔍 Búsqueda global de ciudades
-- 🌡️ Clima actual (temperatura, sensación térmica, humedad, viento)
-- 📅 Pronóstico extendido
-- 📊 Estadísticas semanales (mín, máx, promedio)
-- 🧭 Navegación SPA con Vue Router
-- 🖼️ Vistas Home, Details, About y Contact (éste útimo solo con su esqueleto)
-- 🎨 Diseño responsivo + SCSS 7‑1
-- ✨ Animaciones suaves y UI moderna
-
-En esta versión agregamos:
-
-🧑‍💻  Login con validación.
-🚫 Mensajes de error en credenciales incorrectas.
-🔒 Rutas protegidas (ej: favoritos, perfil).
-👤 Estado global del usuario en Vuex.
-🎛️ Preferencias del usuario (ej: °C/°F, favoritos).
-🚪 Logout que limpia el estado y redirige.
-🧭 Navbar dinámico según sesión activa.
-📄 Vista Contact integrada como parte del flujo SPA.
-
-
-🧠 Arquitectura del Proyecto
- 
- 📁 1. Vue (toda la lógica, vistas y componentes)
+```text
 src/
-├── components/
-│   ├── ButtonComponent.vue (modelo)
-    ├── ContactFormComponent.vue
-│   ├── NavbarComponent.vue
-    ├── UnitsButtomcomponent.vue
+├── api/
+│   └── weatherApi.js            # Lógica de consumo de la API de OpenWeather
+├── assets/
+│   └── styles/                  # Estilos SCSS organizados por módulos
+├── components/                  # Componentes reutilizables de UI
 │   ├── WeatherCardComponent.vue
 │   ├── WeatherDetailsCardComponent.vue
-│   └── WeatherWeeklyComponent.vue
-│
-├── layout/
+│   ├── WeatherWeeklyComponent.vue
+│   ├── NavbarComponent.vue
+│   ├── RecentCitiesComponent.vue
+│   └── ContactFormComponent.vue
+├── layout/                      # Layouts generales de la app
 │   ├── HeaderLayout.vue
 │   ├── FooterLayout.vue
-│   └── MainLayout.vue (Para layout alternativo)
-│
+│   └── MainLayout.vue
 ├── router/
-│    └── index.js
-│   
-├── store/
-│   └── index.js
-│
-├── views/
+│   └── index.js                 # Definición de rutas y guards
+├── stores/
+│   ├── weatherStore.js          # Estado global del clima
+│   └── userStore.js             # Estado global del usuario y preferencias
+├── views/                       # Vistas principales de la SPA
 │   ├── HomeView.vue
 │   ├── DetailsView.vue
 │   ├── AboutView.vue
-│   ├── ContactView.vue 
+│   ├── ContactView.vue
 │   ├── FavoritesView.vue
 │   ├── LoginView.vue
-│   ├── RegistroView.vue
-│   └── PreferencesView.vue   
-│
-├── App.vue
-└── main.js
+│   ├── PreferencesView.vue
+│   └── RegistroView.vue
+├── App.vue                      # Componente raíz
+└── main.js                      # Punto de entrada de la app
+```
 
+### Lógica de datos
 
- 📁 2. API (lógica de OpenWeather)
+- La búsqueda de ciudades sigue un flujo de City → ID:
+  - se consulta la ciudad por nombre,
+  - se obtiene su identificador,
+  - y luego se usan ese ID para obtener clima actual y pronóstico.
+- El store centraliza:
+  - clima actual,
+  - pronóstico semanal,
+  - estadísticas,
+  - alertas,
+  - unidades,
+  - ciudades recientes,
+  - favoritos y preferencias de usuario.
 
- src/api/weatherApi.js
-  - /weather → clima actual
-  - /forecast → pronóstico cada 3 horas
-  - Manejo con fetch + async/await
+### Patrón de diseño aplicado
 
- 📁 3. Variables de entorno
-  
- .env
-(VITE_WEATHER_API_KEY=tu_api_key)
+- Componentes reutilizables para UI y tarjetas de información.
+- Stores centralizados para manejar estado compartido.
+- Rutas protegidas para vistas privadas.
+- Estilos SCSS organizados para mantener el proyecto escalable.
 
-📁 4. Estilos SCSS (Arquitectura 7‑1)
+## 🚀 Requisitos previos
 
-src/assets/styles/
-├── abstracts/
-│   ├── _variables.scss
-│   └── _mixins.scss
-├── base/
-│   ├── _reset.scss
-│   ├── _general.scss
-│   └── _typography.scss
-├── components/
-│   ├── _navbar.scss
-│   ├── _buttons.scss
-│   ├── _weather-card.scss
-│   ├── _weather-details-card.scss
-│   └── _weather-weekly.scss
-├── layout/
-│   ├── _header.scss
-│   ├── _footer.scss
-│   └── _main.scss
-└── main.scss
+- Node.js 22.18.0 o superior
+- npm (o pnpm, si prefieres)
+- Una cuenta y API key de OpenWeather
 
+## ▶️ Ejecución local
 
-🧩 Vistas principales
+1. Clona el repositorio:
 
-🏠 HomeView
-- Input de búsqueda
-- Cards dinámicas de ciudades
-- Integración con API en tiempo real
+```bash
+git clone https://github.com/Vanne-TD/Weather-app-frontend.git
+cd Weather-app-frontend
 
-📄 DetailsView
-- Información ampliada
-- Pronóstico extendido
-- Estadísticas semanales
-- Botón para cambiar unidades (°C / °F)
+```
 
-ℹ️ AboutView
-- Historia del proyecto
-- Evolución JS → Vue
-- Tecnologías utilizadas
+2. Instala las dependencias:
 
-📬 ContactView
-- Formulario de contacto
-- Validaciones
-- Estilos integrados al layout
-
-🔐 LoginView (M7)
-- Formulario de autenticación
-- Validación de credenciales
-- Mensajes de error
-
-👤 ProfileView / Favoritos (M7)
-- Preferencias del usuario (en otra view se generan)
-- Datos leídos desde Vuex
-
-🔒 Autenticación (Módulo 7)
-
-✔ Vuex — Estado global
-- state: usuario, isAuthenticated, preferencias
-- mutations: login, logout, updatePreferences
-- actions: login/logout async
-- getters: usuario actual, estado de sesión
-
-✔ Rutas protegidas
-- Implementadas en router/index.js mediante guards:
-- Middleware en router
-- Si el usuario no está autenticado → redirige a /login
-- Si está autenticado → accede a rutas privada
-
-✔ Navbar dinámico
-- Muestra nombre del usuario
-- Botón de cerrar sesión
-- Cambios reactivos según Vuex
-
-
-🌐 API utilizada
-
-OpenWeather API
-- /weather → clima actual
-- /forecast → pronóstico en bloques de 3 horas
-
-Manejo con fetch + async/await dentro de un composable (weatherApi.js).
-
-
-🎨 Estilos
-
-- SCSS con arquitectura 7‑1
-- Metodología BEM
-- Variables, mixins y layout profesional
-- Animaciones suaves (fade, hover, glow)
-- Diseño limpio y moderno
-
-
-🚀 Instalación y ejecución
-
-1️⃣ Instalar dependencias
+```bash
 npm install
+```
 
-2️⃣ Ejecutar en modo desarrollo
+3. Crea un archivo llamado `.env` en la raíz del proyecto y agrega tu clave de la API:
+
+```env
+VITE_WEATHER_API_KEY=tu_api_key_aqui
+```
+
+> Si la variable no está configurada, la app no podrá consultar los datos del clima.
+
+4. Inicia el servidor de desarrollo:
+
+```bash
 npm run dev
+```
 
-3️⃣ Compilar para producción
+5. Abre la URL que indique Vite en tu navegador, normalmente:
+
+```text
+http://localhost:5173
+```
+
+6. Para generar una build de producción:
+
+```bash
 npm run build
+```
 
+## 🧭 Rutas principales
 
-🛠️ Tecnologías utilizadas
+- `/` – Home
+- `/detalle/:city` – Detalle del clima de una ciudad
+- `/about` – Información del proyecto
+- `/contacto` – Formulario de contacto
+- `/login` – Inicio de sesión
+- `/registro` – Registro de usuario
+- `/favoritos` – Vista protegida con ciudades guardadas
+- `/preferencias` – Ajustes de alertas y unidades
 
-- Vue 3 + Composition API
-- Vue Router
-- Vuex (M7)
-- SCSS (7‑1)
-- JavaScript ES6+
-- Bootstrap 5 (utilidades)
-- OpenWeather API
-- Vite
+## ✅ Cumplimiento de la pauta
 
+- SPA en Vue con rutas y navegación protegida.
+- Consumo de API real de OpenWeather con `fetch`.
+- Manejo de estado global con Pinia.
+- Estado de carga y mensajes de error visibles para el usuario.
+- Cálculo de estadísticas semanales y alertas meteorológicas automáticas.
+- Vista principal, vista de detalle y vistas extra para favoritos, preferencias, login y contacto.
+- Documentación lista para publicar en GitHub y ejecutar en local.
 
-📚 Aprendizajes
+## 🌦️ Qué incluye la app
+
+- API de clima: OpenWeather
+- Estadísticas semanales calculadas dinámicamente
+- Alertas visuales según condiciones del pronóstico
+- Preferencias del usuario para unidades y alertas
+- Gestión de favoritos y ciudades recientes
+
+## 📸 Capturas opcionales
+
+Agrega capturas de pantalla de las vistas principales para mejorar la presentación del proyecto. Puedes incluir, por ejemplo:
+
+- Home con búsqueda y card de clima
+- Vista de Detalle con pronóstico, estadísticas y alertas
+- Vista de Favoritos o Preferencias
+
+Sugerencia de carpeta para tus imágenes:
+
+```text
+src/assets/img/capturas/
+```
+
+Luego puedes referenciarlas en el README con imágenes como estas:
+
+- Home
+- Detalle
+- Favoritos / Preferencias
+
+## 🌐 Despliegue web
+
+La aplicación puede publicarse en Vercel o Netlify usando la build de producción.
+
+Pasos recomendados:
+
+1. Ejecuta la build:
+
+```bash
+npm run build
+```
+
+2. Sube el proyecto a tu plataforma de despliegue.
+3. Configura la variable de entorno `VITE_WEATHER_API_KEY` en el panel de despliegue.
+4. Verifica que la SPA cargue correctamente y que las rutas funcionen.
+5. Agrega aquí el enlace final cuando esté publicada:
+
+```text
+https://tu-app-publicada-aqui.vercel.app
+```
+
+## 📚 Aprendizajes
 
 - Migración de JS vanilla a Vue 3
 - Componentización y reutilización
-- Manejo de estado local con composables
-- Buenas prácticas de arquitectura front-end
-- Rutas protegidas
+- Manejo de estado global con Pinia
+- Rutas protegidas y autenticación
 - Arquitectura SCSS 7‑1
 - Integración de API en tiempo real
-- Diseño profesional
-- Deploy profesional en GitHub Pages
+- Cálculo de estadísticas y alertas
+- Persistencia en localStorage
+- Diseño responsivo y moderno
+- Deploy profesional
+- Buenas prácticas de arquitectura front-end
 
-👩‍💻 Autora
+## 🧪 Verificación
+
+Para comprobar que el proyecto compila correctamente:
+
+```bash
+npm run build
+```
+
+## 👩‍💻 Autor
+
 Vanessa Torres Drake  
-Bootcamp Front End Trainee – Talento Digital para Chile
+Bootcamp Front End Trainee – Talento Digital para Chile  
 Junio 2026
-
-🔗 Repositorio
-https://github.com/Vanne-TD/Weather-app-frontend.git
-
-Para los cambios del módulo 7 está la rama Módulo-7 donde se actualizaron los nuevos archivos...

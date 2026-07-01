@@ -74,25 +74,27 @@ function irFavorita() {
 
     <!-- BOTÓN FAVORITA -->
     <button v-if="weatherStore.favoriteCity" class="favorite-btn mb-3" @click="irFavorita">
-      ⭐ Ir a mi ciudad favorita ({{ weatherStore.favoriteCity }})
+      ⭐ Favorita
     </button>
 
-    <!-- BUSCADOR -->
-    <form @submit.prevent="buscarCiudad" class="search-box mb-4">
+    <section class="home-page__search-area">
+      <!-- BUSCADOR -->
+      <form @submit.prevent="buscarCiudad" class="search-box mb-4">
 
-      <input v-model="cityName" type="text" placeholder="Ingresa una ciudad" />
+        <input v-model="cityName" type="text" placeholder="Ingresa una ciudad" />
 
-      <button class="search-btn" type="submit">
-        Buscar
-      </button>
+        <button class="search-btn" type="submit">
+          Buscar
+        </button>
 
-      <div v-if="errorMsg" class="error-msg">
-        {{ errorMsg }}
-      </div>
-    </form>
+        <div v-if="errorMsg" class="error-msg">
+          {{ errorMsg }}
+        </div>
+      </form>
 
-    <!-- CARD DEL CLIMA -->
-    <WeatherCardComponent v-if="weatherStore.weather" :data="weatherStore.weather" :units="weatherStore.units" />
+      <!-- CARD DEL CLIMA -->
+      <WeatherCardComponent v-if="weatherStore.weather" :data="weatherStore.weather" :units="weatherStore.units" />
+    </section>
 
     <div class="text-center mt-3">
       <UnitsButtonComponent :label="unitsLabel" @click="toggleUnits" />

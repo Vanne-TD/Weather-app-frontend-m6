@@ -2,110 +2,28 @@
 @use "../abstracts/mixins" as *;
 
 /* ============================
-   UNITS BUTTON — MORADO PRO MAX
+   UNITS BUTTON — COMPACTO
 ============================ */
 .units-btn {
-  /* Tamaño y forma */
-  padding: $space-sm $space-lg;
-  margin-top: $space-md;
-  border-radius: 999px; // pill
+  margin-top: $space-sm;
+  @include action-button-base(0.4rem 0.85rem, 2.1rem, 0.9rem, 0.5rem);
 
-  /* Fondo morado oscuro */
   background: rgba(48, 10, 76, 0.85);
-
-  /* Borde elegante */
-  border: 2px solid rgba(255, 255, 255, 0.35);
-
-  /* Texto blanco */
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
-  font-weight: $font-weight-bold;
-  font-size: 1.1rem;
 
-  cursor: pointer;
-  transition: 0.25s ease;
-
-  /* Glow morado PRO */
-  box-shadow:
-    0 0 10px rgba(120, 40, 200, 0.45),
-    0 0 18px rgba(120, 40, 200, 0.35),
-    0 0 28px rgba(120, 40, 200, 0.25);
-
-  /* Animación hover */
   &:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 0 14px rgba(120, 40, 200, 0.55),
-      0 0 24px rgba(120, 40, 200, 0.45),
-      0 0 34px rgba(120, 40, 200, 0.35);
+    transform: translateY(-1px);
+    box-shadow: none;
   }
 
-  /* Animación al hacer click */
   &:active {
     transform: scale(0.97);
   }
 }
 
-
-
-// // Botón cambio de tema (claro/oscuro)
-// .theme-toggle {
-  
-//   @include card-surface($color-panel-soft, $radius-sm, $shadow-medium);
-
-//   // Tipografía
-//   font-family: $font-family-heading;
-//   font-weight: $font-weight-bold;
-//   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-
-//   // Espaciado
-//   padding: $space-sm $space-md;
-
-//   // Colores
-//   background: $color-accent;
-//   color: $color-white;
-//   border: none;
-//   cursor: pointer;
-
-//   // Animación suave
-//   transition: all 0.25s ease;
-
-//   // Hover
-//   &:hover {
-//     background: lighten($color-accent, 10%);
-//     transform: translateY(-2px);
-//     box-shadow: $shadow-dark;
-//   }
-
-//   // Active
-//   &:active {
-//     transform: translateY(0);
-//     box-shadow: $shadow-light;
-//   }
-
- 
-//   @include center-flex;
-// }
-// .btn-primary version de prueba para futuro{
-//   /* 1. Visual */
-//   background: $color-accent;
-//   color: $color-white;
-//   border: none;
-//   border-radius: $radius-base;
-
-//   /* 2. Box model */
-//   padding: $space-sm $space-md;
-
-//   /* 3. Typography */
-//   font-weight: $font-weight-bold;
-
-//   /* 4. Effects */
-//   transition: 0.25s ease;
-
-//   /* 5. Misc */
-//   cursor: pointer;
-
-//   &:hover {
-//     background: color.adjust($color-accent, $lightness: -8%);
-//     transform: translateY(-2px);
-//   }
-// }
+.units-btn__icon {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+}

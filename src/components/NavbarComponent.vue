@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- HAMBURGER BUTTON (mobile) -->
-    <button class="hamburger-btn mobile-only" @click="toggleMenu">
+    <button class="hamburger-btn mobile-only" type="button" aria-label="Abrir menú" @click="toggleMenu">
       <span :class="{ open: menuOpen }"></span>
       <span :class="{ open: menuOpen }"></span>
       <span :class="{ open: menuOpen }"></span>

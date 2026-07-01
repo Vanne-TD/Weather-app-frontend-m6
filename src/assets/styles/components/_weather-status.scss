@@ -49,13 +49,12 @@
     }
   }
 
-  /* ⭐ ÍCONO PRO FINAL */
-  &__icon {
+   &__icon {
     width: 40px;
     height: 40px;
     padding: 8px;
 
-    background: rgba($color-text, 0.08); // fondo glass más marcado
+    background: rgba($color-text, 0.08); 
     border-radius: 50%;
     backdrop-filter: blur(10px);
 
@@ -63,7 +62,7 @@
 
     margin-bottom: $space-xs;
 
-    filter: brightness(1.15) contrast(1.35); // ícono nítido
+    filter: brightness(1.15) contrast(1.35); 
     opacity: 1;
 
     box-shadow:

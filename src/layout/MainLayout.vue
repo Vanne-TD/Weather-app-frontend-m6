@@ -1,25 +1,24 @@
-<!-- src/layout/MainLayout.vue - Para layout alternativo -->
-<!-- <script setup>
-import HeaderLayout from './layout/HeaderLayout.vue'
-import FooterLayout from './layout/FooterLayout.vue'
+<script setup>
+import HeaderLayout from './HeaderLayout.vue'
+import FooterLayout from './FooterLayout.vue'
 </script>
 
 <template>
-  <div class="d-flex flex-column min-vh-100">
-
+  <div class="main-layout d-flex flex-column min-vh-100">
     <HeaderLayout />
 
-    <main class="flex-grow-1">
+    <main class="main-layout__content flex-grow-1">
       <slot />
     </main>
 
     <FooterLayout />
-
   </div>
 </template>
 
 <style scoped lang="scss">
-main {
-  padding-top: 20px;
+@use "../assets/styles/abstracts/variables" as *;
+
+.main-layout__content {
+  padding-top: $space-md;
 }
-</style> -->
+</style>

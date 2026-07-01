@@ -1,39 +1,5 @@
-// :root[data-theme="dark"] {
-//   --color-bg: #12021a;
-
-//   /* ⭐ Paneles más claros para que las cards se distingan */
-//   --color-panel: #1f0a2b;
-//   --color-panel-soft: #2a0f38;
-//   --color-panel-alt: #3a1450;
-//   --color-panel-dark: #4a1a60;
-
-//   /* ⭐ Texto claro */
-//   --color-text: #f3e8ff;
-//   --color-text-soft: #d9c8f0;
-
-//   /* ⭐ Acento visible */
-//   --color-accent: #c78aff;
-
-//   --color-border: rgba(255, 255, 255, 0.2);
-//   --color-shadow: rgba(255, 255, 255, 0.1);
-// }
-
-// :root[data-theme="dark"] {
-//   --color-bg: #12021a;        /* fondo oscuro */
-
-//   --color-panel: #1f0a2b;     /* card oscura */
-//   --color-panel-soft: #2a0f38;
-//   --color-panel-alt: #3a1450;
-//   --color-panel-dark: #4a1a60;
-
-//   --color-text: #f3e8ff;      /* texto claro */
-//   --color-text-soft: #d9c8f0;
-
-//   --color-accent: #c78aff;
-// }
-
-:root[data-theme="dark"] {
-  --color-bg: #12021a;      /* fondo oscuro */
-  --color-text: #f3e8ff;    /* texto claro */
+:root.contrast {
+  --main-bg: #12021a;
+  --main-text: #f3e8ff;
 }
 

@@ -1,13 +1,21 @@
 <!-- src/views/FavoritesView.vue -->
 <script setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 
-// ⭐ Pinia store
 const userStore = useUserStore()
+const router = useRouter()
 
-// ⭐ Computed con Pinia
-const favorites = computed(() => userStore.user?.favorites || [])
+const favorites = computed(() => userStore.favorites)
+
+function abrirCiudad(city) {
+  router.push(`/detalle/${encodeURIComponent(city)}`)
+}
+
+function quitarFavorito(city) {
+  userStore.removeFavorite(city)
+}
 </script>
 
 <template>
@@ -15,36 +23,21 @@ const favorites = computed(() => userStore.user?.favorites || [])
     <h1 class="mb-4">Mis lugares favoritos</h1>
 
     <div class="favorites-card">
-      <ul>
-        <li v-for="city in favorites" :key="city">{{ city }}</li>
+      <p v-if="!favorites.length" class="empty-state">
+        Aún no tienes ciudades guardadas como favoritas.
+      </p>
+
+      <ul v-else>
+        <li v-for="city in favorites" :key="city">
+          <button class="city-link" @click="abrirCiudad(city)">{{ city }}</button>
+          <button class="remove-btn" @click="quitarFavorito(city)">Eliminar</button>
+        </li>
       </ul>
     </div>
   </main>
 </template>
 
 <style scoped lang="scss">
-.favorites-view h1 {
-  color: var(--main-text);
-}
 
-.favorites-card {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  border-radius: 12px;
-  color: var(--main-text);
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-}
 </style>
 

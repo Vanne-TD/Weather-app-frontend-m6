@@ -1,74 +1,22 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "sass:color";
 
 
 .theme-btn {
+  @include action-button-base(0.4rem 0.85rem, 2.1rem, 0.9rem, 0.5rem);
+
   background: rgba($color-white, 0.15);
   border: 1px solid rgba($color-white, 0.25);
   backdrop-filter: blur(6px);
-  padding: 6px 12px;
-  border-radius: 8px;
   color: $color-white;
-  cursor: pointer;
-  transition: 0.3s ease;
 
   &:hover {
     background: rgba($color-white, 0.25);
   }
 }
-// .theme-card {
-//   /* ⭐ Mantenemos tu mixin, pero ahora con variables CSS */
-//   @include card-surface(var(--color-panel-soft), $radius-base, $shadow-light);
-//   @include section-spacing($space-md, $space-md);
-//   text-align: center;
 
-//   /* ⭐ Tema automático gracias a variables CSS */
-//   background-color: var(--color-panel-soft);
-//   color: var(--color-text);
-// }
-
-// .theme-card__title {
-//   font-family: $font-family-heading;
-//   font-weight: $font-weight-bold;
-//   margin-bottom: $space-sm;
-//   color: var(--color-text);
-// }
-
-// .theme-card__options {
-//   display: flex;
-//   justify-content: space-around;
-//   margin-bottom: $space-md;
-// }
-
-// .theme-card__option {
-//   padding: $space-sm $space-md;
-//   border-radius: $radius-sm;
-//   cursor: pointer;
-//   opacity: 0.6;
-//   transition: 0.2s;
-//   background-color: var(--color-panel-alt);
-//   color: var(--color-text-soft);
-
-//   &.active {
-//     opacity: 1;
-//     background-color: var(--color-accent);
-//     color: var(--color-white);
-//   }
-// }
-
-// .theme-card__button {
-//   width: 100%;
-//   padding: $space-sm;
-//   border-radius: $radius-sm;
-//   background-color: var(--color-accent);
-//   color: var(--color-white);
-//   font-weight: $font-weight-bold;
-//   border: none;
-//   cursor: pointer;
-//   transition: 0.2s;
-
-//   &:hover {
-//     background-color: color.scale(#8a11c6, $lightness: -10%);
-//   }
-// }
+.theme-btn__icon {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+}

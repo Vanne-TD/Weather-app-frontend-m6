@@ -1,0 +1,25 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.contact-view {
+  @include center-flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  h1 {
+    color: var(--main-text);
+    font-family: $font-family-heading;
+  }
+}
+
+.contact-card {
+  @include card-surface(rgba(255, 255, 255, 0.15), $radius-base, $shadow-light);
+  backdrop-filter: blur(10px);
+  color: var(--main-text);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-form {
+  padding: $space-md;
+}

@@ -10,14 +10,14 @@
 
 /* ALERTA RECTANGULAR CON GLOW MORADO PRO */
 .alerts__item {
-  width: 280px;                  // ⭐ más grande
-  min-height: 100px;             // ⭐ más cuadrado
-  background: rgba(48, 10, 76, 0.85); // ⭐ morado oscuro PRO
+  width: 280px;                
+  min-height: 100px;             
+  background: rgba(48, 10, 76, 0.85); 
   border-radius: $radius-base;
   padding: $space-md;
   cursor: pointer;
   transition: 0.25s ease;
-  color: #ffffff;                // ⭐ texto más blanco
+  color: #ffffff;               
 
   display: flex;
   flex-direction: column;
@@ -25,15 +25,14 @@
   justify-content: center;
   gap: $space-sm;
 
-  /* ⭐ BORDE ANIMADO */
+  /* BORDE ANIMADO */
   border: 2px solid rgba(255, 255, 255, 0.35);
   animation: alertPulse 2.2s infinite ease-in-out;
 
-  /* ⭐ GLOW MORADO PRO */
+  /* GLOW MORADO PRO */
   box-shadow:
-    0 0 12px rgba(120, 40, 200, 0.45),   // glow morado suave
-    0 0 22px rgba(120, 40, 200, 0.35),   // glow más difuso
-    0 0 32px rgba(120, 40, 200, 0.25);   // glow profundo
+    0 0 12px rgba(120, 40, 200, 0.45),   
+    0 0 32px rgba(120, 40, 200, 0.25);   
 }
 
 /* ANIMACIÓN DEL BORDE */
@@ -52,7 +51,7 @@
 
 /* ÍCONO MÁS GRANDE */
 .alerts__icon {
-  width: 36px;       // ⭐ más grande
+  width: 36px;       // 
   height: 36px;
   padding: 6px;
 
@@ -68,8 +67,8 @@
 /* TEXTO MÁS GRANDE Y BLANCO */
 .alerts__label {
   font-weight: $font-weight-bold;
-  font-size: 1.3rem; // ⭐ más grande
-  color: #ffffff;    // ⭐ más blanco
+  font-size: 1.3rem; 
+  color: #ffffff;    
 }
 
 /* CONTENIDO EXPANDIDO */
@@ -79,7 +78,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.25);
 
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.95); // ⭐ más blanco
+  color: rgba(255, 255, 255, 0.95); 
   text-align: center;
 }
 

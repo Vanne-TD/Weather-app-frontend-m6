@@ -1,6 +1,7 @@
 // src/stores/weatherStore.js
 import { defineStore } from "pinia";
-import { getCurrentWeatherById, getForecastById } from "@/api/weatherApi";
+import { getCityByName, getCurrentWeatherById, getForecastById } from "@/api/weatherApi";
+import { useUserStore } from "@/stores/userStore";
 
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
@@ -54,9 +55,7 @@ export const useWeatherStore = defineStore("weather", {
         this.loading = true;
         this.error = null;
 
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=${this.units}`;
-        const res = await fetch(url);
-        const data = await res.json();
+        const data = await getCityByName(cityName, this.units);
 
         if (data.cod !== 200) {
           this.error = "Ciudad no encontrada";
@@ -65,7 +64,7 @@ export const useWeatherStore = defineStore("weather", {
 
         return data;
       } catch (err) {
-        this.error = "Error al buscar ciudad";
+        this.error = err.message || "Error al buscar ciudad";
         return null;
       } finally {
         this.loading = false;
@@ -198,11 +197,20 @@ export const useWeatherStore = defineStore("weather", {
     setFavoriteCity(cityName) {
       this.favoriteCity = cityName;
       localStorage.setItem("favoriteCity", cityName);
+
+      const userStore = useUserStore();
+      userStore.addFavorite(cityName);
     },
 
     clearFavoriteCity() {
+      const previousCity = this.favoriteCity;
       this.favoriteCity = null;
       localStorage.removeItem("favoriteCity");
+
+      if (previousCity) {
+        const userStore = useUserStore();
+        userStore.removeFavorite(previousCity);
+      }
     },
 
     addRecentCity(cityName) {

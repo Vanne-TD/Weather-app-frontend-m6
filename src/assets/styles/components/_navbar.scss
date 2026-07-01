@@ -67,17 +67,21 @@
 }
 
 .hamburger-btn {
-  width: 32px;
-  height: 24px;
+  width: 42px;
+  height: 34px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
   background: none;
   border: none;
   cursor: pointer;
+  align-items: center;
 
   span {
-    height: 3px;
+    width: 24px;
+    height: 3.5px;
     background: $color-white;
     border-radius: 4px;
     transition: 0.35s ease;
@@ -133,7 +137,7 @@
   }
 
   @media (min-width: 769px) {
-    display: none !important;
+    display: none;
   }
 }
 
@@ -190,60 +194,6 @@
   .overlay-glass,
   .mobile-menu,
   .hamburger-btn {
-    display: none !important;
+    display: none;
   }
 }
-// /* ============================
-//    NAV WRAPPER
-// ============================ */
-// .l-header__nav {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: $space-sm $space-md; /* ⭐ padding controlado */
-// }
-
-// /* ============================
-//    LOGO
-// ============================ */
-// .l-header__logo {
-//   font-family: $font-title;
-//   font-size: 1.8rem;
-//   color: $color-white;
-//   letter-spacing: 1px;
-//   margin: 0;
-// }
-
-// /* ============================
-//    LINKS WRAPPER
-// ============================ */
-// .l-header__links {
-//   display: flex;
-//   gap: $space-lg;
-// }
-
-// /* ============================
-//    LINK ITEM
-// ============================ */
-// .l-header__link {
-//   color: $color-text-soft;
-//   font-weight: $font-weight-bold;
-//   text-decoration: none;
-//   transition: 0.3s ease;
-
-//   &:hover {
-//     color: $color-accent;
-//   }
-
-//   &.router-link-active {
-//     color: $color-accent;
-//   }
-// }
-
-// .btn-link {
-//   background: none;
-//   border: none;
-//   cursor: pointer;
-//   color: inherit;
-//   padding: 0;
-// }

@@ -3,6 +3,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useWeatherStore } from '@/stores/weatherStore'
+import { useUserStore } from '@/stores/userStore'
 
 import WeatherWeekly from '@/components/WeatherWeeklyComponent.vue'
 import WeatherDetailsCardComponent from '@/components/WeatherDetailsCardComponent.vue'
@@ -18,9 +19,10 @@ const route = useRoute()
 const router = useRouter()
 
 // ===============================
-// PINIA STORE
+// PINIA STORES
 // ===============================
 const weatherStore = useWeatherStore()
+const userStore = useUserStore()
 
 // ===============================
 // Ciudad desde la ruta
@@ -60,11 +62,25 @@ async function toggleUnits() {
 }
 
 // ===============================
-// Marcar favorita
+// Favoritos
 // ===============================
-function marcarFavorita() {
-  if (weatherStore.weather?.name) {
-    weatherStore.setFavoriteCity(weatherStore.weather.name)
+const isFavorite = computed(() => {
+  const selectedCity = weatherStore.weather?.name || city.value
+  return userStore.favorites.includes(selectedCity)
+})
+
+function toggleFavorite() {
+  const selectedCity = weatherStore.weather?.name || city.value
+
+  if (!selectedCity) return
+
+  if (isFavorite.value) {
+    userStore.removeFavorite(selectedCity)
+    if (weatherStore.favoriteCity === selectedCity) {
+      weatherStore.clearFavoriteCity()
+    }
+  } else {
+    weatherStore.setFavoriteCity(selectedCity)
   }
 }
 
@@ -105,9 +121,9 @@ function volver() {
     <button
       v-if="weatherStore.weather"
       class="favorite-btn mb-3"
-      @click="marcarFavorita"
+      @click="toggleFavorite"
     >
-      ⭐ Marcar como favorita
+      {{ isFavorite ? '⭐ Quitar' : '⭐ Favorita' }}
     </button>
 
     <!-- TARJETA DE DETALLES -->

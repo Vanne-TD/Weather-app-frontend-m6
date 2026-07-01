@@ -1,17 +1,35 @@
 <!-- src/views/PreferencesView.vue -->
 <script setup>
+import { computed } from 'vue'
 import { useWeatherStore } from "@/stores/weatherStore"
+import { useUserStore } from '@/stores/userStore'
 
 const weatherStore = useWeatherStore()
+const userStore = useUserStore()
+
+const unitsLabel = computed(() => weatherStore.units === 'metric' ? '°C' : '°F')
 
 function toggle(type) {
   weatherStore.setAlertPreference(type, !weatherStore.alertPreferences[type])
+}
+
+function toggleUnits() {
+  weatherStore.toggleUnits()
+  userStore.updatePreferences({ units: weatherStore.units })
 }
 </script>
 
 <template>
   <main class="container py-4 preferences-view">
     <h1 class="mb-4">Preferencias</h1>
+
+    <div class="prefs-card mb-4">
+      <h3 class="mb-3">Unidades preferidas</h3>
+      <p>Actualmente tienes configuradas las unidades: <strong>{{ unitsLabel }}</strong></p>
+      <button class="toggle-btn" @click="toggleUnits">
+        Cambiar a {{ weatherStore.units === 'metric' ? '°F' : '°C' }}
+      </button>
+    </div>
 
     <h3 class="mb-3">Alertas del clima</h3>
 
@@ -36,21 +54,5 @@ function toggle(type) {
 </template>
 
 <style scoped lang="scss">
-.preferences-view h1,
-.preferences-view h3 {
-  color: var(--main-text);
-}
 
-.prefs-card {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  border-radius: 12px;
-  color: var(--main-text);
-}
-
-.form-check-label {
-  color: var(--main-text);
-}
 </style>

@@ -42,44 +42,6 @@ function registrar() {
 </template>
 
 <style scoped lang="scss">
-.register-view h1 {
-  color: var(--main-text);
-}
 
-.register-card {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  padding: 24px;
-  border-radius: 12px;
-  max-width: 400px;
-  color: var(--main-text);
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--main-text);
-}
-
-.register-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.25);
-  border: none;
-  color: var(--main-text);
-  cursor: pointer;
-}
-
-.msg {
-  margin-top: 12px;
-  color: var(--main-text);
-  text-align: center;
-}
 </style>
 
