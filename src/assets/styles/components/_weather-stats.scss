@@ -1,0 +1,40 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.weather-stats {
+  margin-top: $space-xl;
+  text-align: center;
+
+  &__title {
+    font-family: $font-family-heading;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin-bottom: $space-lg;
+  }
+
+  &__card {
+    @include card-surface($color-white, $radius-base, $shadow-light);
+    padding: $space-lg;
+    backdrop-filter: blur(12px);
+    transition: 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-medium;
+    }
+
+    h4 {
+      font-family: $font-family-heading;
+      font-weight: $font-weight-bold;
+      margin-bottom: $space-sm;
+      color: $color-text;
+    }
+  }
+
+  &__value {
+    font-size: 2.2rem;
+    font-weight: $font-weight-extra-bold;
+    color: $color-accent;
+    margin: 0;
+  }
+}

@@ -7,9 +7,10 @@ const weatherStore = useWeatherStore()
 </script>
 
 <template>
-  <header :class="['l-header', weatherStore.theme]">
-    <NavbarComponent />
-  </header>
+ <header class="l-header">
+  <NavbarComponent />
+</header>
+
 </template>
 
 <style scoped lang="scss"></style>

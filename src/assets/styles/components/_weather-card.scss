@@ -2,18 +2,16 @@
 @use "../abstracts/mixins" as *;
 @use "sass:color";
 
-
 .weather-card {
   /* ============================
      CONTAINER
   ============================ */
-  @include card-surface(rgba($color-white, 0.9), $radius-base, $shadow-light);
+  @include card-surface(rgba(var(--color-white), 0.9), $radius-base, $shadow-light);
   backdrop-filter: blur(12px);
   text-align: center;
   padding: $space-lg;
   cursor: pointer;
 
-  /* Effects */
   transition: 0.25s ease;
 
   &:hover {
@@ -27,7 +25,7 @@
   &__city {
     font-family: $font-family-heading;
     font-weight: $font-weight-bold;
-    color: $color-text;
+    color: var(--color-text);
     margin-bottom: $space-sm;
   }
 
@@ -38,7 +36,9 @@
     width: 100px;
     display: block;
     margin: $space-sm auto $space-sm;
-    filter: drop-shadow(0 2px 4px rgba($color-text, 0.3));
+
+    /* ⭐ Migrado */
+    filter: drop-shadow(0 2px 4px rgba(var(--color-text), 0.3));
 
     &--rounded {
       border-radius: $radius-base;
@@ -51,7 +51,7 @@
   &__temp-display {
     font-size: 2.4rem;
     font-weight: $font-weight-extra-bold;
-    color: $color-accent;
+    color: var(--color-accent);
     margin-bottom: $space-xs;
   }
 
@@ -59,7 +59,7 @@
      DESCRIPTION
   ============================ */
   &__desc {
-    color: $color-text;
+    color: var(--color-text);
     opacity: 0.85;
     margin-bottom: $space-md;
   }
@@ -80,15 +80,15 @@
 
   &__stat-value {
     font-weight: $font-weight-bold;
-    color: $color-text;
+    color: var(--color-text);
   }
 
   /* ============================
      BUTTON
   ============================ */
   &__button {
-    background: $color-accent;
-    color: $color-white;
+    background: var(--color-accent);
+    color: var(--color-white);
     border: none;
     padding: $space-sm $space-md;
     border-radius: $radius-sm;
@@ -96,9 +96,9 @@
     transition: 0.25s ease;
 
     &:hover {
-      background: color.adjust($color-accent, $lightness: -8%);
+      /* ⭐ Migrado: color.adjust no funciona con CSS vars */
+      background: color.adjust(#8a11c6, $lightness: -8%);
       transform: translateY(-2px);
     }
   }
 }
-

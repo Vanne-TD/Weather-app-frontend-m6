@@ -9,6 +9,7 @@ import WeatherDetailsCardComponent from '@/components/WeatherDetailsCardComponen
 import UnitsButtonComponent from '@/components/UnitsButtonComponent.vue'
 import WeatherStatusComponent from '@/components/WeatherStatusComponent.vue'
 import WeatherAlertsComponent from '@/components/WeatherAlertsComponent.vue'
+import WeatherStatsComponent from '@/components/WeatherStatsComponent.vue'
 
 // ===============================
 // Rutas
@@ -76,96 +77,79 @@ function volver() {
 </script>
 
 <template>
- <main class="container py-4 detail-page">
+  <main class="container py-4 detail-page">
 
-  <!-- BOTÓN VOLVER -->
-  <button class="back-btn" @click="volver">
-    ← Volver
-  </button>
-
-  <h1 class="mb-4 text-center">Detalles de {{ city }}</h1>
-
-  <!-- ERROR -->
-  <p v-if="weatherStore.error" class="text-danger text-center">
-    {{ weatherStore.error }}
-  </p>
-
-  <!-- LOADING -->
-  <p v-if="weatherStore.loading" class="text-center">
-    Cargando clima...
-  </p>
-
-  <!-- BOTÓN FAVORITA -->
-  <button
-    v-if="weatherStore.weather"
-    class="btn btn-warning mb-3"
-    @click="marcarFavorita"
-  >
-    ⭐ Marcar como favorita
-  </button>
-
-  <!-- TARJETA DE DETALLES -->
-  <WeatherDetailsCardComponent
-    v-if="weatherStore.weather"
-    :weather="{
-      description: weatherStore.weather.weather[0].description,
-      icon: `https://openweathermap.org/img/wn/${weatherStore.weather.weather[0].icon}@2x.png`,
-      temp: Math.round(weatherStore.weather.main.temp),
-      humidity: weatherStore.weather.main.humidity,
-      wind: weatherStore.weather.wind.speed,
-      pressure: weatherStore.weather.main.pressure,
-      feels_like: Math.round(weatherStore.weather.main.feels_like)
-    }"
-    :units="weatherStore.units"
-  />
-
-  <!-- BOTÓN DE UNIDADES -->
-  <div class="text-center mt-3">
-    <UnitsButtonComponent :label="unitsLabel" @click="toggleUnits" />
-  </div>
-
-  <!-- PRONÓSTICO SEMANAL -->
-  <WeatherWeekly
-    v-if="weatherStore.weekly && weatherStore.weekly.length"
-    :data="weatherStore.weekly"
-    :units="weatherStore.units"
-    class="mt-4"
-  />
-
-  <!-- ESTADÍSTICAS -->
-  <section v-if="stats" class="mt-4 text-center">
-    <h2>Estadísticas de la semana</h2>
-
-    <WeatherStatusComponent :stats="stats" />
-    
-    <div class="row mt-3">
-      <div class="col">
-        <div class="card p-3">
-          <h4>Mínima</h4>
-          <p class="fs-3">{{ stats.min }}°</p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card p-3">
-          <h4>Promedio</h4>
-          <p class="fs-3">{{ stats.prom }}°</p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card p-3">
-          <h4>Máxima</h4>
-          <p class="fs-3">{{ stats.max }}°</p>
-        </div>
-      </div>
+    <!-- BOTÓN VOLVER -->
+    <div class="detail-page__header">
+      <button class="back-btn" @click="$router.back()">
+        <span class="back-btn__icon">←</span>
+        <span class="back-btn__text">Volver</span>
+      </button>
     </div>
-  </section>
 
-  <!-- ALERTAS -->
-  <WeatherAlertsComponent v-if="weatherStore.filteredAlerts().length" />
+    <h1 class="mb-4 text-center detail-page__title">
+      Detalles de {{ city }}
+    </h1>
 
-</main>
+    <!-- ERROR -->
+    <div v-if="weatherStore.error" class="status-card error-card">
+      ⚠ {{ weatherStore.error }}
+    </div>
+
+    <!-- LOADING -->
+    <div v-if="weatherStore.loading" class="status-card loading-card">
+      ⏳ Cargando clima...
+    </div>
+
+    <!-- BOTÓN FAVORITA -->
+    <button
+      v-if="weatherStore.weather"
+      class="favorite-btn mb-3"
+      @click="marcarFavorita"
+    >
+      ⭐ Marcar como favorita
+    </button>
+
+    <!-- TARJETA DE DETALLES -->
+    <WeatherDetailsCardComponent
+      v-if="weatherStore.weather"
+      :weather="{
+        description: weatherStore.weather.weather[0].description,
+        icon: `https://openweathermap.org/img/wn/${weatherStore.weather.weather[0].icon}@2x.png`,
+        temp: Math.round(weatherStore.weather.main.temp),
+        humidity: weatherStore.weather.main.humidity,
+        wind: weatherStore.weather.wind.speed,
+        pressure: weatherStore.weather.main.pressure,
+        feels_like: Math.round(weatherStore.weather.main.feels_like)
+      }"
+      :units="weatherStore.units"
+    />
+
+    <!-- BOTÓN DE UNIDADES -->
+    <div class="text-center mt-3">
+      <UnitsButtonComponent :label="unitsLabel" @click="toggleUnits" />
+    </div>
+
+    <!-- PRONÓSTICO SEMANAL -->
+    <WeatherWeekly
+      v-if="weatherStore.weekly && weatherStore.weekly.length"
+      :data="weatherStore.weekly"
+      :units="weatherStore.units"
+      class="mt-4"
+    />
+
+    <!-- ESTADÍSTICAS -->
+    <WeatherStatsComponent
+      v-if="stats"
+      :stats="stats"
+      class="mt-4"
+    />
+
+    <!-- ALERTAS -->
+    <WeatherAlertsComponent
+      v-if="weatherStore.filteredAlerts().length"
+      class="mt-4"
+    />
+
+  </main>
 </template>
-
-<style scoped></style>

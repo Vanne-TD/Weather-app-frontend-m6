@@ -1,37 +1,51 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-// @use "../themes/theme" as *;
-@use "sass:color";
 
+/* ============================
+   UNITS BUTTON — MORADO PRO MAX
+============================ */
+.units-btn {
+  /* Tamaño y forma */
+  padding: $space-sm $space-lg;
+  margin-top: $space-md;
+  border-radius: 999px; // pill
 
+  /* Fondo morado oscuro */
+  background: rgba(48, 10, 76, 0.85);
 
-  /* ============================
-     UNITS BUTTON
-  ============================ */
-  .units-btn {
-    /* 1. Box model */
-    padding: $space-sm $space-md;
-    margin-top: $space-md;
+  /* Borde elegante */
+  border: 2px solid rgba(255, 255, 255, 0.35);
 
-    /* 2. Visual */
-    background: rgba($color-accent, 0.15);
-    border: 1px solid rgba($color-accent, 0.3);
-    border-radius: $radius-base;
-    color: $color-accent;
+  /* Texto blanco */
+  color: #ffffff;
+  font-weight: $font-weight-bold;
+  font-size: 1.1rem;
 
-    /* 3. Effects */
-    backdrop-filter: blur(8px);
-    transition: 0.25s ease;
+  cursor: pointer;
+  transition: 0.25s ease;
 
-    /* 4. Misc */
-    font-weight: $font-weight-bold;
-    cursor: pointer;
+  /* Glow morado PRO */
+  box-shadow:
+    0 0 10px rgba(120, 40, 200, 0.45),
+    0 0 18px rgba(120, 40, 200, 0.35),
+    0 0 28px rgba(120, 40, 200, 0.25);
 
-    &:hover {
-      background: rgba($color-accent, 0.25);
-      transform: translateY(-2px);
-    }
+  /* Animación hover */
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 14px rgba(120, 40, 200, 0.55),
+      0 0 24px rgba(120, 40, 200, 0.45),
+      0 0 34px rgba(120, 40, 200, 0.35);
   }
+
+  /* Animación al hacer click */
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+
 
 // // Botón cambio de tema (claro/oscuro)
 // .theme-toggle {

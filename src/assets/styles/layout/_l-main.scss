@@ -1,0 +1,10 @@
+@use "../abstracts/variables" as *;
+
+// main {
+//   padding-top: $space-lg;
+// }
+main {
+  background-color: $color-background; // lila suave
+  color: $color-text;
+  padding-top: $space-md;
+}

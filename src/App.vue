@@ -37,11 +37,8 @@ const weatherStore = useWeatherStore()
   </div>
 </template>
 
-<style lang="scss">
-@use "@/assets/styles/themes/_index.scss";
-</style>
 
-<style scoped>
+<style>
 main {
   padding-top: 20px;
 }

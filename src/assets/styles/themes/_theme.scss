@@ -1,15 +1,37 @@
+/* =========================
+   VARIABLES CSS GLOBALES
+   ========================= */
+
 :root {
-  --bg: #ffffff;
-  --text: #222222;
-  --card: #f5f5f5;
-  --panel: #eaeaea;
-  --accent: #8a11c6;
+  /* Colores base (tema claro) */
+  --color-bg: #e4cff9;
+  --color-panel: #2c1237;
+  --color-panel-soft: #792ba2d9;
+  --color-panel-alt: #340854;
+  --color-panel-dark: #12021a;
+
+  --color-white: #ffffff;
+  --color-text: #3a2b4d;
+  --color-text-soft: #f3e8ff;
+  --color-accent: #8a11c6;
+  --color-border: rgba(255, 255, 255, 0.2);
+  --color-shadow: rgba(0, 0, 0, 0.15);
 }
 
+/* =========================
+   TEMA OSCURO
+   ========================= */
+
 .dark {
-  --bg: #12021a;
-  --text: #e6d9f0;
-  --card: #1e0a29;
-  --panel: #2a0f3a;
-  --accent: #c96bff;
+  --color-bg: #12021a;
+  --color-panel: #2c1237;
+  --color-panel-soft: #340854;
+  --color-panel-alt: #792ba2d9;
+
+  --color-white: #ffffff;
+  --color-text: #f3e8ff;
+  --color-text-soft: #e4cff9;
+  --color-accent: #c78aff;
+  --color-border: rgba(255, 255, 255, 0.2);
+  --color-shadow: rgba(255, 255, 255, 0.1);
 }

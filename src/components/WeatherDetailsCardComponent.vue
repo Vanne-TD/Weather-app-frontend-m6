@@ -35,21 +35,16 @@ defineProps({
     </p>
 
     <div class="weather-details-card__info">
-      <p>
-        Humedad: <strong>{{ weather.humidity }}%</strong>
-      </p>
-      <p>
-        Viento: <strong>{{ weather.wind }} km/h</strong>
-      </p>
-      <p>
-        Presión: <strong>{{ weather.pressure }} hPa</strong>
-      </p>
-      <p>
-        Sensación térmica: <strong>{{ weather.feels_like }}°</strong>
-      </p>
+      <p>Humedad: <strong>{{ weather.humidity }}%</strong></p>
+      <p>Viento: <strong>{{ weather.wind }} km/h</strong></p>
+      <p>Presión: <strong>{{ weather.pressure }} hPa</strong></p>
+      <p>Sensación térmica: <strong>{{ weather.feels_like }}°</strong></p>
     </div>
   </div>
 </template>
+
+<style></style>
+
 
 <style scoped lang="scss">
 </style>

@@ -5,7 +5,8 @@ const weatherStore = useWeatherStore()
 </script>
 
 <template>
-  <footer :class="['l-footer', weatherStore.theme]">
+  <footer class="l-footer">
+
     <div class="container">
       <div class="row gy-4 align-items-center">
 

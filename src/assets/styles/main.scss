@@ -1,3 +1,4 @@
+// src/assets/styles/main.scss
 // ABSTRACTS
 @use "abstracts/_variables";
 @use "abstracts/_mixins";
@@ -8,17 +9,22 @@
 @use "base/_typography";
 
 // LAYOUT
-@use "layout/_header";
-@use "layout/_footer";
-@use "layout/_main";
+@use "layout/_l-header";
+@use "layout/_l-footer";
+@use "layout/_l-main";
 
 // COMPONENTS
-@use "components/_weather-card";
-@use "components/_weather-weekly";
-@use "components/_weather-details-card";
-@use "components/_navbar";
-@use "components/_buttons";
-@use "components/_theme-switcher";
+@use "components/weather-card";
+@use "components/weather-weekly";
+@use "components/weather-details-card";
+@use "components/navbar";
+@use "components/back-button";
+@use "components/units-button";
+@use "components/theme-switcher";
+@use "components/recent-cities";
+@use "components/_weather-alerts";
+@use "components/weather-stats";
+@use "components/weather-status";
 
 // PAGES/VIEWS
 @use "views/_home";
@@ -26,8 +32,5 @@
 @use "views/_about";
 
 // THEMES
-@use "themes/_theme";
-// @use "themes/_index";
-// @use "themes/_theme-variables";
-// @use "themes/_theme-light";
-// @use "themes/_theme-dark";
+
+@use "themes/_index";

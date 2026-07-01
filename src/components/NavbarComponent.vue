@@ -16,7 +16,8 @@ function cerrarSesion() {
 </script>
 
 <template>
-  <nav :class="['l-header__nav', weatherStore.theme, 'container']">
+  <nav class="l-header__nav container">
+
     <h2 class="l-header__logo">🌤️ BioClima</h2>
 
     <div class="l-header__links">

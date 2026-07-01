@@ -31,10 +31,13 @@ export const useWeatherStore = defineStore("weather", {
   }),
 
   actions: {
-    toggleTheme() {
-      this.theme = this.theme === "light" ? "dark" : "light";
-      localStorage.setItem("theme", this.theme);
-    },
+   toggleTheme() {
+  this.theme = this.theme === "light" ? "dark" : "light";
+  localStorage.setItem("theme", this.theme);
+
+  document.documentElement.setAttribute("data-theme", this.theme);
+},
+
 
     toggleUnits() {
       this.units = this.units === "metric" ? "imperial" : "metric";

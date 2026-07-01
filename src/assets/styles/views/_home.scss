@@ -1,5 +1,3 @@
-
-
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
 @use "sass:color";
@@ -8,12 +6,9 @@
    HOME PAGE CONTAINER
 ============================ */
 .home-page {
-  /* Box model */
   max-width: 700px;
   margin: 0 auto;
   padding: $space-xl $space-md;
-
-  /* Typography */
   text-align: center;
 
   /* ============================
@@ -23,63 +18,49 @@
     font-family: $font-title;
     font-size: 2.5rem;
     margin-bottom: $space-lg;
-    color: $color-text;
+    color: var(--color-text);
   }
 
   /* ============================
      SEARCH BOX
   ============================ */
   .search-box {
-    /* Layout */
     display: flex;
     gap: $space-sm;
-
-    /* Box model */
     margin-bottom: $space-xl;
 
-    /* Input */
     input {
-      /* Layout */
       flex: 1;
-
-      /* Box model */
       padding: $space-sm $space-md;
       border-radius: $radius-base;
 
-      /* Visual */
-      border: 1px solid rgba($color-text, 0.2);
-      background: rgba($color-white, 0.85);
+      border: 1px solid rgba(var(--color-text), 0.2);
+      background: rgba(var(--color-white), 0.85);
 
-      /* Effects */
       backdrop-filter: blur(8px);
-
-      /* Typography */
       font-size: 1rem;
     }
 
-    /* Button */
     button {
-      /* Box model */
       padding: $space-sm $space-md;
       border-radius: $radius-base;
 
-      /* Visual */
-      background: $color-accent;
-      color: $color-white;
+      background: var(--color-accent);
+      color: var(--color-white);
       border: none;
 
-      /* Typography */
       font-weight: $font-weight-bold;
-
-      /* Effects */
       transition: 0.25s ease;
 
       &:hover {
-        background: color.adjust($color-accent, $lightness: -8%);
+        /* Sass no puede ajustar CSS vars → usamos fallback */
+        background: color.adjust(#8a11c6, $lightness: -8%);
         transform: translateY(-2px);
       }
     }
   }
+}
+
 
   // /* ============================
   //    CITY CARD --> idea para una card propia, que esta en debate de usar.
@@ -115,4 +96,4 @@
   //     opacity: 0.8;
   //   }
   // }
-}
+

@@ -1,0 +1,44 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+
+.recent-cities {
+  /* ⭐ Mantenemos tu mixin, pero con variables CSS */
+  @include card-surface(var(--color-panel-soft), $radius-base, $shadow-light);
+  @include section-spacing($space-md, $space-md);
+
+  /* ⭐ Tema automático */
+  background-color: var(--color-panel-soft);
+  color: var(--color-text);
+}
+
+/* TÍTULO */
+
+.recent-cities__title {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-sm;
+  @include responsive-type(1rem, 2vw, 1.6rem);
+  color: var(--color-text);
+}
+
+/* LISTA */
+.recent-cities__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ITEM */
+.recent-cities__item {
+  padding: $space-sm 0;
+  cursor: pointer;
+  font-weight: $font-weight-bold;
+  transition: 0.2s ease;
+  color: var(--color-text);
+
+  &:hover {
+    color: var(--color-accent);
+    transform: translateX(4px);
+  }
+}

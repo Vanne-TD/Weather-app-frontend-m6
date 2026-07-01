@@ -1,45 +1,39 @@
-@use "../abstracts/variables.scss" as *;
-@use "../abstracts/mixins.scss" as *;
-@use "../themes/_theme-variables.scss" as *;
-@use "sass:color";
+// :root[data-theme="dark"] {
+//   --color-bg: #12021a;
 
+//   /* ⭐ Paneles más claros para que las cards se distingan */
+//   --color-panel: #1f0a2b;
+//   --color-panel-soft: #2a0f38;
+//   --color-panel-alt: #3a1450;
+//   --color-panel-dark: #4a1a60;
 
-.dark {
-  background-color: $dark-bg;
-  color: $dark-text;
-  font-family: $font-family-base;
+//   /* ⭐ Texto claro */
+//   --color-text: #f3e8ff;
+//   --color-text-soft: #d9c8f0;
 
-  // Tarjetas
-  .card {
-    @include card-surface($dark-card, $radius-base, $shadow-dark);
-    border: 1px solid $dark-border;
-  }
+//   /* ⭐ Acento visible */
+//   --color-accent: #c78aff;
 
-  // Paneles
-  header,
-  nav {
-    background: $dark-panel;
-    color: $color-text-soft;
-  }
+//   --color-border: rgba(255, 255, 255, 0.2);
+//   --color-shadow: rgba(255, 255, 255, 0.1);
+// }
 
-  // Botones
-  button {
-    background: $color-accent;
-    color: $color-white;
-    border-radius: $radius-sm;
-    padding: $space-sm $space-md;
-    font-weight: $font-weight-bold;
-    transition: 0.25s ease;
+// :root[data-theme="dark"] {
+//   --color-bg: #12021a;        /* fondo oscuro */
 
-    &:hover {
-      background: color.adjust($color-accent, $lightness: 10%);
-      transform: translateY(-2px);
-      box-shadow: $shadow-medium;
-    }
+//   --color-panel: #1f0a2b;     /* card oscura */
+//   --color-panel-soft: #2a0f38;
+//   --color-panel-alt: #3a1450;
+//   --color-panel-dark: #4a1a60;
 
-    &:active {
-      transform: translateY(0);
-      box-shadow: $shadow-light;
-    }
-  }
+//   --color-text: #f3e8ff;      /* texto claro */
+//   --color-text-soft: #d9c8f0;
+
+//   --color-accent: #c78aff;
+// }
+
+:root[data-theme="dark"] {
+  --color-bg: #12021a;      /* fondo oscuro */
+  --color-text: #f3e8ff;    /* texto claro */
 }
+

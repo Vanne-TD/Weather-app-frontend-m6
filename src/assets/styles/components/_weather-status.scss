@@ -1,0 +1,98 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.weather-status {
+  margin-top: $space-lg;
+  padding: $space-lg $space-md;
+
+  background: linear-gradient(
+    135deg,
+    rgba($color-white, 0.85),
+    rgba($color-white, 0.70)
+  );
+  backdrop-filter: blur(12px);
+  border-radius: $radius-base;
+  border: 1px solid rgba($color-white, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__title {
+    text-align: center;
+    margin-bottom: $space-md;
+    color: $color-text;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: $space-md;
+  }
+
+  &__item {
+    @include card-surface($color-white, $radius-base, $shadow-light);
+    padding: $space-md;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-xs;
+
+    transition: 0.25s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: $shadow-medium;
+    }
+  }
+
+  /* ⭐ ÍCONO PRO FINAL */
+  &__icon {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+
+    background: rgba($color-text, 0.08); // fondo glass más marcado
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba($color-white, 0.55);
+
+    margin-bottom: $space-xs;
+
+    filter: brightness(1.15) contrast(1.35); // ícono nítido
+    opacity: 1;
+
+    box-shadow:
+      inset 0 0 8px rgba($color-text, 0.25),
+      0 2px 6px rgba($color-text, 0.18);
+  }
+
+  &__label {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    color: $color-text;
+  }
+
+  &__value {
+    font-size: 1.4rem;
+    font-weight: $font-weight-bold;
+    color: $color-accent;
+  }
+
+  @media (max-width: 576px) {
+    padding: $space-xl $space-lg;
+
+    &__item {
+      padding: $space-lg;
+      gap: $space-sm;
+    }
+
+    &__value {
+      font-size: 1.8rem;
+    }
+  }
+}
