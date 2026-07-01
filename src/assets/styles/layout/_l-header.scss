@@ -5,6 +5,14 @@
 .l-header {
   background-color: $color-panel;
   color: $color-white;
-  padding: $space-md 0;
+
+  /* ⭐ Reducimos padding para móvil */
+  padding: $space-sm 0;
+
+  /* ⭐ Hacemos el header responsivo y elegante */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   box-shadow: $shadow-medium;
 }

@@ -10,29 +10,9 @@ function toggleTheme() {
 </script>
 
 <template>
-  <section class="theme-card">
-    <h2 class="theme-card__title">Tema</h2>
-
-    <div class="theme-card__options">
-      <div
-        class="theme-card__option"
-        :class="{ active: weatherStore.theme === 'light' }"
-      >
-        ☀️ Claro
-      </div>
-
-      <div
-        class="theme-card__option"
-        :class="{ active: weatherStore.theme === 'dark' }"
-      >
-        🌙 Oscuro
-      </div>
-    </div>
-
-    <button class="theme-card__button" @click="toggleTheme">
-      Alternar tema
-    </button>
-  </section>
+  <button class="theme-btn" @click="toggleTheme">
+    {{ weatherStore.theme === 'light' ? '🌙 Contraste' : '☀️ Claro' }}
+  </button>
 </template>
 
 <style scoped lang="scss">

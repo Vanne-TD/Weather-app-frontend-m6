@@ -30,7 +30,7 @@
   ============================ */
   &:hover {
     transform: translateY(-6px);
-    box-shadow:
+      box-shadow:
       0 0 14px rgba($color-accent, 0.65),
       0 0 24px rgba($color-accent, 0.55),
       0 0 34px rgba($color-accent, 0.45);
@@ -108,4 +108,6 @@
       }
     }
   }
+
+
 }

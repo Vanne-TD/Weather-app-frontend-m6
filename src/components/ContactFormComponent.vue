@@ -52,9 +52,43 @@ function enviarFormulario() {
 </template>
 
 <style scoped>
+
 form {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
   padding: 20px;
+  border-radius: 12px;
+  color: var(--main-text);
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
   border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--main-text);
+  backdrop-filter: blur(6px);
+  margin-bottom: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--main-text);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
 }
 </style>
+
+

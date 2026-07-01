@@ -1,37 +1,46 @@
 /* =========================
    VARIABLES CSS GLOBALES
    ========================= */
-
-:root {
-  /* Colores base (tema claro) */
-  --color-bg: #e4cff9;
-  --color-panel: #2c1237;
-  --color-panel-soft: #792ba2d9;
-  --color-panel-alt: #340854;
-  --color-panel-dark: #12021a;
-
-  --color-white: #ffffff;
-  --color-text: #3a2b4d;
-  --color-text-soft: #f3e8ff;
-  --color-accent: #8a11c6;
-  --color-border: rgba(255, 255, 255, 0.2);
-  --color-shadow: rgba(0, 0, 0, 0.15);
+:root.light {
+  --main-bg: #e4cff9;   // lila suave
+  --main-text: #3a2b4d; // púrpura
 }
 
-/* =========================
-   TEMA OSCURO
-   ========================= */
-
-.dark {
-  --color-bg: #12021a;
-  --color-panel: #2c1237;
-  --color-panel-soft: #340854;
-  --color-panel-alt: #792ba2d9;
-
-  --color-white: #ffffff;
-  --color-text: #f3e8ff;
-  --color-text-soft: #e4cff9;
-  --color-accent: #c78aff;
-  --color-border: rgba(255, 255, 255, 0.2);
-  --color-shadow: rgba(255, 255, 255, 0.1);
+:root.contrast {
+  --main-bg: #12021a;   // oscuro elegante
+  --main-text: #f3e8ff; // texto claro
 }
+
+// :root {
+//   /* Colores base (tema claro) */
+//   --color-bg: #e4cff9;
+//   --color-panel: #2c1237;
+//   --color-panel-soft: #792ba2d9;
+//   --color-panel-alt: #340854;
+//   --color-panel-dark: #12021a;
+
+//   --color-white: #ffffff;
+//   --color-text: #3a2b4d;
+//   --color-text-soft: #f3e8ff;
+//   --color-accent: #8a11c6;
+//   --color-border: rgba(255, 255, 255, 0.2);
+//   --color-shadow: rgba(0, 0, 0, 0.15);
+// }
+
+// /* =========================
+//    TEMA OSCURO
+//    ========================= */
+
+// .dark {
+//   --color-bg: #12021a;
+//   --color-panel: #2c1237;
+//   --color-panel-soft: #340854;
+//   --color-panel-alt: #792ba2d9;
+
+//   --color-white: #ffffff;
+//   --color-text: #f3e8ff;
+//   --color-text-soft: #e4cff9;
+//   --color-accent: #c78aff;
+//   --color-border: rgba(255, 255, 255, 0.2);
+//   --color-shadow: rgba(255, 255, 255, 0.1);
+// }

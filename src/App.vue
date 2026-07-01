@@ -19,16 +19,25 @@ html, body {
 </style> -->
 
 <script setup>
+import { watch } from 'vue'
 import HeaderLayout from './layout/HeaderLayout.vue'
 import FooterLayout from './layout/FooterLayout.vue'
 import { useWeatherStore } from '@/stores/weatherStore'
 
 const weatherStore = useWeatherStore()
+
+// ⭐ Aplicar la clase del tema al <html>
+watch(
+  () => weatherStore.theme,
+  (newTheme) => {
+    document.documentElement.className = newTheme
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
-  <!-- ⭐ ESTA LÍNEA ES LA CLAVE -->
-  <div :class="weatherStore.theme" class="d-flex flex-column min-vh-100">
+  <div class="app-wrapper">
     <HeaderLayout />
     <main class="flex-grow-1">
       <RouterView />
@@ -37,9 +46,15 @@ const weatherStore = useWeatherStore()
   </div>
 </template>
 
-
 <style>
-main {
-  padding-top: 20px;
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>
+
+
+
+
+

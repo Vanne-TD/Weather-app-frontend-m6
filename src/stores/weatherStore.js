@@ -8,14 +8,16 @@ export const useWeatherStore = defineStore("weather", {
     weather: null,
     weekly: [],
     units: localStorage.getItem("units") || "metric",
+
+    // ⭐ Tema parcial: light | contrast
     theme: localStorage.getItem("theme") || "light",
+
     stats: null,
     alerts: [],
 
     favoriteCity: localStorage.getItem("favoriteCity") || null,
     recentCities: JSON.parse(localStorage.getItem("recentCities") || "[]"),
 
-    // ⭐ CORRECTO: aquí debe ir alertPreferences
     alertPreferences: JSON.parse(
       localStorage.getItem("alertPreferences") ||
         JSON.stringify({
@@ -31,13 +33,11 @@ export const useWeatherStore = defineStore("weather", {
   }),
 
   actions: {
-   toggleTheme() {
-  this.theme = this.theme === "light" ? "dark" : "light";
-  localStorage.setItem("theme", this.theme);
-
-  document.documentElement.setAttribute("data-theme", this.theme);
-},
-
+    // ⭐ Tema parcial (solo afecta <main>)
+    toggleTheme() {
+      this.theme = this.theme === "light" ? "contrast" : "light";
+      localStorage.setItem("theme", this.theme);
+    },
 
     toggleUnits() {
       this.units = this.units === "metric" ? "imperial" : "metric";
@@ -71,6 +71,7 @@ export const useWeatherStore = defineStore("weather", {
         this.loading = false;
       }
     },
+
     async fetchWeatherById(id) {
       try {
         this.loading = true;
@@ -173,7 +174,6 @@ export const useWeatherStore = defineStore("weather", {
       this.alerts = alerts;
     },
 
-    // ⭐ Ahora sí funciona
     setAlertPreference(type, value) {
       this.alertPreferences[type] = value;
       localStorage.setItem(

@@ -19,7 +19,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="weather-details-card">
+  <div class="weather-details-card H">
     <h2 class="weather-details-card__title">
       {{ capitalizar(weather.description) }}
     </h2>

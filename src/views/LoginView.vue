@@ -33,19 +33,60 @@ async function login() {
 </script>
 
 <template>
-  <main class="container py-4">
+  <main class="container py-4 login-view">
     <h1 class="text-center mb-4">Iniciar sesión</h1>
 
-    <form @submit.prevent="login" class="mx-auto" style="max-width: 400px;">
-      <input v-model="email" type="email" class="form-control mb-3" placeholder="Correo" />
-      <input v-model="password" type="password" class="form-control mb-3" placeholder="Contraseña" />
+    <div class="login-card mx-auto">
+      <form @submit.prevent="login">
+        <input v-model="email" type="email" placeholder="Correo" />
+        <input v-model="password" type="password" placeholder="Contraseña" />
 
-      <button class="btn btn-primary w-100">Ingresar</button>
+        <button class="login-btn">Ingresar</button>
 
-      <p v-if="errorMsg" class="text-danger mt-3 text-center">{{ errorMsg }}</p>
-    </form>
+        <p v-if="errorMsg" class="error-msg">{{ errorMsg }}</p>
+      </form>
+    </div>
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.login-view h1 {
+  color: var(--main-text);
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 400px;
+  color: var(--main-text);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--main-text);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  color: var(--main-text);
+  cursor: pointer;
+}
+
+.error-msg {
+  margin-top: 12px;
+  color: #ffdddd;
+  text-align: center;
+}
 </style>

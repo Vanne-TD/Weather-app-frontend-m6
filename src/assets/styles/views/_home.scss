@@ -15,9 +15,10 @@
    TITLE — PRO
 ============================ */
 .home-page__title {
-    font-size: 2.4rem;
+  font-size: 2.4rem;
+  font-family: $font-title;
   font-weight: $font-weight-bold;
-  color: $color-text;
+  // color: $color-text;
   margin-bottom: $space-lg;
 }
 

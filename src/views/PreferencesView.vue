@@ -10,63 +10,47 @@ function toggle(type) {
 </script>
 
 <template>
-  <main class="container py-4">
+  <main class="container py-4 preferences-view">
     <h1 class="mb-4">Preferencias</h1>
 
     <h3 class="mb-3">Alertas del clima</h3>
 
-    <div class="form-check mb-2">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="alertHeat"
-        :checked="weatherStore.alertPreferences.heat"
-        @change="toggle('heat')"
-      />
-      <label class="form-check-label" for="alertHeat">
-        Ola de calor
-      </label>
-    </div>
-
-    <div class="form-check mb-2">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="alertCold"
-        :checked="weatherStore.alertPreferences.cold"
-        @change="toggle('cold')"
-      />
-      <label class="form-check-label" for="alertCold">
-        Ola de frío
-      </label>
-    </div>
-
-    <div class="form-check mb-2">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="alertWind"
-        :checked="weatherStore.alertPreferences.wind"
-        @change="toggle('wind')"
-      />
-      <label class="form-check-label" for="alertWind">
-        Viento fuerte
-      </label>
-    </div>
-
-    <div class="form-check mb-2">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="alertRain"
-        :checked="weatherStore.alertPreferences.rain"
-        @change="toggle('rain')"
-      />
-      <label class="form-check-label" for="alertRain">
-        Lluvia
-      </label>
+    <div class="prefs-card">
+      <div class="form-check mb-2" v-for="type in ['heat','cold','wind','rain']" :key="type">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          :id="type"
+          :checked="weatherStore.alertPreferences[type]"
+          @change="toggle(type)"
+        />
+        <label class="form-check-label" :for="type">
+          {{ type === 'heat' ? 'Ola de calor' :
+             type === 'cold' ? 'Ola de frío' :
+             type === 'wind' ? 'Viento fuerte' :
+             'Lluvia' }}
+        </label>
+      </div>
     </div>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.preferences-view h1,
+.preferences-view h3 {
+  color: var(--main-text);
+}
+
+.prefs-card {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 12px;
+  color: var(--main-text);
+}
+
+.form-check-label {
+  color: var(--main-text);
+}
+</style>

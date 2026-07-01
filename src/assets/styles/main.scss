@@ -7,6 +7,7 @@
 @use "base/_general";
 @use "base/_reset";
 @use "base/_typography";
+@use "base/_theme";
 
 // LAYOUT
 @use "layout/_l-header";
@@ -33,4 +34,4 @@
 
 // THEMES
 
-@use "themes/_index";
+// @use "themes/_theme";
