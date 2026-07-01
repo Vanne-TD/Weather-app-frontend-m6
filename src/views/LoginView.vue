@@ -14,10 +14,10 @@ const errorMsg = ref('')
 const router = useRouter()
 
 async function login() {
-  // ⭐ Simulación de login (igual que antes)
+  // Credenciales demo para revisión funcional
   if (
-    (email.value === 'vanne' && password.value === '1234') ||
-    (email.value === 'admin' && password.value === 'admin')
+    (['vanne@bioclima.cl', 'vanne'].includes(email.value.trim().toLowerCase()) && password.value === '1234') ||
+    (['admin@bioclima.cl', 'admin'].includes(email.value.trim().toLowerCase()) && password.value === 'admin')
   ) {
     userStore.login({
       email: email.value,
@@ -27,7 +27,7 @@ async function login() {
 
     router.push('/')
   } else {
-    errorMsg.value = 'Usuario o contraseña incorrectos'
+    errorMsg.value = 'Usuario o contraseña incorrectos. Usa vanne@bioclima.cl / 1234 o admin@bioclima.cl / admin'
   }
 }
 </script>
@@ -38,7 +38,7 @@ async function login() {
 
     <div class="login-card mx-auto">
       <form @submit.prevent="login">
-        <input v-model="email" type="email" placeholder="Correo" />
+        <input v-model="email" type="text" placeholder="Correo o usuario" />
         <input v-model="password" type="password" placeholder="Contraseña" />
 
         <button class="login-btn">Ingresar</button>

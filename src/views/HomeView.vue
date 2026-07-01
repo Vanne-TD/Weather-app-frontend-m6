@@ -23,10 +23,9 @@ async function toggleUnits() {
   weatherStore.toggleUnits()
 
   // Si ya hay clima cargado → recargar con nuevas unidades
-  if (weatherStore.weather) {
-    const city = weatherStore.weather.name
-    await weatherStore.fetchWeatherByName(city)
-    await weatherStore.fetchWeeklyByName(city)
+  if (weatherStore.cityId) {
+    await weatherStore.fetchWeatherById(weatherStore.cityId)
+    await weatherStore.fetchWeeklyById(weatherStore.cityId)
   }
 }
 
