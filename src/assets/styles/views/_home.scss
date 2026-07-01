@@ -1,65 +1,154 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
 @use "sass:color";
-
 /* ============================
-   HOME PAGE CONTAINER
+   HOME PAGE WRAPPER
 ============================ */
 .home-page {
   max-width: 700px;
   margin: 0 auto;
   padding: $space-xl $space-md;
   text-align: center;
+}
 
-  /* ============================
-     TITLE
-  ============================ */
-  h1 {
-    font-family: $font-title;
-    font-size: 2.5rem;
-    margin-bottom: $space-lg;
-    color: var(--color-text);
+/* ============================
+   TITLE — PRO
+============================ */
+.home-page__title {
+    font-size: 2.4rem;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  margin-bottom: $space-lg;
+}
+
+/* ============================
+   FAVORITE BUTTON — PRO
+============================ */
+.favorite-btn {
+  padding: 0.7rem 1.4rem;
+  border-radius: $radius-circle;
+  font-weight: $font-weight-bold;
+  font-size: 1.1rem;
+
+  background: rgba($color-panel-alt, 0.85);
+  color: $color-white;
+  border: 2px solid rgba($color-white, 0.35);
+
+  cursor: pointer;
+  transition: 0.25s ease;
+
+  box-shadow:
+    0 0 10px rgba($color-accent, 0.45),
+    0 0 18px rgba($color-accent, 0.35),
+    0 0 28px rgba($color-accent, 0.25);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 14px rgba($color-accent, 0.65),
+      0 0 24px rgba($color-accent, 0.55),
+      0 0 34px rgba($color-accent, 0.45);
   }
 
-  /* ============================
-     SEARCH BOX
-  ============================ */
-  .search-box {
-    display: flex;
-    gap: $space-sm;
-    margin-bottom: $space-xl;
+  &:active {
+    transform: scale(0.96);
+  }
+}
 
-    input {
-      flex: 1;
-      padding: $space-sm $space-md;
-      border-radius: $radius-base;
+/* ============================
+   SEARCH BOX — PRO
+============================ */
+.search-box {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  margin-bottom: $space-xl;
 
-      border: 1px solid rgba(var(--color-text), 0.2);
-      background: rgba(var(--color-white), 0.85);
+  input {
+    padding: $space-sm $space-md;
+    border-radius: $radius-base;
 
-      backdrop-filter: blur(8px);
-      font-size: 1rem;
+    border: 1px solid rgba($color-text, 0.2);
+    background: rgba($color-white, 0.85);
+
+    backdrop-filter: blur(8px);
+    font-size: 1rem;
+    color: $color-text;
+
+    transition: 0.25s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+      box-shadow: 0 0 10px rgba($color-accent, 0.45);
+    }
+  }
+
+  .search-btn {
+    padding: $space-sm $space-md;
+    border-radius: $radius-base;
+
+    background: $color-accent;
+    color: $color-white;
+    border: none;
+
+    font-weight: $font-weight-bold;
+    transition: 0.25s ease;
+
+    &:hover {
+      background: color.adjust($color-accent, $lightness: -8%);
+      transform: translateY(-2px);
+      box-shadow: 0 0 14px rgba($color-accent, 0.65);
     }
 
-    button {
-      padding: $space-sm $space-md;
-      border-radius: $radius-base;
-
-      background: var(--color-accent);
-      color: var(--color-white);
-      border: none;
-
-      font-weight: $font-weight-bold;
-      transition: 0.25s ease;
-
-      &:hover {
-        /* Sass no puede ajustar CSS vars → usamos fallback */
-        background: color.adjust(#8a11c6, $lightness: -8%);
-        transform: translateY(-2px);
-      }
+    &:active {
+      transform: scale(0.96);
     }
   }
 }
+
+/* ============================
+   ERROR MESSAGE — PRO
+============================ */
+.error-msg {
+  padding: 0.8rem 1.2rem;
+  margin-top: $space-sm;
+
+  background: rgba(200, 40, 40, 0.65);
+  border: 2px solid rgba(255, 120, 120, 0.45);
+  border-radius: $radius-base;
+
+  color: $color-white;
+  font-weight: $font-weight-bold;
+  text-align: center;
+
+  backdrop-filter: blur(10px);
+
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* Glow animado */
+@keyframes pulseGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba($color-accent, 0.45),
+      0 0 18px rgba($color-accent, 0.35),
+      0 0 28px rgba($color-accent, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba($color-accent, 0.65),
+      0 0 26px rgba($color-accent, 0.55),
+      0 0 36px rgba($color-accent, 0.45);
+  }
+  100% {
+    box-shadow:
+      0 0 10px rgba($color-accent, 0.45),
+      0 0 18px rgba($color-accent, 0.35),
+      0 0 28px rgba($color-accent, 0.25);
+  }
+}
+
 
 
   // /* ============================

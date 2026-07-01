@@ -2,21 +2,29 @@
 @use "../abstracts/mixins" as *;
 @use "sass:color";
 
+/* ============================
+   WEATHER CARD — PRO
+============================ */
 .weather-card {
-  /* ============================
-     CONTAINER
-  ============================ */
-  @include card-surface(rgba(var(--color-white), 0.9), $radius-base, $shadow-light);
+  @include card-surface(rgba($color-white, 0.9), $radius-base, $shadow-light);
   backdrop-filter: blur(12px);
   text-align: center;
   padding: $space-lg;
   cursor: pointer;
 
+  border: 2px solid rgba($color-accent, 0.25);
+
+  /* Animación al aparecer */
+  animation: fadeInUp 0.6s ease;
+
   transition: 0.25s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: $shadow-medium;
+    box-shadow:
+      0 0 14px rgba($color-accent, 0.65),
+      0 0 24px rgba($color-accent, 0.55),
+      0 0 34px rgba($color-accent, 0.45);
   }
 
   /* ============================
@@ -25,7 +33,7 @@
   &__city {
     font-family: $font-family-heading;
     font-weight: $font-weight-bold;
-    color: var(--color-text);
+    color: $color-text;
     margin-bottom: $space-sm;
   }
 
@@ -37,8 +45,7 @@
     display: block;
     margin: $space-sm auto $space-sm;
 
-    /* ⭐ Migrado */
-    filter: drop-shadow(0 2px 4px rgba(var(--color-text), 0.3));
+    filter: drop-shadow(0 2px 4px rgba($color-text, 0.3));
 
     &--rounded {
       border-radius: $radius-base;
@@ -51,7 +58,7 @@
   &__temp-display {
     font-size: 2.4rem;
     font-weight: $font-weight-extra-bold;
-    color: var(--color-accent);
+    color: $color-accent;
     margin-bottom: $space-xs;
   }
 
@@ -59,7 +66,7 @@
      DESCRIPTION
   ============================ */
   &__desc {
-    color: var(--color-text);
+    color: $color-text;
     opacity: 0.85;
     margin-bottom: $space-md;
   }
@@ -71,6 +78,11 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: $space-md;
+
+    @media (max-width: $bp-sm) {
+      flex-direction: column;
+      gap: $space-sm;
+    }
   }
 
   &__stat-label {
@@ -80,25 +92,51 @@
 
   &__stat-value {
     font-weight: $font-weight-bold;
-    color: var(--color-text);
+    color: $color-text;
   }
 
   /* ============================
-     BUTTON
+     BUTTON — PRO
   ============================ */
   &__button {
-    background: var(--color-accent);
-    color: var(--color-white);
+    background: $color-accent;
+    color: $color-white;
     border: none;
     padding: $space-sm $space-md;
-    border-radius: $radius-sm;
+    border-radius: $radius-base;
     font-weight: $font-weight-bold;
     transition: 0.25s ease;
 
+    box-shadow:
+      0 0 10px rgba($color-accent, 0.45),
+      0 0 18px rgba($color-accent, 0.35),
+      0 0 28px rgba($color-accent, 0.25);
+
     &:hover {
-      /* ⭐ Migrado: color.adjust no funciona con CSS vars */
-      background: color.adjust(#8a11c6, $lightness: -8%);
+      background: color.adjust($color-accent, $lightness: -8%);
       transform: translateY(-2px);
+      box-shadow:
+        0 0 14px rgba($color-accent, 0.65),
+        0 0 24px rgba($color-accent, 0.55),
+        0 0 34px rgba($color-accent, 0.45);
     }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+}
+
+/* ============================
+   ANIMACIÓN
+============================ */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -13,7 +13,7 @@ const cityName = ref("")
 const errorMsg = ref("")
 
 async function buscarCiudad() {
-  if (!cityName.value) {
+  if (!cityName.value.trim()) {
     errorMsg.value = "Ingresa una ciudad"
     return
   }
@@ -45,47 +45,51 @@ function irFavorita() {
     router.push(`/detalle/${weatherStore.favoriteCity}`)
   }
 }
-
-function normalizarCiudad(nombre) {
-  return nombre
-    .normalize("NFD")                // separa acentos
-    .replace(/[\u0300-\u036f]/g, "") // elimina acentos
-    .replace(/[^a-zA-Z0-9 ]/g, "")   // elimina caracteres raros
-    .trim()
-}
-
 </script>
 
 <template>
-  <main class="container py-4">
-    <h1 class="mb-4">Buscar clima</h1>
+  <main class="home-page container py-4">
 
+    <!-- TÍTULO -->
+    <h1 class="home-page__title">Buscar clima</h1>
+
+    <!-- BOTÓN FAVORITA -->
     <button
       v-if="weatherStore.favoriteCity"
-      class="btn btn-outline-warning mb-3"
+      class="favorite-btn mb-3"
       @click="irFavorita"
     >
       ⭐ Ir a mi ciudad favorita ({{ weatherStore.favoriteCity }})
     </button>
 
-    <form @submit.prevent="buscarCiudad" class="mb-4">
+    <!-- BUSCADOR -->
+    <form @submit.prevent="buscarCiudad" class="search-box mb-4">
+
       <input
         v-model="cityName"
         type="text"
-        class="form-control mb-2"
         placeholder="Ingresa una ciudad"
       />
-      <button class="btn btn-primary w-100">Buscar</button>
-      <p v-if="errorMsg" class="text-danger mt-2">{{ errorMsg }}</p>
+
+      <button class="search-btn" type="submit">
+        Buscar
+      </button>
+
+      <div v-if="errorMsg" class="error-msg">
+        {{ errorMsg }}
+      </div>
     </form>
 
+    <!-- CARD DEL CLIMA -->
     <WeatherCardComponent
       v-if="weatherStore.weather"
       :data="weatherStore.weather"
       :units="weatherStore.units"
     />
 
+    <!-- CIUDADES RECIENTES -->
     <RecentCitiesComponent />
+
   </main>
 </template>
 
