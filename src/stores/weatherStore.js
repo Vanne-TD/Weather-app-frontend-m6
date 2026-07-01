@@ -127,11 +127,23 @@ export const useWeatherStore = defineStore("weather", {
       let windyDays = 0;
 
       this.weekly.forEach((item) => {
-        const desc = item.weather[0].description.toLowerCase();
+        const weatherCode = item.weather?.[0]?.id || 0;
+        const desc = (item.weather?.[0]?.description || "").toLowerCase();
         const wind = item.wind.speed;
 
-        if (desc.includes("lluvia")) rainyDays++;
-        if (desc.includes("despejado") || desc.includes("clear")) clearDays++;
+        // Soporta respuesta de API en distintos idiomas usando code + keywords.
+        const isRainyCode = weatherCode >= 200 && weatherCode < 700;
+        const isRainyText =
+          desc.includes("lluv") ||
+          desc.includes("rain") ||
+          desc.includes("drizzle") ||
+          desc.includes("storm") ||
+          desc.includes("snow");
+
+        if (isRainyCode || isRainyText) rainyDays++;
+        if (weatherCode === 800 || desc.includes("despejado") || desc.includes("clear")) {
+          clearDays++;
+        }
         if (wind > 8) windyDays++;
       });
 
@@ -153,6 +165,10 @@ export const useWeatherStore = defineStore("weather", {
       }
 
       const alerts = [];
+      const weatherCodes = this.weekly.map((item) => item.weather?.[0]?.id || 0);
+      const descriptions = this.weekly.map((item) =>
+        (item.weather?.[0]?.description || "").toLowerCase(),
+      );
 
       const hasHeatWave = this.weekly.some(
         (item) => item.main.temp > (this.units === "metric" ? 30 : 86),
@@ -161,9 +177,16 @@ export const useWeatherStore = defineStore("weather", {
         (item) => item.main.temp < (this.units === "metric" ? 0 : 32),
       );
       const hasStrongWind = this.weekly.some((item) => item.wind.speed > 10);
-      const hasRain = this.weekly.some((item) =>
-        item.weather[0].description.toLowerCase().includes("lluvia"),
+      const hasRainByCode = weatherCodes.some((code) => code >= 200 && code < 700);
+      const hasRainByText = descriptions.some(
+        (desc) =>
+          desc.includes("lluv") ||
+          desc.includes("rain") ||
+          desc.includes("drizzle") ||
+          desc.includes("storm") ||
+          desc.includes("snow"),
       );
+      const hasRain = hasRainByCode || hasRainByText;
 
       if (hasHeatWave) alerts.push("⚠️ Ola de calor en los próximos días.");
       if (hasColdWave) alerts.push("❄️ Temperaturas muy bajas previstas.");
