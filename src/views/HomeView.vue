@@ -1,8 +1,9 @@
 <!-- src/views/HomeView.vue -->
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { useWeatherStore } from "@/stores/weatherStore"
 import WeatherCardComponent from "@/components/WeatherCardComponent.vue"
+import UnitsButtonComponent from "@/components/UnitsButtonComponent.vue"
 import RecentCitiesComponent from "@/components/RecentCitiesComponent.vue"
 import { useRouter } from "vue-router"
 
@@ -11,6 +12,23 @@ const router = useRouter()
 
 const cityName = ref("")
 const errorMsg = ref("")
+
+// ⭐ Label dinámico para el botón
+const unitsLabel = computed(() =>
+  weatherStore.units === "metric" ? "°C" : "°F"
+)
+
+// ⭐ Toggle de unidades
+async function toggleUnits() {
+  weatherStore.toggleUnits()
+
+  // Si ya hay clima cargado → recargar con nuevas unidades
+  if (weatherStore.weather) {
+    const city = weatherStore.weather.name
+    await weatherStore.fetchWeatherByName(city)
+    await weatherStore.fetchWeeklyByName(city)
+  }
+}
 
 async function buscarCiudad() {
   if (!cityName.value.trim()) {
@@ -47,6 +65,7 @@ function irFavorita() {
 }
 </script>
 
+
 <template>
   <main class="home-page container py-4">
 
@@ -54,22 +73,14 @@ function irFavorita() {
     <h1 class="home-page__title">Buscar clima</h1>
 
     <!-- BOTÓN FAVORITA -->
-    <button
-      v-if="weatherStore.favoriteCity"
-      class="favorite-btn mb-3"
-      @click="irFavorita"
-    >
+    <button v-if="weatherStore.favoriteCity" class="favorite-btn mb-3" @click="irFavorita">
       ⭐ Ir a mi ciudad favorita ({{ weatherStore.favoriteCity }})
     </button>
 
     <!-- BUSCADOR -->
     <form @submit.prevent="buscarCiudad" class="search-box mb-4">
 
-      <input
-        v-model="cityName"
-        type="text"
-        placeholder="Ingresa una ciudad"
-      />
+      <input v-model="cityName" type="text" placeholder="Ingresa una ciudad" />
 
       <button class="search-btn" type="submit">
         Buscar
@@ -81,11 +92,13 @@ function irFavorita() {
     </form>
 
     <!-- CARD DEL CLIMA -->
-    <WeatherCardComponent
-      v-if="weatherStore.weather"
-      :data="weatherStore.weather"
-      :units="weatherStore.units"
-    />
+    <WeatherCardComponent v-if="weatherStore.weather" :data="weatherStore.weather" :units="weatherStore.units" />
+
+    <div class="text-center mt-3">
+      <UnitsButtonComponent :label="unitsLabel" @click="toggleUnits" />
+    </div>
+
+
 
     <!-- CIUDADES RECIENTES -->
     <RecentCitiesComponent />

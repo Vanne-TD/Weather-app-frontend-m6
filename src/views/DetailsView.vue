@@ -33,10 +33,10 @@ const city = ref(route.params.city)
 const stats = computed(() => weatherStore.stats)
 
 // ===============================
-// Label para botón de unidades
+// Label para botón de unidades (igual que Home)
 // ===============================
 const unitsLabel = computed(() =>
-  weatherStore.units === 'metric' ? 'Cambiar a °F' : 'Cambiar a °C'
+  weatherStore.units === "metric" ? "°C" : "°F"
 )
 
 // ===============================
@@ -49,7 +49,7 @@ onMounted(async () => {
 })
 
 // ===============================
-// Cambiar unidades
+// Cambiar unidades (igual que Home)
 // ===============================
 async function toggleUnits() {
   weatherStore.toggleUnits()
@@ -125,11 +125,6 @@ function volver() {
       :units="weatherStore.units"
     />
 
-    <!-- BOTÓN DE UNIDADES -->
-    <div class="text-center mt-3">
-      <UnitsButtonComponent :label="unitsLabel" @click="toggleUnits" />
-    </div>
-
     <!-- PRONÓSTICO SEMANAL -->
     <WeatherWeekly
       v-if="weatherStore.weekly && weatherStore.weekly.length"
@@ -151,5 +146,20 @@ function volver() {
       class="mt-4"
     />
 
+    <!-- BOTÓN DE UNIDADES (final a la derecha) -->
+    <div class="units-bottom-wrapper mt-4">
+      <UnitsButtonComponent
+        :label="unitsLabel"
+        @click="toggleUnits"
+      />
+    </div>
+
   </main>
 </template>
+
+<style scoped>
+.units-bottom-wrapper {
+  display: flex;
+  justify-content: flex-end; /* ⭐ derecha */
+}
+</style>
