@@ -183,25 +183,36 @@ npm run build
 - Preferencias del usuario para unidades y alertas
 - Gestión de favoritos y ciudades recientes
 
-## 📸 Capturas opcionales
+## 📸 Capturas de la aplicación
 
-Agrega capturas de pantalla de las vistas principales para mejorar la presentación del proyecto. Puedes incluir, por ejemplo:
+### Home
+![Home](public/capturas/HomeView.png)
 
-- Home con búsqueda y card de clima
-- Vista de Detalle con pronóstico, estadísticas y alertas
-- Vista de Favoritos o Preferencias
+### Home con card de clima
+![Home card](public/capturas/HomeView-card.png)
 
-Sugerencia de carpeta para tus imágenes:
+### Home con manejo de error
+![Home error](public/capturas/HomeView-error.png)
 
-```text
-src/assets/img/capturas/
-```
+### Detalle y pronóstico
+![Detalle pronóstico](public/capturas/DetailsView-pronostico.png)
 
-Luego puedes referenciarlas en el README con imágenes como estas:
+### Detalle con estadísticas y alertas
+![Detalle estadísticas y alertas](public/capturas/DetailsView-etadistica-y-alerta.png)
 
-- Home
-- Detalle
-- Favoritos / Preferencias
+### Favoritos
+![Favoritos](public/capturas/FavoritesView.png)
+
+### Preferencias
+![Preferencias](public/capturas/PreferencesView.png)
+
+### Login y registro
+![Login](public/capturas/LoginView.png)
+![Registro](public/capturas/RegistroView.png)
+
+### About y contacto
+![About](public/capturas/AboutView.png)
+![Contacto](public/capturas/ContactView.png)
 
 ## 🌐 Despliegue web
 
