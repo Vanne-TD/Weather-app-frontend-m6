@@ -232,7 +232,7 @@ npm run build
 5. Agrega aquí el enlace final cuando esté publicada:
 
 ```text
-https://tu-app-publicada-aqui.vercel.app
+https://weather-app-frontend-theta-beige.vercel.app/
 ```
 
 ## 📚 Aprendizajes
