@@ -8,6 +8,8 @@ const weatherStore = useWeatherStore()
 const userStore = useUserStore()
 
 const unitsLabel = computed(() => weatherStore.units === 'metric' ? '°C' : '°F')
+const windLabel = computed(() => weatherStore.units === 'metric' ? 'm/s' : 'mph')
+const currentThresholds = computed(() => weatherStore.alertThresholds[weatherStore.units])
 
 function toggle(type) {
   weatherStore.setAlertPreference(type, !weatherStore.alertPreferences[type])
@@ -16,6 +18,14 @@ function toggle(type) {
 function toggleUnits() {
   weatherStore.toggleUnits()
   userStore.updatePreferences({ units: weatherStore.units })
+}
+
+function updateThreshold(type, event) {
+  weatherStore.setAlertThreshold(type, event.target.value)
+}
+
+function resetThresholds() {
+  weatherStore.resetAlertThresholds()
 }
 </script>
 
@@ -49,6 +59,48 @@ function toggleUnits() {
              'Lluvia' }}
         </label>
       </div>
+    </div>
+
+    <h3 class="mb-3 mt-3">Umbrales de activación</h3>
+
+    <div class="prefs-card threshold-card">
+      <p class="threshold-card__subtitle">
+        Ajusta desde qué valor se considera una alerta para la unidad actual ({{ unitsLabel }}).
+      </p>
+
+      <div class="threshold-grid">
+        <label class="threshold-field">
+          <span>Calor ({{ unitsLabel }})</span>
+          <input
+            type="number"
+            :value="currentThresholds.heat"
+            @input="updateThreshold('heat', $event)"
+          />
+        </label>
+
+        <label class="threshold-field">
+          <span>Frío ({{ unitsLabel }})</span>
+          <input
+            type="number"
+            :value="currentThresholds.cold"
+            @input="updateThreshold('cold', $event)"
+          />
+        </label>
+
+        <label class="threshold-field threshold-field--full">
+          <span>Viento fuerte ({{ windLabel }})</span>
+          <input
+            type="number"
+            step="0.5"
+            :value="currentThresholds.wind"
+            @input="updateThreshold('wind', $event)"
+          />
+        </label>
+      </div>
+
+      <button class="toggle-btn mt-3" @click="resetThresholds">
+        Restablecer umbrales por defecto
+      </button>
     </div>
   </main>
 </template>

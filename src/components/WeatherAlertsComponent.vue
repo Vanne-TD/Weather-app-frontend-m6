@@ -1,9 +1,10 @@
 <!-- src/components/WeatherAlertsComponent.vue -->
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { useWeatherStore } from "@/stores/weatherStore"
 
 const weatherStore = useWeatherStore()
+const filteredAlerts = computed(() => weatherStore.filteredAlerts())
 
 const open = ref(false)
 const toggle = () => open.value = !open.value
@@ -30,13 +31,13 @@ const getAlertIcon = (alert) => {
 </script>
 
 <template>
-  <section class="alerts" v-if="weatherStore.filteredAlerts().length">
+  <section class="alerts">
     
     <div class="alerts__item" @click="toggle">
       <div class="alerts__header">
         <img
           class="alerts__icon"
-          :src="getAlertIcon(weatherStore.filteredAlerts()[0])"
+          :src="getAlertIcon(filteredAlerts[0] || 'Sin alertas activas')"
           alt="alert icon"
         />
         <span class="alerts__label">Alertas</span>
@@ -44,7 +45,8 @@ const getAlertIcon = (alert) => {
 
       <transition name="fade">
         <div v-if="open" class="alerts__content">
-          <p>{{ getAlertContent(weatherStore.filteredAlerts()[0]) }}</p>
+          <p v-if="filteredAlerts.length">{{ getAlertContent(filteredAlerts[0]) }}</p>
+          <p v-else>Sin alertas activas para esta ciudad segun el pronostico y tus preferencias.</p>
         </div>
       </transition>
     </div>

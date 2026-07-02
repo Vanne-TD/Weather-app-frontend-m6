@@ -1,14 +1,14 @@
 <!-- src/views/DetailsView.vue -->
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useWeatherStore } from '@/stores/weatherStore'
 import { useUserStore } from '@/stores/userStore'
+import { useCityWeather } from '@/composables/useCityWeather'
 
 import WeatherWeekly from '@/components/WeatherWeeklyComponent.vue'
 import WeatherDetailsCardComponent from '@/components/WeatherDetailsCardComponent.vue'
 import UnitsButtonComponent from '@/components/UnitsButtonComponent.vue'
-import WeatherStatusComponent from '@/components/WeatherStatusComponent.vue'
 import WeatherAlertsComponent from '@/components/WeatherAlertsComponent.vue'
 import WeatherStatsComponent from '@/components/WeatherStatsComponent.vue'
 
@@ -16,13 +16,13 @@ import WeatherStatsComponent from '@/components/WeatherStatsComponent.vue'
 // Rutas
 // ===============================
 const route = useRoute()
-const router = useRouter()
 
 // ===============================
 // PINIA STORES
 // ===============================
 const weatherStore = useWeatherStore()
 const userStore = useUserStore()
+const { loadCityWeather } = useCityWeather()
 
 // ===============================
 // Ciudad desde la ruta
@@ -45,9 +45,7 @@ const unitsLabel = computed(() =>
 // Cargar datos al iniciar
 // ===============================
 onMounted(async () => {
-  const data = await weatherStore.fetchWeatherByName(city.value)
-  await weatherStore.fetchWeatherById(data.id)
-  await weatherStore.fetchWeeklyById(data.id)
+  await loadCityWeather(city.value)
 })
 
 // ===============================
@@ -55,10 +53,7 @@ onMounted(async () => {
 // ===============================
 async function toggleUnits() {
   weatherStore.toggleUnits()
-
-  const data = await weatherStore.fetchWeatherByName(city.value)
-  await weatherStore.fetchWeatherById(data.id)
-  await weatherStore.fetchWeeklyById(data.id)
+  await loadCityWeather(city.value)
 }
 
 // ===============================
@@ -84,12 +79,6 @@ function toggleFavorite() {
   }
 }
 
-// ===============================
-// Volver al Home
-// ===============================
-function volver() {
-  router.push('/')
-}
 </script>
 
 <template>
@@ -157,10 +146,7 @@ function volver() {
     />
 
     <!-- ALERTAS -->
-    <WeatherAlertsComponent
-      v-if="weatherStore.filteredAlerts().length"
-      class="mt-4"
-    />
+    <WeatherAlertsComponent class="mt-4" />
 
     <!-- BOTÓN DE UNIDADES (final a la derecha) -->
     <div class="units-bottom-wrapper mt-4">

@@ -128,7 +128,13 @@ cd Weather-app-frontend
 npm install
 ```
 
-3. Crea un archivo llamado `.env` en la raíz del proyecto y agrega tu clave de la API:
+3. Crea tu archivo local de variables de entorno a partir del ejemplo:
+
+```bash
+cp .env.example .env
+```
+
+Luego agrega tu clave de la API en `.env`:
 
 ```env
 VITE_WEATHER_API_KEY=tu_api_key_aqui
@@ -174,6 +180,14 @@ npm run build
 - Cálculo de estadísticas semanales y alertas meteorológicas automáticas.
 - Vista principal, vista de detalle y vistas extra para favoritos, preferencias, login y contacto.
 - Documentación lista para publicar en GitHub y ejecutar en local.
+
+## 🔧 Mejoras aplicadas tras feedback
+
+- Se reforzó la gestión de variables de entorno con `.env` local y `.env.example` versionado.
+- Se centralizó el uso de API key en la capa de API para evitar referencias directas en vistas.
+- Se mejoró el flujo de alertas para mostrar estado incluso cuando no hay alertas activas.
+- Se añadieron umbrales de alertas configurables desde la vista de preferencias y persistencia en LocalStorage.
+- Se extrajo un composable reutilizable para cargar clima por ciudad, reduciendo duplicación entre vistas.
 
 ## 🌦️ Qué incluye la app
 

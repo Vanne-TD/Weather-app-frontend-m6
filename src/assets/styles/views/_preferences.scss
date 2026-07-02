@@ -37,3 +37,45 @@
 .toggle-btn:hover {
   background: rgba(255, 255, 255, 0.4);
 }
+
+.threshold-card__subtitle {
+  margin-bottom: $space-md;
+  color: var(--main-text);
+  opacity: 0.9;
+}
+
+.threshold-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-sm;
+}
+
+.threshold-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  span {
+    font-size: 0.9rem;
+    color: var(--main-text);
+  }
+
+  input {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: $radius-base;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--main-text);
+    padding: 8px 10px;
+    outline: none;
+  }
+}
+
+.threshold-field--full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 576px) {
+  .threshold-grid {
+    grid-template-columns: 1fr;
+  }
+}

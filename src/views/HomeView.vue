@@ -6,9 +6,11 @@ import WeatherCardComponent from "@/components/WeatherCardComponent.vue"
 import UnitsButtonComponent from "@/components/UnitsButtonComponent.vue"
 import RecentCitiesComponent from "@/components/RecentCitiesComponent.vue"
 import { useRouter } from "vue-router"
+import { useCityWeather } from "@/composables/useCityWeather"
 
 const weatherStore = useWeatherStore()
 const router = useRouter()
+const { loadCityWeather } = useCityWeather()
 
 const cityName = ref("")
 const errorMsg = ref("")
@@ -38,22 +40,14 @@ async function buscarCiudad() {
   errorMsg.value = ""
 
   try {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=${weatherStore.units}`
+    const data = await loadCityWeather(cityName.value)
 
-    const res = await fetch(url)
-    const data = await res.json()
-
-    if (data.cod !== 200) {
+    if (!data) {
       errorMsg.value = "Ciudad no encontrada"
       return
     }
-
-    weatherStore.addRecentCity(data.name)
-
-    await weatherStore.fetchWeatherById(data.id)
-    await weatherStore.fetchWeeklyById(data.id)
   } catch (err) {
-    errorMsg.value = "Error al buscar ciudad"
+    errorMsg.value = err?.message || "Error al buscar ciudad"
   }
 }
 

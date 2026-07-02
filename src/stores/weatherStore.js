@@ -3,6 +3,29 @@ import { defineStore } from "pinia";
 import { getCityByName, getCurrentWeatherById, getForecastById } from "@/api/weatherApi";
 import { useUserStore } from "@/stores/userStore";
 
+const DEFAULT_ALERT_THRESHOLDS = {
+  metric: { heat: 28, cold: 5, wind: 8 },
+  imperial: { heat: 82, cold: 41, wind: 18 },
+};
+
+function getStoredAlertThresholds() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem("alertThresholds") || "{}");
+    return {
+      metric: {
+        ...DEFAULT_ALERT_THRESHOLDS.metric,
+        ...(parsed.metric || {}),
+      },
+      imperial: {
+        ...DEFAULT_ALERT_THRESHOLDS.imperial,
+        ...(parsed.imperial || {}),
+      },
+    };
+  } catch {
+    return { ...DEFAULT_ALERT_THRESHOLDS };
+  }
+}
+
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
     cityId: null,
@@ -28,6 +51,7 @@ export const useWeatherStore = defineStore("weather", {
           rain: true,
         }),
     ),
+    alertThresholds: getStoredAlertThresholds(),
 
     loading: false,
     error: null,
@@ -164,6 +188,9 @@ export const useWeatherStore = defineStore("weather", {
         return;
       }
 
+      const thresholds =
+        this.alertThresholds[this.units] || DEFAULT_ALERT_THRESHOLDS[this.units];
+
       const alerts = [];
       const weatherCodes = this.weekly.map((item) => item.weather?.[0]?.id || 0);
       const descriptions = this.weekly.map((item) =>
@@ -171,12 +198,14 @@ export const useWeatherStore = defineStore("weather", {
       );
 
       const hasHeatWave = this.weekly.some(
-        (item) => item.main.temp > (this.units === "metric" ? 30 : 86),
+        (item) => item.main.temp >= thresholds.heat,
       );
       const hasColdWave = this.weekly.some(
-        (item) => item.main.temp < (this.units === "metric" ? 0 : 32),
+        (item) => item.main.temp <= thresholds.cold,
       );
-      const hasStrongWind = this.weekly.some((item) => item.wind.speed > 10);
+      const hasStrongWind = this.weekly.some(
+        (item) => item.wind.speed >= thresholds.wind,
+      );
       const hasRainByCode = weatherCodes.some((code) => code >= 200 && code < 700);
       const hasRainByText = descriptions.some(
         (desc) =>
@@ -202,6 +231,29 @@ export const useWeatherStore = defineStore("weather", {
         "alertPreferences",
         JSON.stringify(this.alertPreferences),
       );
+    },
+
+    setAlertThreshold(type, value) {
+      const numericValue = Number(value);
+      if (!Number.isFinite(numericValue)) return;
+
+      this.alertThresholds[this.units][type] = numericValue;
+      localStorage.setItem("alertThresholds", JSON.stringify(this.alertThresholds));
+
+      if (this.weekly?.length) {
+        this.generateAlerts();
+      }
+    },
+
+    resetAlertThresholds() {
+      this.alertThresholds[this.units] = {
+        ...DEFAULT_ALERT_THRESHOLDS[this.units],
+      };
+      localStorage.setItem("alertThresholds", JSON.stringify(this.alertThresholds));
+
+      if (this.weekly?.length) {
+        this.generateAlerts();
+      }
     },
 
     filteredAlerts() {
